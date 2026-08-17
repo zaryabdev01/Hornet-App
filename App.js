@@ -31,6 +31,7 @@ export default function AppWrapper() {
 function App() {
   const insets = useSafeAreaInsets();
   const [activeTab, setActiveTab] = useState('HOME');
+  const [mapVisited, setMapVisited] = useState(false);
   const [history, setHistory] = useState([]);
   const [appReady, setAppReady] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -127,6 +128,13 @@ function App() {
 
   useOfflineSync(isOnline, handleSyncComplete);
 
+  // MapScreen renders a native react-native-maps view, which initializes at mount time
+  // regardless of visibility. Deferring its first mount until the tab is actually opened
+  // avoids that initialization happening unconditionally on every app launch.
+  useEffect(() => {
+    if (activeTab === 'MAP') setMapVisited(true);
+  }, [activeTab]);
+
   const offlineCount = history.filter(e => e.offline || e.verdict_code === 'PENDING').length;
 
   // ── First-launch flows ─────────────────────────────────────────
@@ -153,7 +161,7 @@ function App() {
         <HomeScreen onSave={handleSave} isOnline={isOnline} />
       </View>
       <View style={[s.screen, activeTab === 'MAP' ? s.visible : s.hidden]}>
-        <MapScreen history={history} />
+        {mapVisited && <MapScreen history={history} />}
       </View>
       <View style={[s.screen, activeTab === 'HISTORY' ? s.visible : s.hidden]}>
         <HistoryScreen history={history} />
