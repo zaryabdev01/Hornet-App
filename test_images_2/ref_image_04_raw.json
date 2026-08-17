@@ -1,0 +1,57 @@
+{
+  "etape_1_declencheur": {
+    "insecte_exploitable": true,
+    "structure_visible": false,
+    "justification": "Presence de plusieurs individus nettement visibles et exploitables"
+  },
+  "etape_2_individu": {
+    "individu_analyse_identifiable": true,
+    "vue_dorsale": true,
+    "sur_le_dos": false
+  },
+  "Q1_thorax": {
+    "reponse": "OUI",
+    "confidence": "HIGH",
+    "description_visible": "Thorax majoritairement noir avec de fines marques jaunes",
+    "lisibilite": "haute"
+  },
+  "Q2_abdomen": {
+    "reponse": "NON",
+    "confidence": "HIGH",
+    "fond_dominant": "mixte_jaune_noir_alterne",
+    "zone_terminale_orangee": false,
+    "description_visible": "Abdomen poudré de rayures transversales regulieres jaune vif et noires",
+    "lisibilite": "haute"
+  },
+  "Q3_morphologie": {
+    "reponse": "NON",
+    "confidence": "HIGH",
+    "elements_visibles": [],
+    "incompatibilites_visibles": [
+      "silhouette_fine_allongee",
+      "proportions_greles_non_robustes"
+    ],
+    "description_visible": "Morphologie fine, taille etroite et silhouette elancee",
+    "lisibilite": "haute"
+  },
+  "incompatibilites_cible": [
+    "rayures_jaune_noir_vif",
+    "abdomen_segmente_jaune_noir_alterne",
+    "silhouette_fine_allongee",
+    "proportions_greles_non_robustes"
+  ],
+  "structure": {
+    "evaluee": false,
+    "forme_globale": "non_lisible",
+    "texture_papier_carton": "NON_LISIBLE",
+    "strates_repetitives": "NON_LISIBLE",
+    "suspension_visible": "NON_LISIBLE",
+    "position": "non_lisible",
+    "qualite_structure": "LOW",
+    "structure_strength": "WEAK",
+    "marqueurs_forts": [],
+    "marqueurs_faibles": [],
+    "indices_artificiels": [],
+    "pieges_vegetaux_possibles": []
+  }
+}

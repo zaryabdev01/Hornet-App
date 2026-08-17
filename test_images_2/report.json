@@ -1,0 +1,675 @@
+[
+  {
+    "file": "ref_image_01.jpg",
+    "category": "Frelon Europeen / Nid",
+    "description": "Frelon europeen (Vespa crabro) present a l'entree d'un nid primaire.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": true,
+        "justification": "Un insecte exploitable est clairement visible sur la structure."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "description_visible": "Thorax et tete fortement teintes de brun-roux et d'orange.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "orange",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen colore de jaune et orange sur plusieurs segments.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Presence d'incompatibilites chromatiques dominantes sur l'individu.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "thorax_roux",
+        "tete_rousse_orangee",
+        "abdomen_jaune_dominant"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "VERT / NONE",
+    "after_fix_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "after_fix_reason": "CRABRO_LIKE_PROFILE",
+    "after_fix_confidence": 70,
+    "after_fix_motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+    "fix_changed_this_case": true,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_02.jpg",
+    "category": "Frelon Europeen / Insecte",
+    "description": "Frelons europeens poses sur une branche (thorax roux, abdomen jaune dominant).",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un individu principal est nettement visible au centre en vue dorsale."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "description_visible": "Thorax et tete avec teintes rousses et brun-rouge tres marquees.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen majoritairement jaune avec motifs et chevrons noirs repetes.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Individu presentant des caracteres d'exclusion stricts.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "thorax_roux",
+        "tete_rousse_orangee",
+        "abdomen_jaune_dominant",
+        "abdomen_segmente_jaune_noir_alterne"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "VERT / NONE",
+    "after_fix_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "after_fix_reason": "CRABRO_LIKE_PROFILE",
+    "after_fix_confidence": 70,
+    "after_fix_motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+    "fix_changed_this_case": true,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_03.jpg",
+    "category": "Guepe / Nid",
+    "description": "Guepe/Poliste sur nid a structure cartonnee ouverte.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": true,
+        "justification": "Un insecte est nettement visible a la surface de la structure."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax de teinte sombres visible de trois-quarts.",
+        "lisibilite": "moyenne"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Presence de rayures transversales claires et regulieres repetees sur plusieurs segments de l'abdomen.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Silhouette fine et rayee declenchant le verrou d'exclusion.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "rayures_jaune_noir_vif",
+        "silhouette_fine_allongee"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "VERT / NONE",
+    "after_fix_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "after_fix_reason": "NON_TARGET_HYMENOPTERA",
+    "after_fix_confidence": 65,
+    "after_fix_motif": "Profil compatible avec une guêpe ou un Polistes : hyménoptère non cible identifié.",
+    "fix_changed_this_case": true,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_04.jpg",
+    "category": "Guepe / Essaim Souterrain",
+    "description": "Nid de guepes terrestres/souterraines avec forte colonie.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Plusieurs individus nets et exploitables sont visibles en vue dorsale."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax de couleur de fond noire avec petites taches jaunes.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen presenting an alternation of yellow and black stripes across multiple segments.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Silhouette fine et elancee avec des proportions greles.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "silhouette_fine_allongee",
+        "proportions_greles_non_robustes",
+        "rayures_jaune_noir_vif",
+        "abdomen_jaune_dominant",
+        "abdomen_segmente_jaune_noir_alterne"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "VERT / NONE",
+    "after_fix_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "after_fix_reason": "NON_TARGET_HYMENOPTERA",
+    "after_fix_confidence": 70,
+    "after_fix_motif": "Profil compatible avec une guêpe ou un Polistes : hyménoptère non cible identifié.",
+    "fix_changed_this_case": true,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_05.jpg",
+    "category": "Guepe / Poliste",
+    "description": "Poliste/Guepe sur feuille (silhouette fine, rayures jaune/noir repetees).",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un insecte est clairement visible en vue dorsale nette sur la vegetation."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax a fond majoritairement noir avec des marques jaunes laterales.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen avec des rayures transversales jaunes et noires repetees.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Silhouette elancee et taille fine caracteristique d'une guepe.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "rayures_jaune_noir_vif",
+        "abdomen_segmente_jaune_noir_alterne",
+        "silhouette_fine_allongee"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "VERT / NONE",
+    "after_fix_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "after_fix_reason": "NON_TARGET_HYMENOPTERA",
+    "after_fix_confidence": 70,
+    "after_fix_motif": "Profil compatible avec une guêpe ou un Polistes : hyménoptère non cible identifié.",
+    "fix_changed_this_case": true,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_06.jpg",
+    "category": "Frelon Europeen / Insecte",
+    "description": "Frelon europeen saisissant une proie dans de la vegetation.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un insecte hyménoptère de grande taille est nettement visible sur la végétation."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "description_visible": "Thorax à teinte dominante rousse et brun-rouge, non noire.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "jaune_vif",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen majoritairement jaune avec des motifs noirs répétés sur plusieurs segments.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Incompatibilité chromatique globale et verrou d'exclusion appliqué.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "thorax_roux",
+        "abdomen_jaune_dominant",
+        "tete_rousse_orangee"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "VERT / NONE",
+    "after_fix_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "after_fix_reason": "CRABRO_LIKE_PROFILE",
+    "after_fix_confidence": 70,
+    "after_fix_motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+    "fix_changed_this_case": true,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_07.jpg",
+    "category": "Frelon Europeen / Nichoir",
+    "description": "Frelons europeens autour d'un nichoir en bois fixe sur briques.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Plusieurs insectes visibles de maniere exploitable sur le nichoir en bois."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "description_visible": "Thorax et tete de couleur brun-roux dominante.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen a fond jaune dominant avec des bandes et motifs noirs repetes sur plusieurs segments.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Incompatible en raison du motif abdominal et de la coloration rousse.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "thorax_roux",
+        "tete_rousse_orangee",
+        "abdomen_segmente_jaune_noir_alterne"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "VERT / NONE",
+    "after_fix_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "after_fix_reason": "CRABRO_LIKE_PROFILE",
+    "after_fix_confidence": 70,
+    "after_fix_motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+    "fix_changed_this_case": true,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_08.jpg",
+    "category": "Guepe / Nid d'Arbre",
+    "description": "Nid de guepes/polistes accroche au tronc d'un bouleau.",
+    "expected_verdict": "ORANGE_PLAFOND",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": false,
+        "structure_visible": true,
+        "justification": "Nid d'insecte social clairement visible sur un tronc d'arbre, pas d'insecte suffisamment grand et exploitable."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": false,
+        "vue_dorsale": false,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "fond_dominant": "non_lisible",
+        "zone_terminale_orangee": false,
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "elements_visibles": [],
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": true,
+        "forme_globale": "ovoide",
+        "texture_papier_carton": "OUI",
+        "strates_repetitives": "OUI",
+        "suspension_visible": "NON",
+        "position": "arbre",
+        "qualite_structure": "HIGH",
+        "structure_strength": "STRONG",
+        "marqueurs_forts": [
+          "stratification_lamellaire",
+          "enveloppe_cartonnee_continue",
+          "entree_identifiable"
+        ],
+        "marqueurs_faibles": [
+          "jonction_nette_structure_support",
+          "repetition_couches_construites"
+        ],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "STRUCTURE (jugerStructure)",
+    "before_fix": "ORANGE_PLAFOND / STRUCTURE_STRONG_GLOBAL",
+    "after_fix_verdict": "ORANGE_PLAFOND",
+    "after_fix_reason": "STRUCTURE_STRONG_GLOBAL",
+    "after_fix_confidence": 72,
+    "after_fix_motif": "Structure compatible avec nid social construit : 3 marqueur(s) fort(s), texture papier/carton, strates répétitives.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_09.jpg",
+    "category": "Frelon Asiatique / Piege",
+    "description": "Frelon asiatique (Vespa velutina) pose sur un piege bleu.",
+    "expected_verdict": "ROUGE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un hymenoptere exploitable est nettement visible au premier plan sur le piège."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax de couleur noire/sombre dominante.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen majoritairement sombre avec une large bande jaune-orange sur le 4eme segment.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "elements_visibles": [
+          "thorax_massif",
+          "abdomen_epais_non_elance",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Insecte de constitution robuste avec un thorax massif et un abdomen epais.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ROUGE / NONE",
+    "after_fix_verdict": "ROUGE",
+    "after_fix_reason": "NONE",
+    "after_fix_confidence": 97,
+    "after_fix_motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_10.jpg",
+    "category": "Guepe / Fleur",
+    "description": "Guepe/Poliste a thorax noir et fines rayures jaunes sur fleur blanche.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un hyménoptère est clairement visible au premier plan sur une fleur."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax de couleur noire dominante.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen sombre présentant plusieurs rayures jaunes transversales répétées.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Insecte présentant des rayures transversales répétées incompatibles.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "rayures_jaune_noir_vif"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ORANGE_INSUFFISANCE / RETAKE_LIGHTING_ANGLE",
+    "after_fix_verdict": "ORANGE_INSUFFISANCE",
+    "after_fix_reason": "RETAKE_LIGHTING_ANGLE",
+    "after_fix_confidence": 60,
+    "after_fix_motif": "Morphologie déviante mais profil chromatique crabro : seconde photo requise pour exclure une variante velutina atypique.",
+    "fix_changed_this_case": false,
+    "matches_expected": false,
+    "error": null
+  }
+]

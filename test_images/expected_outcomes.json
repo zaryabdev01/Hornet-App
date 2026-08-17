@@ -1,0 +1,66 @@
+{
+  "_source": "ApiSave_M1_Reference_Dataset_With_Photos_v3.pdf, supplied by client 2026-08-05",
+  "_note": "Transcribed by hand from the PDF for the test harness. Expected verdicts are the client's asserted ground truth for M1 validation.",
+  "cases": [
+    {
+      "file": "ref_image_01.jpg",
+      "category": "Nid sur Support Artificiel",
+      "description": "Nid spherique accroche sur une fleche / girouette metallique avec cable.",
+      "expected_verdict": "ORANGE_PLAFOND"
+    },
+    {
+      "file": "ref_image_02.jpg",
+      "category": "Nid sous Grille Metal",
+      "description": "Nid de frelons situe sous une grille metallique / barbecue.",
+      "expected_verdict": "ORANGE_PLAFOND"
+    },
+    {
+      "file": "ref_image_03.jpg",
+      "category": "Piege Vegetal / Cocon",
+      "description": "Cocon / amas vegetal suspendu a une branche de pin.",
+      "expected_verdict": "VERT"
+    },
+    {
+      "file": "ref_image_04.jpg",
+      "category": "Insecte + Nid Primaire",
+      "description": "Frelon asiatique actif sur un petit nid primaire fixe a une poutre rouillee.",
+      "expected_verdict": "ROUGE"
+    },
+    {
+      "file": "ref_image_05.jpg",
+      "category": "Faux Nid / Lanterne",
+      "description": "Lanterne en papier plisse suspendue (structure synthetique reguliere).",
+      "expected_verdict": "VERT"
+    },
+    {
+      "file": "ref_image_06.jpg",
+      "category": "Nid sous Toiture + Tuyau",
+      "description": "Nid sous gouttiere a cote d'une descente de plomberie metallique.",
+      "expected_verdict": "ORANGE_PLAFOND"
+    },
+    {
+      "file": "ref_image_07.jpg",
+      "category": "Nid d'Hirondelle / Boue",
+      "description": "Nid en terre/boue sous rebord (structure non striee cartonnee).",
+      "expected_verdict": "VERT"
+    },
+    {
+      "file": "ref_image_08.jpg",
+      "category": "Frelon + Nid Primaire",
+      "description": "Frelon asiatique travaillant sur la cloche d'un nid primaire.",
+      "expected_verdict": "ROUGE"
+    },
+    {
+      "file": "ref_image_09.jpg",
+      "category": "Grappe de Frelons sur Nid",
+      "description": "Nid spherique recouvert de plusieurs frelons asiatiques actifs.",
+      "expected_verdict": "ROUGE"
+    },
+    {
+      "file": "ref_image_10.jpg",
+      "category": "Nid en Haut d'Arbre",
+      "description": "Nid au sommet d'un conifere / sapin parmi les pignes et epines.",
+      "expected_verdict": "ORANGE_PLAFOND"
+    }
+  ]
+}

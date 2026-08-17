@@ -1,0 +1,67 @@
+{
+  "_source": "ApiSave_M2_Reference_Dataset_With_Photos.pdf, supplied by client 2026-08-07",
+  "_note": "Transcribed by hand from the PDF for the test harness. Expected verdicts are the client's asserted ground truth for M2 validation.",
+  "cases": [
+    {
+      "file": "ref_image_01.jpg",
+      "category": "Frelon Europeen / Nid",
+      "description": "Frelon europeen (Vespa crabro) present a l'entree d'un nid primaire.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "ref_image_02.jpg",
+      "category": "Frelon Europeen / Insecte",
+      "description": "Frelons europeens poses sur une branche (thorax roux, abdomen jaune dominant).",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "ref_image_03.jpg",
+      "category": "Guepe / Nid",
+      "description": "Guepe/Poliste sur nid a structure cartonnee ouverte.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "ref_image_04.jpg",
+      "category": "Guepe / Essaim Souterrain",
+      "description": "Nid de guepes terrestres/souterraines avec forte colonie.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "ref_image_05.jpg",
+      "category": "Guepe / Poliste",
+      "description": "Poliste/Guepe sur feuille (silhouette fine, rayures jaune/noir repetees).",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "ref_image_06.jpg",
+      "category": "Frelon Europeen / Insecte",
+      "description": "Frelon europeen saisissant une proie dans de la vegetation.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "ref_image_07.jpg",
+      "category": "Frelon Europeen / Nichoir",
+      "description": "Frelons europeens autour d'un nichoir en bois fixe sur briques.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "ref_image_08.jpg",
+      "category": "Guepe / Nid d'Arbre",
+      "description": "Nid de guepes/polistes accroche au tronc d'un bouleau.",
+      "expected_verdict": "ORANGE_PLAFOND",
+      "_note": "Updated per client decision 2026-08-09: nest-only shots with no exploitable insect stay ORANGE_PLAFOND by design; ORANGE_PROBABLE_NON_CIBLE is not expected here."
+    },
+    {
+      "file": "ref_image_09.jpg",
+      "category": "Frelon Asiatique / Piege",
+      "description": "Frelon asiatique (Vespa velutina) pose sur un piege bleu.",
+      "expected_verdict": "ROUGE"
+    },
+    {
+      "file": "ref_image_10.jpg",
+      "category": "Guepe / Fleur",
+      "description": "Guepe/Poliste a thorax noir et fines rayures jaunes sur fleur blanche.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    }
+  ]
+}
