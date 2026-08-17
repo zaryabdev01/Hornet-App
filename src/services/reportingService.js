@@ -11,6 +11,7 @@ function base64ToUint8Array(base64) {
 }
 
 export async function uploadReport(entry, base64) {
+  if (!supabase) return null;
   try {
     const deviceId = await getDeviceId();
 
@@ -66,6 +67,7 @@ export async function uploadReport(entry, base64) {
 }
 
 export async function fetchCommunityReports(limit = 500) {
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from('reports_public')
     .select('id, created_at, lat_blurred, lon_blurred, address, verdict_code, confiance, motif_principal, image_url')
