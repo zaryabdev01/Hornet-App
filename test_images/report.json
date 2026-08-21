@@ -1,0 +1,613 @@
+[
+  {
+    "file": "ref_image_01.jpg",
+    "category": "Nid sur Support Artificiel",
+    "description": "Nid spherique accroche sur une fleche / girouette metallique avec cable.",
+    "expected_verdict": "ORANGE_PLAFOND",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": false,
+        "structure_visible": true,
+        "justification": "Aucun insecte exploitable visible, presence d'une structure a enveloppe cartonnee stratifiee."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": false,
+        "vue_dorsale": false,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "fond_dominant": "non_lisible",
+        "zone_terminale_orangee": false,
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "elements_visibles": [],
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": true,
+        "forme_globale": "ovoide",
+        "texture_papier_carton": "OUI",
+        "strates_repetitives": "OUI",
+        "suspension_visible": "OUI",
+        "position": "support_artificiel",
+        "qualite_structure": "HIGH",
+        "structure_strength": "STRONG",
+        "marqueurs_forts": [
+          "stratification_lamellaire",
+          "enveloppe_cartonnee_continue"
+        ],
+        "marqueurs_faibles": [
+          "jonction_nette_structure_support",
+          "repetition_couches_construites"
+        ],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "STRUCTURE (jugerStructure)",
+    "before_fix": "ORANGE_PLAFOND / STRUCTURE_STRONG_GLOBAL",
+    "after_fix_verdict": "ORANGE_PLAFOND",
+    "after_fix_reason": "STRUCTURE_STRONG_GLOBAL",
+    "after_fix_confidence": 72,
+    "after_fix_motif": "Structure compatible avec nid social construit : 2 marqueur(s) fort(s), texture papier/carton, strates répétitives.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_02.jpg",
+    "category": "Nid sous Grille Metal",
+    "description": "Nid de frelons situe sous une grille metallique / barbecue.",
+    "expected_verdict": "ORANGE_PLAFOND",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": false,
+        "structure_visible": true,
+        "justification": "Structure cartonnee visible sous une grille metallique, aucun insecte exploitable."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": false,
+        "vue_dorsale": false,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "fond_dominant": "non_lisible",
+        "zone_terminale_orangee": false,
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "elements_visibles": [],
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": true,
+        "forme_globale": "ovoide",
+        "texture_papier_carton": "OUI",
+        "strates_repetitives": "OUI",
+        "suspension_visible": "NON",
+        "position": "support_artificiel",
+        "qualite_structure": "HIGH",
+        "structure_strength": "STRONG",
+        "marqueurs_forts": [
+          "enveloppe_cartonnee_continue",
+          "stratification_lamellaire"
+        ],
+        "marqueurs_faibles": [
+          "repetition_couches_construites"
+        ],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "STRUCTURE (jugerStructure)",
+    "before_fix": "ORANGE_PLAFOND / STRUCTURE_STRONG_GLOBAL",
+    "after_fix_verdict": "ORANGE_PLAFOND",
+    "after_fix_reason": "STRUCTURE_STRONG_GLOBAL",
+    "after_fix_confidence": 72,
+    "after_fix_motif": "Structure compatible avec nid social construit : 2 marqueur(s) fort(s), texture papier/carton, strates répétitives.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_03.jpg",
+    "category": "Piege Vegetal / Cocon",
+    "description": "Cocon / amas vegetal suspendu a une branche de pin.",
+    "expected_verdict": "VERT",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": false,
+        "structure_visible": true,
+        "justification": "Presence d'une structure soyeuse suspendue a une branche de pin sans insecte visible."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": false,
+        "vue_dorsale": false,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "fond_dominant": "non_lisible",
+        "zone_terminale_orangee": false,
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "elements_visibles": [],
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": true,
+        "forme_globale": "ovoide",
+        "texture_papier_carton": "NON",
+        "strates_repetitives": "NON",
+        "suspension_visible": "OUI",
+        "position": "arbre",
+        "qualite_structure": "HIGH",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": [
+          "cocon_vegetal",
+          "amas_naturel_vegetal"
+        ]
+      }
+    },
+    "path_taken": "STRUCTURE (jugerStructure)",
+    "before_fix": "VERT / NONE",
+    "after_fix_verdict": "VERT",
+    "after_fix_reason": "NONE",
+    "after_fix_confidence": 85,
+    "after_fix_motif": "Piège végétal possible sans marqueur construit confirmé.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_04.jpg",
+    "category": "Insecte + Nid Primaire",
+    "description": "Frelon asiatique actif sur un petit nid primaire fixe a une poutre rouillee.",
+    "expected_verdict": "ROUGE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un insecte exploitable est clairement visible sur l'image."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax de couleur sombre, majoritairement noire à brun très foncé.",
+        "lisibilite": "moyenne"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen majoritairement sombre avec une zone orangée marquée vers l'extrémité.",
+        "lisibilite": "moyenne"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "elements_visibles": [
+          "thorax_massif",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Silhouette robuste présentant un thorax massif.",
+        "lisibilite": "moyenne"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ROUGE / NONE",
+    "after_fix_verdict": "ROUGE",
+    "after_fix_reason": "NONE",
+    "after_fix_confidence": 92,
+    "after_fix_motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_05.jpg",
+    "category": "Faux Nid / Lanterne",
+    "description": "Lanterne en papier plisse suspendue (structure synthetique reguliere).",
+    "expected_verdict": "VERT",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": false,
+        "structure_visible": true,
+        "justification": "Objet artificiel type lanterne en papier avec armature métallique visible, aucun insecte présent."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": false,
+        "vue_dorsale": false,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "fond_dominant": "non_lisible",
+        "zone_terminale_orangee": false,
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "elements_visibles": [],
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": true,
+        "forme_globale": "ovoide",
+        "texture_papier_carton": "NON",
+        "strates_repetitives": "NON",
+        "suspension_visible": "OUI",
+        "position": "support_artificiel",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [
+          "geometrie_industrielle",
+          "symetrie_artificielle",
+          "armature_metallique_plastique",
+          "materiau_translucide_synthetique",
+          "texture_uniforme_manufacturee",
+          "elements_mecaniques_visibles"
+        ],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "STRUCTURE (jugerStructure)",
+    "before_fix": "VERT / OBJECT_NON_BIOLOGICAL_STRUCTURE",
+    "after_fix_verdict": "VERT",
+    "after_fix_reason": "OBJECT_NON_BIOLOGICAL_STRUCTURE",
+    "after_fix_confidence": 85,
+    "after_fix_motif": "Indice(s) artificiel(s) visible(s) — structure non biologique.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_06.jpg",
+    "category": "Nid sous Toiture + Tuyau",
+    "description": "Nid sous gouttiere a cote d'une descente de plomberie metallique.",
+    "expected_verdict": "ORANGE_PLAFOND",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": false,
+        "structure_visible": true,
+        "justification": "Aucun insecte visible, presence d'une structure cartonnee suspendue sous une toiture."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": false,
+        "vue_dorsale": false,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "fond_dominant": "non_lisible",
+        "zone_terminale_orangee": false,
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "elements_visibles": [],
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": true,
+        "forme_globale": "ovoide",
+        "texture_papier_carton": "OUI",
+        "strates_repetitives": "OUI",
+        "suspension_visible": "OUI",
+        "position": "toiture",
+        "qualite_structure": "HIGH",
+        "structure_strength": "STRONG",
+        "marqueurs_forts": [
+          "stratification_lamellaire",
+          "enveloppe_cartonnee_continue",
+          "entree_identifiable"
+        ],
+        "marqueurs_faibles": [
+          "jonction_nette_structure_support",
+          "repetition_couches_construites"
+        ],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "STRUCTURE (jugerStructure)",
+    "before_fix": "ORANGE_PLAFOND / STRUCTURE_STRONG_GLOBAL",
+    "after_fix_verdict": "ORANGE_PLAFOND",
+    "after_fix_reason": "STRUCTURE_STRONG_GLOBAL",
+    "after_fix_confidence": 72,
+    "after_fix_motif": "Structure compatible avec nid social construit : 3 marqueur(s) fort(s), texture papier/carton, strates répétitives.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_07.jpg",
+    "category": "Nid d'Hirondelle / Boue",
+    "description": "Nid en terre/boue sous rebord (structure non striee cartonnee).",
+    "expected_verdict": "VERT",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": false,
+        "structure_visible": true,
+        "justification": "Aucun insecte exploitable n'est visible, présence d'une structure granuleuse en boue accolée à une surface."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": false,
+        "vue_dorsale": false,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "fond_dominant": "non_lisible",
+        "zone_terminale_orangee": false,
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "elements_visibles": [],
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": true,
+        "forme_globale": "irreguliere",
+        "texture_papier_carton": "NON",
+        "strates_repetitives": "NON",
+        "suspension_visible": "NON",
+        "position": "support_artificiel",
+        "qualite_structure": "HIGH",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "STRUCTURE (jugerStructure)",
+    "before_fix": "VERT / NONE",
+    "after_fix_verdict": "VERT",
+    "after_fix_reason": "NONE",
+    "after_fix_confidence": 85,
+    "after_fix_motif": "Marqueurs structurels insuffisants pour une suspicion.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_08.jpg",
+    "category": "Frelon + Nid Primaire",
+    "description": "Frelon asiatique travaillant sur la cloche d'un nid primaire.",
+    "expected_verdict": "ROUGE",
+    "error": "Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+    "matches_expected": false
+  },
+  {
+    "file": "ref_image_09.jpg",
+    "category": "Grappe de Frelons sur Nid",
+    "description": "Nid spherique recouvert de plusieurs frelons asiatiques actifs.",
+    "expected_verdict": "ROUGE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": true,
+        "justification": "Plusieurs individus exploitables sont clairement visibles au premier plan."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax de couleur noire uniforme et tres sombre.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen majoritairement sombre sur les premiers segments avec segment terminal orange fonce.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "elements_visibles": [
+          "thorax_massif",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Morphologie trapue, thorax large et silhouette compacte.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ROUGE / NONE",
+    "after_fix_verdict": "ROUGE",
+    "after_fix_reason": "NONE",
+    "after_fix_confidence": 92,
+    "after_fix_motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "ref_image_10.jpg",
+    "category": "Nid en Haut d'Arbre",
+    "description": "Nid au sommet d'un conifere / sapin parmi les pignes et epines.",
+    "expected_verdict": "ORANGE_PLAFOND",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": false,
+        "structure_visible": true,
+        "justification": "Aucun insecte visible, presence d'une structure arrondie dans la mâture d'un conifere."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": false,
+        "vue_dorsale": false,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "fond_dominant": "non_lisible",
+        "zone_terminale_orangee": false,
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "elements_visibles": [],
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": true,
+        "forme_globale": "spherique",
+        "texture_papier_carton": "OUI",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "OUI",
+        "position": "arbre",
+        "qualite_structure": "MEDIUM",
+        "structure_strength": "MEDIUM",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [
+          "jonction_nette_structure_support"
+        ],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "STRUCTURE (jugerStructure)",
+    "before_fix": "ORANGE_PLAFOND / STRUCTURE_STRONG_GLOBAL",
+    "after_fix_verdict": "ORANGE_PLAFOND",
+    "after_fix_reason": "STRUCTURE_STRONG_GLOBAL",
+    "after_fix_confidence": 72,
+    "after_fix_motif": "Structure compatible avec nid social construit : texture papier/carton.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  }
+]

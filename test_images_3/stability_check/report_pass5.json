@@ -1,0 +1,335 @@
+[
+  {
+    "file": "photo1.jpeg",
+    "category": "Photo 1 (the target case)",
+    "description": "distant Asian hornets",
+    "expected_verdict": "ORANGE_INSUFFISANCE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Plusieurs insectes sont clairement visibles sur le couvercle du pot."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax de couleur noire/sombre visible sur l'individu le plus net.",
+        "lisibilite": "moyenne"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen majoritairement noir avec segment terminal orange visile.",
+        "lisibilite": "moyenne"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "elements_visibles": [
+          "thorax_massif",
+          "abdomen_epais_non_elance"
+        ],
+        "description_visible": "Insecte de taille trapue, thorax massif et abdomen epais.",
+        "lisibilite": "moyenne"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ROUGE / NONE",
+    "after_fix_verdict": "ORANGE_INSUFFISANCE",
+    "after_fix_reason": "RETAKE_SHARPER",
+    "after_fix_confidence": 55,
+    "after_fix_motif": "Trois criteres favorables mais lisibilite insuffisante sur au moins un critere : confirmation par une photo plus nette requise avant un verdict definitif.",
+    "fix_changed_this_case": true,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "m1_ref_04.jpg",
+    "category": "M1 confirmed ROUGE",
+    "description": "confirmed target",
+    "expected_verdict": "ROUGE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": true,
+        "justification": "Un insecte est clairement visible pose sur une petite structure."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax de couleur noire homogene",
+        "lisibilite": "moyenne"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen majoritairement noir avec segment terminal orange",
+        "lisibilite": "moyenne"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "elements_visibles": [
+          "thorax_massif",
+          "abdomen_epais_non_elance",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Insecte a la silhouette trapue, thorax massif et abdomen epais",
+        "lisibilite": "moyenne"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ROUGE / NONE",
+    "after_fix_verdict": "ORANGE_INSUFFISANCE",
+    "after_fix_reason": "RETAKE_SHARPER",
+    "after_fix_confidence": 55,
+    "after_fix_motif": "Trois criteres favorables mais lisibilite insuffisante sur au moins un critere : confirmation par une photo plus nette requise avant un verdict definitif.",
+    "fix_changed_this_case": true,
+    "matches_expected": false,
+    "error": null
+  },
+  {
+    "file": "m1_ref_08.jpg",
+    "category": "M1 confirmed ROUGE",
+    "description": "confirmed target",
+    "expected_verdict": "ROUGE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": true,
+        "justification": "Un insecte est clairement visible et exploitable au premier plan."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax noir, sombre et uniforme.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen majoritairement sombre avec une zone orangee vers l'extremite.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "elements_visibles": [
+          "thorax_massif",
+          "abdomen_epais_non_elance",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Morphologie robuste avec un thorax massif et un abdomen epais.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ROUGE / NONE",
+    "after_fix_verdict": "ROUGE",
+    "after_fix_reason": "NONE",
+    "after_fix_confidence": 97,
+    "after_fix_motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "m1_ref_09.jpg",
+    "category": "M1 confirmed ROUGE (MEDIUM-confidence case)",
+    "description": "confirmed target, confidence known to vary",
+    "expected_verdict": "ROUGE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Plusieurs individus sont nets et clairement exploitables au centre de l'image."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax de couleur uniforme noire très foncée.",
+        "lisibilite": "moyenne"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen à fond noir dominant avec segment terminal orangé bien délimité.",
+        "lisibilite": "moyenne"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "elements_visibles": [
+          "thorax_massif",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Insecte trapu à thorax large et proportions compactes.",
+        "lisibilite": "moyenne"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ROUGE / NONE",
+    "after_fix_verdict": "ORANGE_INSUFFISANCE",
+    "after_fix_reason": "RETAKE_SHARPER",
+    "after_fix_confidence": 55,
+    "after_fix_motif": "Trois criteres favorables mais lisibilite insuffisante sur au moins un critere : confirmation par une photo plus nette requise avant un verdict definitif.",
+    "fix_changed_this_case": true,
+    "matches_expected": false,
+    "error": null
+  },
+  {
+    "file": "m2_ref_09.jpg",
+    "category": "M2 confirmed ROUGE",
+    "description": "confirmed target",
+    "expected_verdict": "ROUGE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un insecte exploitable est clairement visible sur le support bleu."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax de couleur majoritairement noire et brun tres fonce.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen a fond dominant sombre avec zone jaune-orangee au niveau du 4eme segment.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "elements_visibles": [
+          "thorax_massif",
+          "abdomen_epais_non_elance",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Insecte trapu presentant un thorax massif et un abdomen epais.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ROUGE / NONE",
+    "after_fix_verdict": "ROUGE",
+    "after_fix_reason": "NONE",
+    "after_fix_confidence": 97,
+    "after_fix_motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+    "fix_changed_this_case": false,
+    "matches_expected": true,
+    "error": null
+  }
+]

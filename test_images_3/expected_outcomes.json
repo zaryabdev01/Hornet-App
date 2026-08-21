@@ -1,0 +1,42 @@
+{
+  "_source": "ApiSave_M2_Android_Field_Test_Findings_EN.pdf, supplied by client 2026-08-18",
+  "_note": "Expected outcomes are the client's stated M2 acceptance matrix from the field-test report.",
+  "cases": [
+    {
+      "file": "Photo_01_Confirmed_Asian_Hornets_Distant.jpeg",
+      "category": "Confirmed Asian hornets, distant group on jar",
+      "description": "Ground truth: confirmed Asian hornets. Too distant/small for reliable Q1-Q3. VERT and NON_CIBLE are prohibited outcomes for this image.",
+      "expected_verdict": "ORANGE_INSUFFISANCE"
+    },
+    {
+      "file": "Photo_02_European_Hornet_Under_Glass_Run_A.jpeg",
+      "category": "European hornet under glass, Run A",
+      "description": "Ground truth: European hornet. Despite reflections, usable enough for non-target evidence per client.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "Photo_03_European_Hornet_Under_Glass_Run_B.jpeg",
+      "category": "Same European specimen, Run B (control pass already achieved)",
+      "description": "Same physical specimen as Photo 2, different capture. Client confirms this run already produces the correct verdict.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "Photo_04_Clear_Wasp_Non_Target.jpeg",
+      "category": "Clear wasp-like non-target on red background",
+      "description": "Sharp dorsal image, repeated pale transverse abdominal bands, no broad orange fourth-tergite signature.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "Photo_05_Scoliid_Hairy_Body.jpeg",
+      "category": "Scoliid / mammoth wasp, dense hairy body",
+      "description": "Dense body hair clearly visible; paired yellow abdominal spots as additional support. Should hit existing hairy-body VERT pathway.",
+      "expected_verdict": "VERT"
+    },
+    {
+      "file": "Photo_06_Scoliid_On_Flower.jpeg",
+      "category": "Scoliid / mammoth wasp on flower, strong hair evidence",
+      "description": "Prominent bristly hair visible close-up, isolated yellow abdominal patches. Should hit the same hairy-body VERT pathway as Photo 5.",
+      "expected_verdict": "VERT"
+    }
+  ]
+}

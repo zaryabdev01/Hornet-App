@@ -1,0 +1,343 @@
+[
+  {
+    "file": "Photo_01_Confirmed_Asian_Hornets_Distant.jpeg",
+    "category": "Confirmed Asian hornets, distant group on jar",
+    "description": "Ground truth: confirmed Asian hornets. Too distant/small for reliable Q1-Q3. VERT and NON_CIBLE are prohibited outcomes for this image.",
+    "expected_verdict": "ORANGE_INSUFFISANCE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Plusieurs hymenopteres exploitables sont visibles sur le couvercle du pot."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax de couleur majoritairement noire à brun très foncé.",
+        "lisibilite": "moyenne"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen à fond dominant sombre avec une segment orange-jaune vers l'extrémité.",
+        "lisibilite": "moyenne"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "elements_visibles": [
+          "thorax_massif",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Morphologie robuste avec un thorax massif et un abdomen épais.",
+        "lisibilite": "moyenne"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ROUGE / NONE",
+    "after_fix_verdict": "ROUGE",
+    "after_fix_reason": "NONE",
+    "after_fix_confidence": 92,
+    "after_fix_motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+    "fix_changed_this_case": false,
+    "matches_expected": false,
+    "error": null
+  },
+  {
+    "file": "Photo_02_European_Hornet_Under_Glass_Run_A.jpeg",
+    "category": "European hornet under glass, Run A",
+    "description": "Ground truth: European hornet. Despite reflections, usable enough for non-target evidence per client.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un insecte est clairement visible sous un verre transparent."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax de couleur sombre brun-noir visible a travers la paroi du verre.",
+        "lisibilite": "moyenne"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen beige-jaunatre alterne de motifs sombres, sans dominance sombre uniforme.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "elements_visibles": [
+          "thorax_massif",
+          "jonction_thorax_abdomen_large"
+        ],
+        "description_visible": "Insecte trapu avec thorax massif et raccord thoraco-abdominal large.",
+        "lisibilite": "moyenne"
+      },
+      "incompatibilites_cible": [
+        "abdomen_segmente_jaune_noir_alterne"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ORANGE_INSUFFISANCE / RETAKE_PROFILE",
+    "after_fix_verdict": "ORANGE_INSUFFISANCE",
+    "after_fix_reason": "RETAKE_PROFILE",
+    "after_fix_confidence": 55,
+    "after_fix_motif": "Morphologie compatible frelon, incompatibilité chromatique seule insuffisante.",
+    "fix_changed_this_case": false,
+    "matches_expected": false,
+    "error": null
+  },
+  {
+    "file": "Photo_03_European_Hornet_Under_Glass_Run_B.jpeg",
+    "category": "Same European specimen, Run B (control pass already achieved)",
+    "description": "Same physical specimen as Photo 2, different capture. Client confirms this run already produces the correct verdict.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "error": "Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+    "matches_expected": false
+  },
+  {
+    "file": "Photo_04_Clear_Wasp_Non_Target.jpeg",
+    "category": "Clear wasp-like non-target on red background",
+    "description": "Sharp dorsal image, repeated pale transverse abdominal bands, no broad orange fourth-tergite signature.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un insecte est nettement visible en vue dorsale au centre de l'image."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax noir lisse nettement visible.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen presenting multiple fine transversal yellow stripes on dark background.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Silhouette elancee avec rayures jaunes abdominales.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "rayures_jaune_noir_vif",
+        "silhouette_fine_allongee",
+        "proportions_greles_non_robustes"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "VERT / NONE",
+    "after_fix_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "after_fix_reason": "NON_TARGET_HYMENOPTERA",
+    "after_fix_confidence": 70,
+    "after_fix_motif": "Profil compatible avec une guêpe ou un Polistes : hyménoptère non cible identifié.",
+    "fix_changed_this_case": true,
+    "matches_expected": true,
+    "error": null
+  },
+  {
+    "file": "Photo_05_Scoliid_Hairy_Body.jpeg",
+    "category": "Scoliid / mammoth wasp, dense hairy body",
+    "description": "Dense body hair clearly visible; paired yellow abdominal spots as additional support. Should hit existing hairy-body VERT pathway.",
+    "expected_verdict": "VERT",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Plusieurs hyménoptères nets et exploitables sont visibles dans un récipient transparent."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax de couleur intégralement noire.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen à fond sombre présentant de larges taches jaune vif sur les segments abdominaux médians.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "elements_visibles": [
+          "thorax_massif",
+          "abdomen_epais_non_elance",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Morphologie robuste avec un thorax puissant et un abdomen épais.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ORANGE_INSUFFISANCE / RETAKE_PROFILE",
+    "after_fix_verdict": "ORANGE_INSUFFISANCE",
+    "after_fix_reason": "RETAKE_PROFILE",
+    "after_fix_confidence": 60,
+    "after_fix_motif": "Morphologie compatible frelon, incompatibilité chromatique seule insuffisante.",
+    "fix_changed_this_case": false,
+    "matches_expected": false,
+    "error": null
+  },
+  {
+    "file": "Photo_06_Scoliid_On_Flower.jpeg",
+    "category": "Scoliid / mammoth wasp on flower, strong hair evidence",
+    "description": "Prominent bristly hair visible close-up, isolated yellow abdominal patches. Should hit the same hairy-body VERT pathway as Photo 5.",
+    "expected_verdict": "VERT",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Insecte très net et parfaitement exploitable posé sur une fleur."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax de couleur de fond entièrement noire.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen présentant de larges taches jaunes sur plusieurs segments intermédiaires.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Pilosité dense et soies bien visibles sur le corps et l'abdomen.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "morphologie_velue_compacte"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ORANGE_INSUFFISANCE / RETAKE_SHARPER",
+    "after_fix_verdict": "VERT",
+    "after_fix_reason": "INSECT_HAIRY_BODY_INCOMPATIBLE",
+    "after_fix_confidence": 90,
+    "after_fix_motif": "Corps velu/massif incompatible avec un frelon.",
+    "fix_changed_this_case": true,
+    "matches_expected": true,
+    "error": null
+  }
+]

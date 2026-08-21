@@ -125,12 +125,25 @@ check('European hornet, Q3=NON + 3 crabro markers -> ORANGE_PROBABLE_NON_CIBLE (
   }),
   'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
 
-// 6c. Regression: Q3=NON with only 2 crabro markers -> new override must NOT fire (needs >=3)
-check('European hornet, Q3=NON + only 2 crabro markers -> override does not fire (threshold respected)',
+// 6c. V1.11 (field-test correction, Photo 2 vs Photo 3 instability): Q3=NON with only 2 crabro
+// markers but HIGH Q1+Q2 confidence -> now reaches the non-target route directly, same threshold
+// as the parallel Q3=OUI/NON_LISIBLE branch above, instead of bouncing between INSUFFISANCE and
+// NON_CIBLE depending on which capture Gemini happened to read.
+check('European hornet, Q3=NON + 2 crabro markers + HIGH Q1/Q2 confidence -> non-target route fires (was INSUFFISANCE pre-V1.11)',
   makeInsectObs({
     Q1_thorax: { reponse: 'NON', confidence: 'HIGH', description_visible: 'roux', lisibilite: 'haute' },
     Q2_abdomen: { reponse: 'NON', confidence: 'HIGH', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'jaune dominant', lisibilite: 'haute' },
     Q3_morphologie: { reponse: 'NON', confidence: 'HIGH', elements_visibles: [], description_visible: 'jugee non conforme', lisibilite: 'haute' },
+    incompatibilites_cible: ['abdomen_jaune_dominant', 'rayures_jaune_noir_vif'],
+  }),
+  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
+
+// 6d. Regression: same 2 markers WITHOUT high confidence -> threshold still respected, still a retake
+check('European hornet, Q3=NON + 2 crabro markers + MEDIUM confidence -> still ORANGE_INSUFFISANCE (threshold respected)',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'NON', confidence: 'MEDIUM', description_visible: 'roux', lisibilite: 'moyenne' },
+    Q2_abdomen: { reponse: 'NON', confidence: 'MEDIUM', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'jaune dominant', lisibilite: 'moyenne' },
+    Q3_morphologie: { reponse: 'NON', confidence: 'MEDIUM', elements_visibles: [], description_visible: 'jugee non conforme', lisibilite: 'moyenne' },
     incompatibilites_cible: ['abdomen_jaune_dominant', 'rayures_jaune_noir_vif'],
   }),
   'ORANGE_INSUFFISANCE', 'RETAKE_LIGHTING_ANGLE');
@@ -141,6 +154,18 @@ check('Clean ROUGE case unaffected by M2 changes',
     Q1_thorax: { reponse: 'OUI', confidence: 'HIGH', description_visible: 'noir', lisibilite: 'haute' },
     Q2_abdomen: { reponse: 'OUI', confidence: 'HIGH', fond_dominant: 'sombre', zone_terminale_orangee: true, description_visible: 'sombre + orange', lisibilite: 'haute' },
     Q3_morphologie: { reponse: 'OUI', confidence: 'HIGH', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], incompatibilites_visibles: [], description_visible: 'robuste', lisibilite: 'haute' },
+    incompatibilites_cible: [],
+  }),
+  'ROUGE', 'NONE');
+
+// 7b. Regression: ROUGE fires on 3x OUI regardless of lisibilite/confidence level (V1.12's
+// readability-gated ROUGE was tried, evaluated on repeated live data, and reverted on
+// 2026-08-19 — see judge.js version history. This test locks in the restored V1.11 behaviour.)
+check('ROUGE fires on 3x OUI even with MEDIUM confidence and moyenne lisibilite (V1.12 reverted)',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'OUI', confidence: 'MEDIUM', description_visible: 'noir', lisibilite: 'moyenne' },
+    Q2_abdomen: { reponse: 'OUI', confidence: 'MEDIUM', fond_dominant: 'sombre', zone_terminale_orangee: true, description_visible: 'sombre + orange', lisibilite: 'moyenne' },
+    Q3_morphologie: { reponse: 'OUI', confidence: 'MEDIUM', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], description_visible: 'robuste', lisibilite: 'moyenne' },
     incompatibilites_cible: [],
   }),
   'ROUGE', 'NONE');

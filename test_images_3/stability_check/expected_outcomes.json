@@ -1,0 +1,34 @@
+{
+  "cases": [
+    {
+      "file": "photo1.jpeg",
+      "category": "Photo 1 (the target case)",
+      "description": "distant Asian hornets",
+      "expected_verdict": "ORANGE_INSUFFISANCE"
+    },
+    {
+      "file": "m1_ref_04.jpg",
+      "category": "M1 confirmed ROUGE",
+      "description": "confirmed target",
+      "expected_verdict": "ROUGE"
+    },
+    {
+      "file": "m1_ref_08.jpg",
+      "category": "M1 confirmed ROUGE",
+      "description": "confirmed target",
+      "expected_verdict": "ROUGE"
+    },
+    {
+      "file": "m1_ref_09.jpg",
+      "category": "M1 confirmed ROUGE (MEDIUM-confidence case)",
+      "description": "confirmed target, confidence known to vary",
+      "expected_verdict": "ROUGE"
+    },
+    {
+      "file": "m2_ref_09.jpg",
+      "category": "M2 confirmed ROUGE",
+      "description": "confirmed target",
+      "expected_verdict": "ROUGE"
+    }
+  ]
+}

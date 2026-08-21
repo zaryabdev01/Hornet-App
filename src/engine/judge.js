@@ -1,5 +1,5 @@
 // APISAVE - MOTEUR DE DECISION (LE JUGE) - JavaScript
-// BEEALERT CORE V13.5+ MES-1 — Version 1.10 (M2)
+// BEEALERT CORE V13.5+ MES-1 — Version 1.11 (M2) — M2 BASELINE
 //
 // V1.7 : verdict ORANGE_PROBABLE_NON_CIBLE pour espèces voisines évidentes
 // V1.8 : champs confidence (Q1/Q2/Q3) — LOW NON → NON_LISIBLE (anti-faux-négatif)
@@ -22,6 +22,35 @@
 //   - Frelon européen : nouvelle route ORANGE_PROBABLE_NON_CIBLE quand Q1=NON, Q2=NON, Q3=NON et
 //     >= 3 marqueurs crabro distincts — corrige photo #6 (Round 2). Structurellement impossible de
 //     court-circuiter ROUGE (qui exige Q1=OUI). Logique Q1/Q2/Q3 elle-même non modifiée.
+// V1.11 (M2, field-test correction 2026-08-19, client report ApiSave_M2_Android_Field_Test_Findings) :
+//   - Toutes les routes crabro (verrouVert, palier Q3=OUI/NON_LISIBLE, palier Q3=NON) ne requièrent
+//     plus Q1=NON. Q1 (couleur du thorax) n'est pas discriminant entre velutina et crabro — les deux
+//     ont un thorax sombre — donc l'exiger à NON verrouillait ces routes à tort sur des specimens
+//     crabro réels lus Q1=OUI par Gemini (Photo 2). Sans risque pour ROUGE : verrouVert() n'est
+//     jamais atteint quand Q1=Q2=Q3=OUI (court-circuit géré en amont dans jugerMorphologie).
+//   - Palier Q3=NON : ajout d'une route ORANGE_PROBABLE_NON_CIBLE à seuil de certitude haute
+//     (identique au palier Q3=OUI), pour stabiliser le cas "même spécimen, deux prises, deux
+//     verdicts" (Photo 2 vs Photo 3) — la variance provenait de ce palier manquant, pas d'un besoin
+//     réel de seconde photo.
+// V1.12 (M2, client-approved 2026-08-19, Photo 1 targeted fix — readability-gated ROUGE,
+//   IMPLEMENTED THEN REVERTED, same day) :
+//   - Tried: ROUGE (Q1=Q2=Q3=OUI) additionally required lisibilite='haute' on all 3 criteria,
+//     instead of a rejected earlier option requiring confidence=HIGH on all 3 (too volatile,
+//     would have raised the retake rate on real targets — client rejected it, cf. Option A).
+//     Single-sample-per-case evidence looked clean (all 4 confirmed-ROUGE regression cases read
+//     lisibilite='haute'), and Photo 1 improved to 6/6 on repeated live testing.
+//   - Reverted: repeated sampling (7-8 runs per case, not 1) showed 2 of the 4 confirmed-ROUGE
+//     regression cases had a real ~1-in-3 rate of dropping to lisibilite='moyenne' on genuine,
+//     correctly-identifiable targets — a materially larger retake-rate cost than the single-sample
+//     check suggested. A follow-up bounded diagnostic (comparing every field, including free-text
+//     descriptions, across all Photo-1 calls vs. the confirmed-target misses) found no reliable
+//     distinguishing signal in existing fields — lisibilite/confidence behaved as call-to-call
+//     self-rating noise on both groups, not a stable readout of real image properties. Client
+//     decision 2026-08-19: revert to V1.11 behaviour, keep Photo 1 (and Photo 5, cf. prompts.js
+//     V2.5) as documented residual limitations. A deterministic (non-self-reported) subject-size
+//     signal was identified as the only path likely to actually work, but explicitly deferred —
+//     out of M2 scope, to be reconsidered only if M4 shows this is a frequent real-world pattern.
+//   - V1.11 is the active M2 baseline as of this revert — the code above is unchanged from V1.11.
 
 import { CONFIANCE, ACTIONS, REASON_CODES } from '../constants/verdicts';
 import { ENGINE } from '../constants/branding';
@@ -128,12 +157,14 @@ function normalizeIncompat(rawIncompat) {
 function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, nbMorpho, nbTotal, antiCrabroHit) {
   const types = new Set(incompat.map(i => i.type));
 
-  // V1.10 (M2, Round 2, client-specified) — évidence chromatique crabro très forte : peut
-  // atteindre la route non-cible même si Q3 = NON, mais seulement avec Q1 = NON, Q2 = NON et
-  // >= 3 marqueurs crabro distincts. Placé avant tout autre verrou de ce bloc pour que ce
-  // signal explicite prenne le pas sur les raccourcis génériques. Q1 = NON exclut déjà
-  // structurellement ROUGE (qui exige Q1 = OUI) : ne peut jamais court-circuiter une route ROUGE valide.
-  if (q1 === 'NON' && q2 === 'NON' && q3 === 'NON' && antiCrabroHit >= 3) {
+  // V1.11 (M2, field-test correction 2026-08-19, Findings Photo 2/3) — évidence chromatique
+  // crabro très forte : peut atteindre la route non-cible même si Q3 = NON, avec Q2 = NON et
+  // >= 3 marqueurs crabro distincts. Ne dépend plus de Q1 : Q1 (couleur du thorax) n'est pas
+  // discriminant entre velutina et crabro (les deux ont un thorax sombre), donc Gemini lit
+  // souvent Q1 = OUI sur un vrai crabro — l'exiger à NON verrouillait cette route à tort sur des
+  // spécimens non-cible réels. Reste sans risque pour ROUGE : verrouVert() n'est jamais atteint
+  // quand les 3 réponses valent OUI (court-circuit ROUGE géré en amont dans jugerMorphologie).
+  if (q2 === 'NON' && q3 === 'NON' && antiCrabroHit >= 3) {
     return formatVerdict('ORANGE_PROBABLE_NON_CIBLE',
       'Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.',
       'CRABRO_LIKE_PROFILE', analyseId, timestamp);
@@ -156,7 +187,11 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
   const isCertitudeHaute =
     obs?.Q1_thorax?.confidence === 'HIGH' && obs?.Q2_abdomen?.confidence === 'HIGH';
 
-  if ((q3 === 'OUI' || q3 === 'NON_LISIBLE') && q1 === 'NON' && q2 === 'NON' && nbMorpho === 0) {
+  // V1.11 — même correction qu'au-dessus : Q1 = OUI (thorax sombre lu comme "compatible")
+  // n'exclut plus cette route. Q2 = NON reste l'exigence discriminante (motif abdominal
+  // alterné jaune/noir, incompatible avec velutina) ; ROUGE reste structurellement inatteignable
+  // ici puisqu'il exige Q1 + Q2 + Q3 = OUI et que Q2 = NON est requis pour entrer ce bloc.
+  if ((q3 === 'OUI' || q3 === 'NON_LISIBLE') && q2 === 'NON' && nbMorpho === 0) {
     if (antiCrabroHit >= 3 || (antiCrabroHit >= 1 && isCertitudeHaute)) {
       return formatVerdict(
         'ORANGE_PROBABLE_NON_CIBLE',
@@ -187,6 +222,18 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
 
   // Q3 = NON
   if (q3 === 'NON') {
+    // V1.11 — même seuil "évidence chromatique forte" que la branche Q3=OUI ci-dessus : si la
+    // certitude Q1+Q2 est haute et qu'au moins 1 marqueur crabro net est présent (ou >= 3 sans
+    // certitude haute requise), la route non-cible doit être atteinte directement plutôt que de
+    // redemander systématiquement une seconde photo (Finding Photo 3 : même spécimen, deux prises,
+    // verdict instable — la variance venait de ce palier manquant, pas d'un vrai retake nécessaire).
+    if (nbMorpho === 0 && (antiCrabroHit >= 3 || (antiCrabroHit >= 1 && isCertitudeHaute))) {
+      return formatVerdict(
+        'ORANGE_PROBABLE_NON_CIBLE',
+        'Convergence forte de marqueurs chromatiques type crabro avec morphologie non confirmée : espèce voisine probable.',
+        'CRABRO_LIKE_PROFILE', analyseId, timestamp
+      );
+    }
     if (nbMorpho === 0 && antiCrabroHit >= 1 && nbTotal < 3) {
       const reason = surLeDos ? 'RETAKE_DORSAL_VIEW' : 'RETAKE_LIGHTING_ANGLE';
       return formatVerdict('ORANGE_INSUFFISANCE',

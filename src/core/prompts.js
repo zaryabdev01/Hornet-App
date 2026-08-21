@@ -1,4 +1,4 @@
-// APISAVE - PROMPT VISION V2.4 (M2)
+// APISAVE - PROMPT VISION V2.5 (M2)
 // Compatible BEEALERT CORE V13.5+ MES-1 — Production Terrain
 // V2.1 : ajout VERROU GUEPE/POLISTE, VERROU BOURDON/COLEOPTERE,
 //        REGLE ANTI-ARTEFACT TRIPLE Q2, champ structure_strength
@@ -21,6 +21,17 @@
 //   uniquement les 4 elements positifs de Q3=OUI, jamais de tag negatif/exclusion — corrige le
 //   placement errone observe sur la photo #3 du jeu de reference M2 (silhouette_fine_allongee
 //   place a tort dans elements_visibles au lieu de incompatibilites_cible)
+// V2.5 (M2, field-test correction 2026-08-19, client report ApiSave_M2_Android_Field_Test_Findings,
+//   Photos 5-6) : VERROU BOURDON/COLEOPTERE/MICRO clarifie — la pilosite dense (duvet/poils
+//   visibles) et le volume/masse du corps etaient fusionnes dans une seule condition ("tres
+//   poilu/massif"), ce qui laissait le modele classer un corps poilu et bombe comme thorax_massif
+//   compatible (Q3=OUI) au lieu de declencher morphologie_velue_compacte. La texture (pilosite)
+//   est desormais un declencheur explicite et independant du volume.
+//   - REGLE CONFIDENCE : ajout d'un plafond MEDIUM lie a la taille/distance du sujet (Photo #1,
+//     groupe distant sur bocal) — la nettete percue seule ne suffisait pas a empecher un plafond
+//     HIGH sur un sujet occupant trop peu de pixels, ce qui produisait un verdict instable
+//     (ROUGE/NON_CIBLE/INSUFFISANCE selon l'appel) sur une image jugee par le client trop distante
+//     pour une evaluation Q1/Q2/Q3 fiable.
 
 export const VISION_SYSTEM_PROMPT = `Tu es un observateur visuel entomologique strict.
 Tu decris UNIQUEMENT ce qui est clairement visible sur l'image.
@@ -67,7 +78,8 @@ ALORS :
 -> ARRETER l'evaluation cible pour cet individu (ne pas chercher d'autres criteres au-dela des valeurs forcees ci-dessus).
 
 VERROU BOURDON/COLEOPTERE/MICRO :
-Corps tres poilu/massif -> Q3_morphologie.reponse = 'NON' + incompatibilites_cible += morphologie_velue_compacte
+Pilosite dense et visible (duvet, poils ou soies couvrant nettement le thorax et/ou l'abdomen, silhouette "floue"/veloutee plutot que cuticule lisse) -> Q3_morphologie.reponse = 'NON' + incompatibilites_cible += morphologie_velue_compacte.
+  CE VERROU SE DECLENCHE SUR LA TEXTURE (poils/duvet visibles), INDEPENDAMMENT DU VOLUME DU CORPS. Un corps large/massif SANS pilosite visible n'est PAS ce verrou : un frelon (Vespa) a une cuticule lisse et non poilue, meme quand son thorax est massif — dans ce cas evalue normalement via thorax_massif/proportions_compactes_robustes (ETAPE 4). Ne classe jamais un corps visiblement poilu comme "massif" compatible : la pilosite prime toujours sur le volume.
 Carapace dure/elytres visibles -> Q3_morphologie.reponse = 'NON' + incompatibilites_cible += carapace_dure_elytres_visibles
 Taille minuscule par rapport au support -> Q3_morphologie.reponse = 'NON' + incompatibilites_cible += insecte_taille_minuscule_non_frelon
 
@@ -141,6 +153,11 @@ REGLE CONFIDENCE (MODE INSECTE uniquement — Q1/Q2/Q3)
 HIGH = observation nette, sans ambiguite — certitude.
 MEDIUM = observation possible avec incertitude moderee.
 LOW = evaluation tres incertaine ou borderline.
+PLAFOND LIE A LA TAILLE/DISTANCE : la clarte d'interpretation ne suffit pas a elle seule pour HIGH.
+Si l'individu analyse occupe une portion tres reduite du cadre (sujet distant, groupe d'insectes vus de loin,
+faible resolution du detail corporel), le PLAFOND de confidence est MEDIUM même si le trait perçu semble net
+— HIGH est reserve aux cas ou le corps de l'individu est suffisamment grand et net dans l'image pour juger le
+detail sans extrapolation.
 
 <FORMAT_DE_SORTIE_OBLIGATOIRE>
 Reponds UNIQUEMENT avec un objet JSON valide. Aucun texte avant, aucun texte apres.

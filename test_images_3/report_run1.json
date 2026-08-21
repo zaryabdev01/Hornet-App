@@ -1,0 +1,108 @@
+[
+  {
+    "file": "Photo_01_Confirmed_Asian_Hornets_Distant.jpeg",
+    "category": "Confirmed Asian hornets, distant group on jar",
+    "description": "Ground truth: confirmed Asian hornets. Too distant/small for reliable Q1-Q3. VERT and NON_CIBLE are prohibited outcomes for this image.",
+    "expected_verdict": "ORANGE_INSUFFISANCE",
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Plusieurs insectes visibles et exploitables sur le couvercle d'un piége."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax de couleur noire uniforme visible sur l'individu au centre du couvercle.",
+        "lisibilite": "moyenne"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen majoritairement noir avec un segment terminal nettement orange.",
+        "lisibilite": "moyenne"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "elements_visibles": [
+          "thorax_massif",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Morphologie trapue et robuste avec un thorax large.",
+        "lisibilite": "moyenne"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    },
+    "path_taken": "INSECT (jugerMorphologie)",
+    "before_fix": "ROUGE / NONE",
+    "after_fix_verdict": "ROUGE",
+    "after_fix_reason": "NONE",
+    "after_fix_confidence": 92,
+    "after_fix_motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+    "fix_changed_this_case": false,
+    "matches_expected": false,
+    "error": null
+  },
+  {
+    "file": "Photo_02_European_Hornet_Under_Glass_Run_A.jpeg",
+    "category": "European hornet under glass, Run A",
+    "description": "Ground truth: European hornet. Despite reflections, usable enough for non-target evidence per client.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "error": "Gemini HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+    "matches_expected": false
+  },
+  {
+    "file": "Photo_03_European_Hornet_Under_Glass_Run_B.jpeg",
+    "category": "Same European specimen, Run B (control pass already achieved)",
+    "description": "Same physical specimen as Photo 2, different capture. Client confirms this run already produces the correct verdict.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "error": "Gemini HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+    "matches_expected": false
+  },
+  {
+    "file": "Photo_04_Clear_Wasp_Non_Target.jpeg",
+    "category": "Clear wasp-like non-target on red background",
+    "description": "Sharp dorsal image, repeated pale transverse abdominal bands, no broad orange fourth-tergite signature.",
+    "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+    "error": "Gemini HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+    "matches_expected": false
+  },
+  {
+    "file": "Photo_05_Scoliid_Hairy_Body.jpeg",
+    "category": "Scoliid / mammoth wasp, dense hairy body",
+    "description": "Dense body hair clearly visible; paired yellow abdominal spots as additional support. Should hit existing hairy-body VERT pathway.",
+    "expected_verdict": "VERT",
+    "error": "Gemini HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+    "matches_expected": false
+  },
+  {
+    "file": "Photo_06_Scoliid_On_Flower.jpeg",
+    "category": "Scoliid / mammoth wasp on flower, strong hair evidence",
+    "description": "Prominent bristly hair visible close-up, isolated yellow abdominal patches. Should hit the same hairy-body VERT pathway as Photo 5.",
+    "expected_verdict": "VERT",
+    "error": "Gemini HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota ex",
+    "matches_expected": false
+  }
+]
