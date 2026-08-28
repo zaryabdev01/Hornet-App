@@ -1,0 +1,30 @@
+{
+  "_source": "Ad-hoc test photos supplied by colleague via Xcode build test, 2026-08-24",
+  "_note": "Ground truth species is UNCERTAIN — visual inspection suggests these may depict Vespa mandarinia (Asian giant hornet) rather than Vespa velutina (the actual target species). expected_verdict values below are a working hypothesis, not confirmed ground truth, used only to flag mismatches for investigation.",
+  "cases": [
+    {
+      "file": "WhatsApp Image 2026-08-24 at 7.41.58 PM.jpeg",
+      "category": "Two insects in hand — larger one is the specimen of interest",
+      "description": "Suspected non-velutina (possibly V. mandarinia) based on multi-banded orange/black abdomen pattern, inconsistent with velutina's single-terminal-band signature.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "WhatsApp Image 2026-08-24 at 7.41.59 PM.jpeg",
+      "category": "Isolated stock photo, white background",
+      "description": "Suspected non-velutina (possibly V. mandarinia) — orange face, multi-banded abdomen.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "WhatsApp Image 2026-08-24 at 7.41.59 PM (1).jpeg",
+      "category": "Dish photo, credited 'Photo: David Walker'",
+      "description": "App returned ROUGE 97% on this one — the case under investigation. Suspected non-velutina based on multi-banded abdomen, but this is the one that most needs verification, not assumption.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    },
+    {
+      "file": "WhatsApp Image 2026-08-24 at 7.41.59 PM (2).jpeg",
+      "category": "Held in fingers, outdoor background",
+      "description": "Suspected non-velutina — orange head, banded abdomen. Not one of the original 3 tested in-app, included for comparison.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE"
+    }
+  ]
+}
