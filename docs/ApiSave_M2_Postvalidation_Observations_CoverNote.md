@@ -20,13 +20,13 @@ and confirmed-European-hornet cases before and after — not just these two imag
 
 **2. 503 errors and latency.**
 The 503s are Gemini's own — the model being temporarily overloaded on Google's side, not
-our app or backend. Right now 503s are not retried at all, and the retries we do have are
-linear with no jitter. The image is also sent at full camera resolution and re-uploaded on
-every retry, and there's currently no timing instrumentation, so "each stage" can't be
-measured yet. Proposed: add stage timing first (that's the measurement you asked for), then
-a proper retry policy for 5xx with exponential backoff and jitter, then downscale the image
-before sending. This is all transport-layer work — it doesn't touch detection logic — and
-it's a natural fit for the M3 proxy.
+our own code. Right now 503s are not retried at all, and the retries we do have are linear
+with no jitter. The image is also sent at full camera resolution and re-uploaded on every
+retry, and there's currently no timing instrumentation, so "each stage" can't be measured
+yet. Proposed: add stage timing first (that's the measurement you asked for), then a proper
+retry policy for 5xx with exponential backoff and jitter, then downscale the image before
+sending. This is all transport-layer work — it doesn't touch detection logic — and can be
+done as a self-contained pass.
 
 **3. Distant structures.**
 Confirmed: the green verdict is correct and stable (8/8). The model already notes "distant"

@@ -175,10 +175,9 @@ All of the following is established directly from `src/services/geminiApi.js` an
 
 ## Origin of the 503 errors
 
-**Gemini itself.** The M2 build calls `generativelanguage.googleapis.com` directly (the
-server-side proxy is M3 and is not deployed). HTTP 503 from that endpoint means the model is
-temporarily overloaded on Google's side. It is not the application and not a backend of
-ours. It is transient and not correlated with our request pattern.
+**Gemini itself.** The app calls `generativelanguage.googleapis.com` directly. HTTP 503 from
+that endpoint means the model is temporarily overloaded on Google's side. It is not the
+application's own code, and it is transient and not correlated with our request pattern.
 
 ## Is exponential backoff with jitter implemented for 503?
 
@@ -220,9 +219,8 @@ is upload, Gemini, or retries.
 
 ## Proposed next-stage handling
 
-This is transport-layer work and touches no detection logic. It can be a small standalone
-hardening pass or folded into M3 (the proxy is the natural home for retry and latency
-policy). Scope:
+This is transport-layer work and touches no detection logic — a self-contained hardening
+pass. Scope:
 
 1. Stage timing instrumentation (do this first — it is also the measurement the client
    asked for).
