@@ -1,0 +1,672 @@
+{
+  "model": "gemini-3.6-flash",
+  "generated": "2026-09-02T10:58:12.612Z",
+  "samples_per_image": 8,
+  "images": [
+    {
+      "file": "Case1_AsianHornet_FalseNegative_crabro_flying.jpeg",
+      "category": "False negative #1 — Asian hornet classified as probable non-target (crabro)",
+      "ground_truth": "Vespa velutina (Asian hornet). In-flight, motion blur, INRA photo credit (K. Monceau).",
+      "expected_verdict": "ROUGE",
+      "prohibited_verdicts": [
+        "ORANGE_PROBABLE_NON_CIBLE",
+        "VERT"
+      ],
+      "verdict_distribution": {
+        "ORANGE_PROBABLE_NON_CIBLE": 7,
+        "ROUGE": 1
+      },
+      "prohibited_hits": 7,
+      "tag_frequency": {
+        "abdomen_jaune_dominant": 1,
+        "abdomen_segmente_jaune_noir_alterne": 6,
+        "tete_rousse_orangee": 7,
+        "thorax_roux": 2,
+        "rayures_jaune_noir_vif": 4
+      },
+      "runs": [
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "NON/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "NON/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "abdomen_jaune_dominant",
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee",
+            "thorax_roux"
+          ],
+          "antiCrabroHit": 4,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax et tête présentant des teintes brun-roux et orangées prédominantes.",
+            "Q2": "Abdomen à motif alterné jaune et noir étendu sur la majorité des segments.",
+            "Q3": "Morphologie exclue en raison des motifs et caractéristiques chromatiques observés."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+          "confiance": 97,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "OUI/HIGH/haute",
+          "Q3": "OUI/HIGH/haute",
+          "fond_dominant": "sombre",
+          "zone_terminale_orangee": true,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur noire a brun tres fonce.",
+            "Q2": "Abdomen au fond dominant sombre avec une zone orangee nettement visible vers l'extremite.",
+            "Q3": "Morphologie trapue et robuste avec thorax volumineux et abdomen epais."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "NON/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "NON/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee",
+            "thorax_roux"
+          ],
+          "antiCrabroHit": 4,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de teinte brun-roux avec la tête rousse-orangee dominante.",
+            "Q2": "Motif de bandes et rayures jaunes transversales répété sur plus de deux segments abdominaux.",
+            "Q3": "Évaluation arrêtée et forcée à NON suite au déclenchement du verrou d'exclusion sur les rayures jaunes."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Convergence forte de marqueurs chromatiques type crabro avec morphologie non confirmée : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "NON/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": true,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur noire à brun très foncé dominant.",
+            "Q2": "Présence de bandes et motifs jaunes/oranges répétés sur plusieurs segments de l'abdomen.",
+            "Q3": "Incompatible avec la cible stricte en raison des motifs d'incompatibilité présents."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "NON/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 3,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur sombre, brun tres fonce a noir.",
+            "Q2": "Abdomen presentant des rayures et motifs jaunes/roux alternes sur plusieurs segments consecutifs.",
+            "Q3": "Verrou d exclusion active en raison des motifs abdominaux alternes et de la coloration de la tete."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Convergence forte de marqueurs chromatiques type crabro avec morphologie frelon compatible : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "OUI/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur de fond tres sombre, majoritairement noire à brun noir.",
+            "Q2": "Motif jaune et brun-noir repete sur l'ensemble des segments de l'abdomen, non limite au seul 4eme segment.",
+            "Q3": "Morphologie trapue avec un thorax tres volumineux et un abdomen epais."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Convergence forte de marqueurs chromatiques type crabro avec morphologie frelon compatible : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "NON/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "OUI/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax sombre teinté de brun-roux avec tête rousse à orange dominante.",
+            "Q2": "Motifs jaunes et sombres alternés visibles sur plusieurs segments de l'abdomen.",
+            "Q3": "Thorax massif et proportions corporelles très robustes."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "NON/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 3,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur de fond majoritairement noire à brun très foncé.",
+            "Q2": "Motif de rayures et taches jaunes/oranges répété sur plusieurs segments abdominaux.",
+            "Q3": "Verrou d'exclusion actif suite au motif abdominal alterné jaune et noir."
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "file": "Case2_AsianHornet_FalseNegative_crabro_predation.jpeg",
+      "category": "False negative #2 — Asian hornet classified as probable non-target (crabro)",
+      "ground_truth": "Vespa velutina (Asian hornet) predating a honeybee. Textbook specimen: black thorax, single orange 4th tergite, bright yellow leg tips. NOTE: a second insect (the honeybee prey) is in frame.",
+      "expected_verdict": "ROUGE",
+      "prohibited_verdicts": [
+        "ORANGE_PROBABLE_NON_CIBLE",
+        "ORANGE_INSUFFISANCE",
+        "VERT"
+      ],
+      "verdict_distribution": {
+        "ORANGE_PROBABLE_NON_CIBLE": 7,
+        "ROUGE": 1
+      },
+      "prohibited_hits": 7,
+      "tag_frequency": {
+        "tete_rousse_orangee": 5,
+        "abdomen_segmente_jaune_noir_alterne": 6,
+        "rayures_jaune_noir_vif": 2,
+        "thorax_roux": 1
+      },
+      "runs": [
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Convergence forte de marqueurs chromatiques type crabro avec morphologie frelon compatible : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "OUI/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur de fond majoritairement noire brillante.",
+            "Q2": "Abdomen présentant des motifs et bandes jaune-orange étendu sur plusieurs segments.",
+            "Q3": "Insecte de constitution robuste avec thorax massif et abdomen épais."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+          "confiance": 97,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "OUI/HIGH/haute",
+          "Q3": "OUI/HIGH/haute",
+          "fond_dominant": "sombre",
+          "zone_terminale_orangee": true,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur noire brillante bien visible.",
+            "Q2": "Abdomen a fond tres sombre avec une zone orangee vers l'extremite.",
+            "Q3": "Morphologie robuste avec thorax massif et abdomen epais."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "NON/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "NON/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "abdomen_segmente_jaune_noir_alterne",
+            "rayures_jaune_noir_vif",
+            "tete_rousse_orangee",
+            "thorax_roux"
+          ],
+          "antiCrabroHit": 4,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax et tête présentant une coloration roux/brun-roux bien visible sur les côtés.",
+            "Q2": "Abdomen présentant un motif alterné de bandes/taches jaune-orange et de chevrons noirs sur plusieurs segments.",
+            "Q3": "Évaluation stoppée par le verrou d'exclusion chromatique et de motif abdominal."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Convergence forte de marqueurs chromatiques type crabro avec morphologie frelon compatible : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "OUI/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": true,
+          "tags": [
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax a fond majoritairement noir.",
+            "Q2": "Motifs orange-jaune visibles sur plusieurs segments abdominaux et pas seulement l'extremite.",
+            "Q3": "Insecte tres massif au thorax puissant et abdomen epais."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Convergence forte de marqueurs chromatiques type crabro avec morphologie frelon compatible : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "OUI/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax trapu présentant une cuticule à fond noir brillant.",
+            "Q2": "Abdomen présentant de larges motifs jaunes et orangés répartis sur plusieurs segments.",
+            "Q3": "Morphologie très trapue et robuste avec un thorax volumineux."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Convergence forte de marqueurs chromatiques type crabro avec morphologie non confirmée : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "NON/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": true,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax a cuticule noire et tres sombre.",
+            "Q2": "Motifs et bandes jaune-orange repetes sur plusieurs segments de l'abdomen.",
+            "Q3": "Evaluation morphologique forcee a NON suite au declenchement du verrou d'exclusion."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Convergence forte de marqueurs chromatiques type crabro avec morphologie frelon compatible : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "OUI/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 1,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur noire dominante.",
+            "Q2": "Motifs jaunes et orange etendus sur plusieurs segments abdominaux.",
+            "Q3": "Insecte de constitution robuste avec thorax massif et abdomen epais."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "motif": "Convergence forte de marqueurs chromatiques type crabro avec morphologie frelon compatible : espèce voisine probable.",
+          "confiance": 70,
+          "path": "INSECT",
+          "Q1": "OUI/HIGH/haute",
+          "Q2": "NON/HIGH/haute",
+          "Q3": "OUI/HIGH/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": true,
+          "tags": [
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 1,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax massif de couleur de fond noire brillante.",
+            "Q2": "Motifs orange et jaunes tres etendus visibles sur plusieurs segments de l abdomen.",
+            "Q3": "Insecte au thorax massif et aux proportions corporelles tres robustes."
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "file": "Case3_DistantStructure_correct_green_wants_guided_retake.jpeg",
+      "category": "Distant structure — verdict correct, wants a guided-retake advisory",
+      "ground_truth": "Distant object in a tree canopy, too small/far to assess as a nest. Green verdict is CORRECT and must stay green.",
+      "expected_verdict": "VERT",
+      "prohibited_verdicts": [
+        "ORANGE_PLAFOND",
+        "ORANGE_INSUFFISANCE"
+      ],
+      "verdict_distribution": {
+        "VERT": 8
+      },
+      "prohibited_hits": 0,
+      "tag_frequency": {},
+      "runs": [
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Piège végétal possible sans marqueur construit confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "WEAK",
+            "forme": "spherique",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Aucun insecte visible. Presence d'une forme arrondie distante accrochee dans un arbre."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Marqueurs structurels insuffisants pour une suspicion.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "WEAK",
+            "forme": "spherique",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Structure arrondie visible suspendue dans la frondaison d'un arbre, aucun insecte visible."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Piège végétal possible sans marqueur construit confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "WEAK",
+            "forme": "spherique",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Structure arrondie suspendue dans la frondaison d'un arbre, aucun insecte exploitable."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Piège végétal possible sans marqueur construit confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "WEAK",
+            "forme": "spherique",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Structure sphérique suspendue dans un arbre visible de très loin, aucun insecte discernable."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Piège végétal possible sans marqueur construit confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "WEAK",
+            "forme": "spherique",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Aucun insecte exploitable visible; presence d'une forme arrondie distante au sein d'un arbre."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Marqueurs structurels insuffisants pour une suspicion.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "WEAK",
+            "forme": "ovoide",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Structure arrondie suspendue dans les branches d'un arbre, vue a grande distance."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Marqueurs structurels insuffisants pour une suspicion.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "WEAK",
+            "forme": "ovoide",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Structure arrondie visible suspendue dans un arbre, sans aucun insecte exploitable."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Marqueurs structurels insuffisants pour une suspicion.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "WEAK",
+            "forme": "ovoide",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Une structure arrondie est visible suspendue dans un arbre, mais aucun insecte n'est observable."
+          },
+          "error": null
+        }
+      ]
+    }
+  ]
+}
