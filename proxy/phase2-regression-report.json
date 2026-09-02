@@ -1,0 +1,606 @@
+[
+  {
+    "file": "ref_image_01.jpg",
+    "expected": "ORANGE_PROBABLE_NON_CIBLE",
+    "path": "NATIVE",
+    "verdict_code": "ROUGE",
+    "reason_code": "NONE",
+    "validation_error": null,
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": true,
+        "justification": "Un insecte est clairement visible et exploitable sur la structure."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax de couleur noire dominante.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen principalement sombre avec extremite orangee.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "elements_visibles": [
+          "thorax_massif",
+          "abdomen_epais_non_elance",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Morphologie robuste avec thorax massif et abdomen epais.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    }
+  },
+  {
+    "file": "ref_image_02.jpg",
+    "expected": "ORANGE_PROBABLE_NON_CIBLE",
+    "path": "NATIVE",
+    "verdict_code": "ORANGE_PROBABLE_NON_CIBLE",
+    "reason_code": "CRABRO_LIKE_PROFILE",
+    "validation_error": null,
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un insecte en vue dorsale tres nette est visible sur une branche."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "description_visible": "Thorax et tete a coloration dominante rousse et brun-roux.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen a dominante jaune avec chevrons et motifs noirs alternes.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Morphologie non compatible avec les criteres cibles.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "thorax_roux",
+        "abdomen_jaune_dominant",
+        "abdomen_segmente_jaune_noir_alterne",
+        "tete_rousse_orangee"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    }
+  },
+  {
+    "file": "ref_image_03.jpg",
+    "expected": "ORANGE_PROBABLE_NON_CIBLE",
+    "path": "NATIVE",
+    "verdict_code": "ORANGE_PROBABLE_NON_CIBLE",
+    "reason_code": "NON_TARGET_HYMENOPTERA",
+    "validation_error": null,
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": true,
+        "justification": "Un insecte est visible pres de l'entree du nid."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": false,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "description_visible": "Thorax sombre et partiellement masque a l'entree du trou.",
+        "lisibilite": "non_lisible"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "MEDIUM",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen presentant des rayures transversales claires et sombres tres distinctes.",
+        "lisibilite": "moyenne"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "MEDIUM",
+        "elements_visibles": [],
+        "description_visible": "Silhouette fine et allongee.",
+        "lisibilite": "moyenne"
+      },
+      "incompatibilites_cible": [
+        "rayures_jaune_noir_vif",
+        "silhouette_fine_allongee"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    }
+  },
+  {
+    "file": "ref_image_04.jpg",
+    "expected": "ORANGE_PROBABLE_NON_CIBLE",
+    "path": "NATIVE",
+    "verdict_code": "ORANGE_PROBABLE_NON_CIBLE",
+    "reason_code": "NON_TARGET_HYMENOPTERA",
+    "validation_error": null,
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Presence d'individus nettement visibles sur une structure d'imeneopteres."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax noir a fond sombre avec ponctuations jaunes.",
+        "lisibilite": "moyenne"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "MEDIUM",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen dote d'un motif alterne de rayures jaunes et noires tres marquees.",
+        "lisibilite": "moyenne"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "MEDIUM",
+        "elements_visibles": [],
+        "description_visible": "Morphologie fine, elancee et grele.",
+        "lisibilite": "moyenne"
+      },
+      "incompatibilites_cible": [
+        "rayures_jaune_noir_vif",
+        "abdomen_jaune_dominant",
+        "silhouette_fine_allongee",
+        "proportions_greles_non_robustes"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    }
+  },
+  {
+    "file": "ref_image_05.jpg",
+    "expected": "ORANGE_PROBABLE_NON_CIBLE",
+    "path": "NATIVE",
+    "verdict_code": "ORANGE_PROBABLE_NON_CIBLE",
+    "reason_code": "NON_TARGET_HYMENOPTERA",
+    "validation_error": null,
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un insecte est clairement visible en vue dorsale sur la vegetation."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax a fond majoritairement noir bordé de bandes jaunes.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen présentant une alternation de bandes jaunes et noires sur plusieurs segments.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Morphologie fine et elancee avec pattes claires.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "rayures_jaune_noir_vif",
+        "silhouette_fine_allongee",
+        "proportions_greles_non_robustes"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    }
+  },
+  {
+    "file": "ref_image_06.jpg",
+    "expected": "ORANGE_PROBABLE_NON_CIBLE",
+    "path": "NATIVE",
+    "verdict_code": "ORANGE_PROBABLE_NON_CIBLE",
+    "reason_code": "CRABRO_LIKE_PROFILE",
+    "validation_error": null,
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un hymenoptere bien visible est presente sur de la vegetation."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "description_visible": "Thorax et tete a coloration rousse et brun-rouge dominante.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "jaune_vif",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen majoritairement jaune vif avec des motifs et taches noirs.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Abdomen a motif alterne jaune et noir dominant.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "thorax_roux",
+        "abdomen_jaune_dominant",
+        "tete_rousse_orangee"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    }
+  },
+  {
+    "file": "ref_image_07.jpg",
+    "expected": "ORANGE_PROBABLE_NON_CIBLE",
+    "path": "NATIVE",
+    "verdict_code": "ORANGE_PROBABLE_NON_CIBLE",
+    "reason_code": "CRABRO_LIKE_PROFILE",
+    "validation_error": null,
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Plusieurs hymenopteres sont clairement visibles sur le nichoir en bois."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON",
+        "confidence": "MEDIUM",
+        "description_visible": "Thorax de couleur brun-roux et non noir.",
+        "lisibilite": "moyenne"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "MEDIUM",
+        "fond_dominant": "mixte_jaune_noir_alterne",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen a plusieurs segments jaunes et motifs noirs alternes.",
+        "lisibilite": "moyenne"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "MEDIUM",
+        "elements_visibles": [],
+        "description_visible": "Morphologie d hymenoptere presentant un motif de rayures jaunes et noires.",
+        "lisibilite": "moyenne"
+      },
+      "incompatibilites_cible": [
+        "thorax_roux",
+        "tete_rousse_orangee",
+        "abdomen_segmente_jaune_noir_alterne"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    }
+  },
+  {
+    "file": "ref_image_08.jpg",
+    "expected": "ORANGE_PLAFOND",
+    "path": "NATIVE",
+    "verdict_code": "ORANGE_PLAFOND",
+    "reason_code": "STRUCTURE_STRONG_GLOBAL",
+    "validation_error": null,
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": false,
+        "structure_visible": true,
+        "justification": "Nid de papier cartonne visible fixe sur des troncs de bouleau, sans insecte exploitable pour analyse morphologique."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": false,
+        "vue_dorsale": false,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "fond_dominant": "non_lisible",
+        "zone_terminale_orangee": false,
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON_LISIBLE",
+        "confidence": "LOW",
+        "elements_visibles": [],
+        "description_visible": "aucun insecte exploitable",
+        "lisibilite": "non_lisible"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": true,
+        "forme_globale": "ovoide",
+        "texture_papier_carton": "OUI",
+        "strates_repetitives": "OUI",
+        "suspension_visible": "OUI",
+        "position": "arbre",
+        "qualite_structure": "HIGH",
+        "structure_strength": "STRONG",
+        "marqueurs_forts": [
+          "stratification_lamellaire",
+          "enveloppe_cartonnee_continue",
+          "entree_identifiable"
+        ],
+        "marqueurs_faibles": [
+          "jonction_nette_structure_support",
+          "repetition_couches_construites"
+        ],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    }
+  },
+  {
+    "file": "ref_image_09.jpg",
+    "expected": "ROUGE",
+    "path": "NATIVE",
+    "verdict_code": "ROUGE",
+    "reason_code": "NONE",
+    "validation_error": null,
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un individu hyménoptère net et bien visible est posé sur un support en plastique."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax de couleur noire dominante.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": true,
+        "description_visible": "Abdomen majoritairement noir avec un segment orange bien visible vers l'extremite.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "elements_visibles": [
+          "thorax_massif",
+          "abdomen_epais_non_elance",
+          "proportions_compactes_robustes"
+        ],
+        "description_visible": "Thorax massif et abdomen trapu aux proportions robustes.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    }
+  },
+  {
+    "file": "ref_image_10.jpg",
+    "expected": "ORANGE_PROBABLE_NON_CIBLE",
+    "path": "NATIVE",
+    "verdict_code": "ORANGE_PROBABLE_NON_CIBLE",
+    "reason_code": "NON_TARGET_HYMENOPTERA",
+    "validation_error": null,
+    "raw_observation": {
+      "etape_1_declencheur": {
+        "insecte_exploitable": true,
+        "structure_visible": false,
+        "justification": "Un insecte est clairement visible en vue dorsale posé sur des fleurs."
+      },
+      "etape_2_individu": {
+        "individu_analyse_identifiable": true,
+        "vue_dorsale": true,
+        "sur_le_dos": false
+      },
+      "Q1_thorax": {
+        "reponse": "OUI",
+        "confidence": "HIGH",
+        "description_visible": "Thorax de couleur majoritairement noire avec de fines bandes jaunes marginales.",
+        "lisibilite": "haute"
+      },
+      "Q2_abdomen": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "fond_dominant": "sombre",
+        "zone_terminale_orangee": false,
+        "description_visible": "Abdomen présentant des rayures transversales jaunes continues répétées sur chaque segment.",
+        "lisibilite": "haute"
+      },
+      "Q3_morphologie": {
+        "reponse": "NON",
+        "confidence": "HIGH",
+        "elements_visibles": [],
+        "description_visible": "Silhouette fine et allongée avec des pattes grêles.",
+        "lisibilite": "haute"
+      },
+      "incompatibilites_cible": [
+        "rayures_jaune_noir_vif",
+        "silhouette_fine_allongee",
+        "proportions_greles_non_robustes"
+      ],
+      "structure": {
+        "evaluee": false,
+        "forme_globale": "non_lisible",
+        "texture_papier_carton": "NON_LISIBLE",
+        "strates_repetitives": "NON_LISIBLE",
+        "suspension_visible": "NON_LISIBLE",
+        "position": "non_lisible",
+        "qualite_structure": "LOW",
+        "structure_strength": "WEAK",
+        "marqueurs_forts": [],
+        "marqueurs_faibles": [],
+        "indices_artificiels": [],
+        "pieges_vegetaux_possibles": []
+      }
+    }
+  }
+]
