@@ -3,18 +3,26 @@
 // V2.1 : compatible BEEALERT CORE V13.5+ MES-1 / prompt V2.1
 // V2.2 (M1) : modèle cible aligné sur les tests de référence — gemini-3.6-flash (GA, stable,
 //             non "-latest") — confirmé via la documentation officielle Google AI le 2026-08.
-//
-// SÉCURITÉ : La clé GEMINI_API_KEY est injectée via EAS Secrets → app.config.js → expo-constants.
-// En production, envisager un proxy Cloudflare identique à l'architecture OpenAI existante.
+// V2.3 (M3, Phase 1) : appel direct à Gemini remplacé par le proxy serveur (cf. proxy/) —
+//             la clé Gemini reelle ne quitte plus jamais le serveur. Meme convention
+//             PROXY_URL/PROXY_SECRET/X-App-Secret que l'ancien proxy OpenAI (visionApi.js).
+// V2.4 (M3, Phase 3) : envoie desormais ENGINE.protocole en tant qu'en-tete X-Protocol-Bundle
+//             sur chaque requete. Le proxy rejette (409) toute requete dont le bundle ne
+//             correspond pas exactement a son propre ACTIVE_BUNDLE — l'app et le proxy ne
+//             peuvent plus deriver silencieusement l'un de l'autre. GEMINI_MODEL reste exporte
+//             comme etiquette de reference ; la selection reelle du modele se fait cote proxy,
+//             derivee du bundle (cf. proxy/allowlist.js).
 
-import { GEMINI_API_KEY } from '../config/env';
+import { PROXY_URL, PROXY_SECRET } from '../config/env';
 import { VISION_SYSTEM_PROMPT, VISION_USER_PROMPT } from '../core/prompts';
 import { validateObservation } from '../core/schema';
 import { extractAndParseJSON } from '../utils/jsonParser';
+import { ENGINE } from '../constants/branding';
 
 // Identifiant stable GA (pas d'alias "-latest") — cf. docs Gemini API, section "Versions".
+// Etiquette de reference uniquement ; la valeur qui compte reellement est ENGINE.protocole
+// (src/constants/branding.js), verifiee par le proxy a chaque requete.
 export const GEMINI_MODEL = 'gemini-3.6-flash';
-const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 const TIMEOUT_MS = 35000;
 const MAX_RETRIES = 2;
 
@@ -35,17 +43,21 @@ async function fetchWithTimeout(url, options, timeoutMs) {
 }
 
 async function callGeminiVisionAPI(base64Image, retryCount = 0) {
-  if (!GEMINI_API_KEY) {
-    throw new Error('Clé API Gemini non configurée (GEMINI_API_KEY manquante)');
+  if (!PROXY_URL) {
+    throw new Error('Proxy non configuré');
   }
 
-  const url = `${GEMINI_API_BASE}/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+  const url = `${PROXY_URL}/api/analyze`;
 
   let response;
   try {
     response = await fetchWithTimeout(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-App-Secret': PROXY_SECRET,
+        'X-Protocol-Bundle': ENGINE.protocole,
+      },
       body: JSON.stringify({
         system_instruction: {
           parts: [{ text: VISION_SYSTEM_PROMPT }],
@@ -71,7 +83,7 @@ async function callGeminiVisionAPI(base64Image, retryCount = 0) {
       }),
     }, TIMEOUT_MS);
   } catch (e) {
-    if (retryCount < MAX_RETRIES && !e.message.includes('Clé API')) {
+    if (retryCount < MAX_RETRIES && !e.message.includes('Proxy non configuré')) {
       await new Promise(r => setTimeout(r, 1000 * (retryCount + 1)));
       return callGeminiVisionAPI(base64Image, retryCount + 1);
     }
@@ -86,8 +98,16 @@ async function callGeminiVisionAPI(base64Image, retryCount = 0) {
     throw new Error('Trop de requêtes Gemini — réessayez dans quelques secondes');
   }
 
-  if (response.status === 403 || response.status === 401) {
-    throw new Error('Clé API Gemini invalide ou accès refusé');
+  if (response.status === 401) {
+    throw new Error('Accès proxy refusé');
+  }
+
+  if (response.status === 409) {
+    throw new Error('Application obsolète — une mise à jour est requise pour continuer');
+  }
+
+  if (response.status === 403) {
+    throw new Error('Accès Gemini refusé (clé invalide côté serveur)');
   }
 
   if (!response.ok) {
