@@ -125,6 +125,7 @@ texture_papier_carton : OUI si surface mate fibreuse grise/beige cartonnee homog
 strates_repetitives : OUI si couches ou ondulations paralleles visibles et repetees (NON si surface uniforme).
 REGLE IMPORTANTE : texture_papier_carton + strates_repetitives ne suffisent JAMAIS seuls. Il faut une organisation construite repetitive avec irregularite organique compatible.
 structure_strength : STRONG (construite, coherente, organisation claire visible — nid probable) | MEDIUM (elements partiels, zones d'ombre, confirmation necessaire) | WEAK (doute important, structure ambigue ou confusion possible).
+trop_distante_pour_evaluer : true UNIQUEMENT si une forme/structure construite est visible mais occupe une portion tres reduite du cadre (vue de tres loin, faible resolution, surface et details non lisibles) au point que texture_papier_carton, strates_repetitives et les marqueurs ne peuvent pas etre juges de facon fiable. false sinon. Ce champ NE CHANGE JAMAIS le verdict : il sert uniquement a suggerer une reprise plus proche.
 Marqueurs forts : stratification_lamellaire, enveloppe_cartonnee_continue, entree_identifiable.
 Marqueurs faibles : jonction_nette_structure_support, repetition_couches_construites.
 
@@ -139,6 +140,7 @@ Pour les champs structure, utilise EXACTEMENT ces valeurs fixes :
   evaluee = false, forme_globale = "non_lisible", texture_papier_carton = "NON_LISIBLE",
   strates_repetitives = "NON_LISIBLE", suspension_visible = "NON_LISIBLE",
   position = "non_lisible", qualite_structure = "LOW", structure_strength = "WEAK",
+  trop_distante_pour_evaluer = false,
   marqueurs_forts = [], marqueurs_faibles = [], indices_artificiels = [], pieges_vegetaux_possibles = []
 
 MODE STRUCTURE (insecte_exploitable = false) :
@@ -208,6 +210,7 @@ Reponds UNIQUEMENT avec le JSON suivant, sans aucun texte avant ou apres :
     "position": "arbre|toiture|haie|sol|cavite|support_artificiel|non_lisible",
     "qualite_structure": "LOW|MEDIUM|HIGH",
     "structure_strength": "STRONG|MEDIUM|WEAK",
+    "trop_distante_pour_evaluer": false,
     "marqueurs_forts": [],
     "marqueurs_faibles": [],
     "indices_artificiels": [],

@@ -1,5 +1,10 @@
 // APISAVE - MOTEUR DE DECISION (LE JUGE) - JavaScript
-// BEEALERT CORE V13.5+ MES-1 — Version 1.11 (M2) — M2 BASELINE
+// BEEALERT CORE V13.5+ MES-1 — Version 1.13 (post-M2)
+//
+// V1.13 (post-M2, Item 3 — distant-structure guided retake, client observation 2026-09-02) :
+//   juger() attache un champ `suggestion` (texte de reprise "photo plus proche") lorsqu'une
+//   structure est visible mais marquée trop_distante_pour_evaluer et que le verdict structure
+//   reste VERT. Aucun changement de verdict ni de reason_code — purement additif.
 //
 // V1.7 : verdict ORANGE_PROBABLE_NON_CIBLE pour espèces voisines évidentes
 // V1.8 : champs confidence (Q1/Q2/Q3) — LOW NON → NON_LISIBLE (anti-faux-négatif)
@@ -450,6 +455,18 @@ export function juger(obs) {
   const verdict = insecte
     ? jugerMorphologie(obs, analyseId, timestamp)
     : jugerStructure(obs, analyseId, timestamp);
+
+  // V1.13 (post-M2, Item 3) — structure visible mais trop petite/lointaine pour être évaluée :
+  // on attache une suggestion de reprise (photo plus proche) SANS jamais changer le verdict.
+  // Le verdict ne passe à l'orange que si de vrais marqueurs structurels suspects sont détectés,
+  // exactement comme aujourd'hui.
+  if (!insecte
+      && obs.structure?.trop_distante_pour_evaluer === true
+      && obs.structure?.evaluee === true
+      && verdict.verdict_code === 'VERT') {
+    verdict.suggestion =
+      'Une structure éloignée a été détectée. Rapprochez-vous ou zoomez pour une analyse plus précise.';
+  }
 
   // V1.8 : calibration du score confiance affiché (insecte uniquement)
   if (insecte && obs.Q1_thorax.confidence) {

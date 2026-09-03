@@ -34,7 +34,7 @@ export default function VerdictCard({ verdict, onNewAnalysis, onSecondPhoto, onC
 
   const {
     verdict_code, confiance, motif_principal, reason_code,
-    action_recommandee, avis,
+    action_recommandee, avis, suggestion,
   } = verdict;
 
   const color = getVerdictColor(verdict_code);
@@ -61,6 +61,14 @@ export default function VerdictCard({ verdict, onNewAnalysis, onSecondPhoto, onC
       <View style={s.motifBox}>
         <Text style={s.motifText}>{motif_principal}</Text>
       </View>
+
+      {/* Suggestion de reprise (structure lointaine) — n'altère pas le verdict */}
+      {suggestion && (
+        <View style={s.suggestionRow}>
+          <Feather name="zoom-in" size={14} color={COLORS.primaryDark} />
+          <Text style={s.suggestionText}>{suggestion}</Text>
+        </View>
+      )}
 
       {/* Indication */}
       {reason_code && reason_code !== 'NONE' && (
@@ -202,6 +210,24 @@ const s = StyleSheet.create({
     gap: 8,
     marginBottom: 10,
     paddingHorizontal: 4,
+  },
+  suggestionRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+    marginBottom: 10,
+    backgroundColor: COLORS.recoBackground,
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: COLORS.recoBorder,
+  },
+  suggestionText: {
+    color: COLORS.primaryDark,
+    fontSize: 13,
+    flex: 1,
+    lineHeight: 19,
+    marginTop: 1,
   },
   reasonText: {
     color: COLORS.textMuted,
