@@ -93,15 +93,30 @@ check('Wasp/Polistes, supporting tags only (0 core) -> wasp rule does not fire, 
   }),
   'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
 
-// 5. European hornet, single marker, HIGH confidence Q1+Q2 -> ORANGE_PROBABLE_NON_CIBLE (tightened threshold)
-check('European hornet, 1 marker + high Q1/Q2 confidence -> ORANGE_PROBABLE_NON_CIBLE (was ORANGE_INSUFFISANCE before M2)',
+// 5. V1.14 (post-M2, Item 1): single chromatic marker is NO LONGER enough to route to
+//    non-target, even at HIGH Q1/Q2 confidence -> the one-marker shortcut was removed
+//    (it produced false negatives on real Asian hornets whose orange face Gemini misread as
+//    tete_rousse_orangee). Now needs >= 2 markers. Falls through to a retake instead.
+check('European hornet, 1 marker + high Q1/Q2 confidence -> ORANGE_INSUFFISANCE (V1.14: one-marker shortcut removed)',
   makeInsectObs({
     Q1_thorax: { reponse: 'NON', confidence: 'HIGH', description_visible: 'thorax roux', lisibilite: 'haute' },
     Q2_abdomen: { reponse: 'NON', confidence: 'HIGH', fond_dominant: 'orange', zone_terminale_orangee: false, description_visible: 'abdomen roux', lisibilite: 'haute' },
     Q3_morphologie: { reponse: 'OUI', confidence: 'HIGH', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], incompatibilites_visibles: [], description_visible: 'robuste', lisibilite: 'haute' },
     incompatibilites_cible: ['thorax_roux'],
   }),
-  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
+  'ORANGE_INSUFFISANCE', 'RETAKE_PROFILE');
+
+// 5b. V1.14 (post-M2, Item 1): velutina counter-signal. Dark thorax (Q1=OUI) + terminal
+//     orange band (zone_terminale_orangee=true) is the TARGET's own signature — it must
+//     neutralise the CRABRO_LIKE_PROFILE route even with 3+ chromatic markers present.
+check('Velutina counter-signal: Q1=OUI + zone_terminale_orangee + 3 crabro markers -> NOT crabro route',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'OUI', confidence: 'HIGH', description_visible: 'thorax sombre', lisibilite: 'haute' },
+    Q2_abdomen: { reponse: 'NON', confidence: 'HIGH', fond_dominant: 'mixte_jaune_noir_alterne', zone_terminale_orangee: true, description_visible: 'bande orange terminale', lisibilite: 'haute' },
+    Q3_morphologie: { reponse: 'NON', confidence: 'HIGH', elements_visibles: [], description_visible: 'non confirmee', lisibilite: 'haute' },
+    incompatibilites_cible: ['abdomen_segmente_jaune_noir_alterne', 'rayures_jaune_noir_vif', 'tete_rousse_orangee'],
+  }),
+  'ORANGE_INSUFFISANCE', 'RETAKE_ABDOMEN');
 
 // 6. European hornet, single marker, but LOW/MEDIUM confidence -> should NOT trigger the tightened
 //    threshold (confirms we didn't over-loosen) -> falls through to ORANGE_INSUFFISANCE
@@ -188,6 +203,76 @@ try {
 } catch (e) {
   console.log('PASS — schema correctly rejects old split value "jaune_noir_alterne"');
   pass++;
+}
+
+// 9. V1.14 (post-M2, Item 1): tete_rousse_orangee WITHOUT thorax_roux does not count toward
+//    antiCrabroHit -> 3 tags where one is an isolated tete_rousse_orangee behaves as 2.
+check('Isolated tete_rousse_orangee (no thorax_roux): 3 tags incl. it -> falls to retake, not crabro route',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'OUI', confidence: 'MEDIUM', description_visible: 'thorax sombre', lisibilite: 'moyenne' },
+    Q2_abdomen: { reponse: 'NON', confidence: 'MEDIUM', fond_dominant: 'mixte_jaune_noir_alterne', zone_terminale_orangee: false, description_visible: 'bandes', lisibilite: 'moyenne' },
+    Q3_morphologie: { reponse: 'NON', confidence: 'MEDIUM', elements_visibles: [], description_visible: 'non confirmee', lisibilite: 'moyenne' },
+    incompatibilites_cible: ['tete_rousse_orangee', 'rayures_jaune_noir_vif', 'abdomen_segmente_jaune_noir_alterne'],
+  }),
+  'ORANGE_INSUFFISANCE', 'RETAKE_SHARPER');
+
+// 9b. Control: same 3 tags but WITH thorax_roux present -> tete_rousse_orangee counts, crabro route fires
+check('tete_rousse_orangee + thorax_roux + 1 more (Q1=NON,Q2=NON,Q3=NON) -> crabro route (>=3 real markers)',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'NON', confidence: 'HIGH', description_visible: 'roux', lisibilite: 'haute' },
+    Q2_abdomen: { reponse: 'NON', confidence: 'HIGH', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'jaune', lisibilite: 'haute' },
+    Q3_morphologie: { reponse: 'NON', confidence: 'HIGH', elements_visibles: [], description_visible: 'non conforme', lisibilite: 'haute' },
+    incompatibilites_cible: ['tete_rousse_orangee', 'thorax_roux', 'rayures_jaune_noir_vif'],
+  }),
+  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
+
+// 10. V1.13 (post-M2, Item 3): distant structure, no strong nest markers, model rated MEDIUM
+//     -> verdict stays VERT with a `suggestion` attached (never flips to orange).
+{
+  const distantObs = {
+    etape_1_declencheur: { insecte_exploitable: false, structure_visible: true, justification: 'forme lointaine' },
+    etape_2_individu: { individu_analyse_identifiable: false, vue_dorsale: false, sur_le_dos: false },
+    Q1_thorax: { reponse: 'NON_LISIBLE', confidence: 'LOW', description_visible: 'n/a', lisibilite: 'non_lisible' },
+    Q2_abdomen: { reponse: 'NON_LISIBLE', confidence: 'LOW', fond_dominant: 'non_lisible', zone_terminale_orangee: false, description_visible: 'n/a', lisibilite: 'non_lisible' },
+    Q3_morphologie: { reponse: 'NON_LISIBLE', confidence: 'LOW', elements_visibles: [], description_visible: 'n/a', lisibilite: 'non_lisible' },
+    incompatibilites_cible: [],
+    structure: {
+      evaluee: true, forme_globale: 'spherique', texture_papier_carton: 'NON_LISIBLE',
+      strates_repetitives: 'NON_LISIBLE', suspension_visible: 'NON_LISIBLE', position: 'arbre',
+      qualite_structure: 'LOW', structure_strength: 'MEDIUM', trop_distante_pour_evaluer: true,
+      marqueurs_forts: [], marqueurs_faibles: [], indices_artificiels: [], pieges_vegetaux_possibles: [],
+    },
+  };
+  validateObservation(distantObs);
+  const r = juger(distantObs);
+  const ok = r.verdict_code === 'VERT' && typeof r.suggestion === 'string' && r.suggestion.length > 0;
+  console.log(`${ok ? 'PASS' : 'FAIL'} — Distant structure (MEDIUM, no strong markers) -> VERT + suggestion`);
+  console.log(`   got: ${r.verdict_code} / suggestion=${JSON.stringify(r.suggestion)}`);
+  if (ok) pass++; else fail++;
+}
+
+// 10b. Control: a real nest (strong marker) with the distant flag still -> ORANGE_PLAFOND, no downgrade
+{
+  const nestObs = {
+    etape_1_declencheur: { insecte_exploitable: false, structure_visible: true, justification: 'nid' },
+    etape_2_individu: { individu_analyse_identifiable: false, vue_dorsale: false, sur_le_dos: false },
+    Q1_thorax: { reponse: 'NON_LISIBLE', confidence: 'LOW', description_visible: 'n/a', lisibilite: 'non_lisible' },
+    Q2_abdomen: { reponse: 'NON_LISIBLE', confidence: 'LOW', fond_dominant: 'non_lisible', zone_terminale_orangee: false, description_visible: 'n/a', lisibilite: 'non_lisible' },
+    Q3_morphologie: { reponse: 'NON_LISIBLE', confidence: 'LOW', elements_visibles: [], description_visible: 'n/a', lisibilite: 'non_lisible' },
+    incompatibilites_cible: [],
+    structure: {
+      evaluee: true, forme_globale: 'ovoide', texture_papier_carton: 'OUI',
+      strates_repetitives: 'OUI', suspension_visible: 'OUI', position: 'arbre',
+      qualite_structure: 'HIGH', structure_strength: 'STRONG', trop_distante_pour_evaluer: true,
+      marqueurs_forts: ['enveloppe_cartonnee_continue'], marqueurs_faibles: [], indices_artificiels: [], pieges_vegetaux_possibles: [],
+    },
+  };
+  validateObservation(nestObs);
+  const r = juger(nestObs);
+  const ok = r.verdict_code === 'ORANGE_PLAFOND';
+  console.log(`${ok ? 'PASS' : 'FAIL'} — Distant flag but strong nest markers -> ORANGE_PLAFOND (no downgrade)`);
+  console.log(`   got: ${r.verdict_code} / ${r.reason_code}`);
+  if (ok) pass++; else fail++;
 }
 
 console.log('\n' + '='.repeat(100));

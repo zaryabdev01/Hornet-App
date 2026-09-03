@@ -1,10 +1,23 @@
 // APISAVE - MOTEUR DE DECISION (LE JUGE) - JavaScript
-// BEEALERT CORE V13.5+ MES-1 — Version 1.13 (post-M2)
+// BEEALERT CORE V13.5+ MES-1 — Version 1.14 (post-M2)
+//
+// V1.14 (post-M2, Item 1 — faux négatifs frelon asiatique -> crabro, client obs. 2026-09-02) :
+//   Trois garde-fous sur la route CRABRO_LIKE_PROFILE, validés avant/après par échantillonnage
+//   répété (test_images_5/regression/) contre les cas confirmés ROUGE et frelon européen :
+//   - Contre-signal velutina : zone_terminale_orangee = true + q1 = OUI (abdomen sombre à bande
+//     orange terminale + thorax sombre = signature cible) -> ORANGE_INSUFFISANCE, pas non-cible.
+//   - Retrait du raccourci "1 seul marqueur chromatique suffit si Q1+Q2 HIGH" -> >= 2 marqueurs
+//     distincts requis (ou >= 3 sans condition de certitude). Conséquence voulue : un cas à
+//     marqueur unique redemande une seconde photo au lieu d'être classé « non-cible probable ».
+//   - tete_rousse_orangee isolé (sans thorax_roux) ne compte plus dans antiCrabroHit.
+//   Le vrai correctif de fond est côté prompt (prompts.js V2.6). Le Juge ne fabrique jamais de ROUGE.
 //
 // V1.13 (post-M2, Item 3 — distant-structure guided retake, client observation 2026-09-02) :
-//   juger() attache un champ `suggestion` (texte de reprise "photo plus proche") lorsqu'une
-//   structure est visible mais marquée trop_distante_pour_evaluer et que le verdict structure
-//   reste VERT. Aucun changement de verdict ni de reason_code — purement additif.
+//   - jugerStructure() : si structure.trop_distante_pour_evaluer = true et qu'aucun marqueur de
+//     nid fort n'est présent, le verdict reste VERT même si structure_strength est lu "MEDIUM"
+//     (le champ ne doit jamais faire basculer un objet lointain non confirmé en orange).
+//   - juger() attache un champ `suggestion` (reprise "photo plus proche") sur ce VERT.
+//   Aucun changement de verdict la où de vrais marqueurs structurels existent.
 //
 // V1.7 : verdict ORANGE_PROBABLE_NON_CIBLE pour espèces voisines évidentes
 // V1.8 : champs confidence (Q1/Q2/Q3) — LOW NON → NON_LISIBLE (anti-faux-négatif)
@@ -162,6 +175,29 @@ function normalizeIncompat(rawIncompat) {
 function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, nbMorpho, nbTotal, antiCrabroHit) {
   const types = new Set(incompat.map(i => i.type));
 
+  // V1.14 (post-M2, Item 1) — contre-signal velutina. Un abdomen sombre portant une bande
+  // orange terminale (zone_terminale_orangee = true) avec un thorax lu comme sombre/compatible
+  // (q1 = OUI) est la signature de la CIBLE, pas de crabro (dont l'abdomen est jaune à bandes
+  // sombres réparties, sans zone orange terminale distincte). Quand ce contre-signal est présent,
+  // la route CRABRO_LIKE_PROFILE est neutralisée : on ne classe pas un tel individu en « espèce
+  // voisine probable ». ROUGE reste inatteignable ici (exige Q1+Q2+Q3 = OUI en amont) ; le repli
+  // naturel est ORANGE_INSUFFISANCE (demande de seconde photo), verdict qui échoue du côté sûr.
+  // Sans effet sur les vrais crabro du jeu de référence : ils sont tous lus zone_terminale_orangee
+  // = false. Voir test_images_5/regression/*.md.
+  const velutinaCounterSignal =
+    obs?.Q2_abdomen?.zone_terminale_orangee === true && q1 === 'OUI';
+
+  // V1.14 — quand le contre-signal velutina est présent et que l'abdomen n'est PAS déjà lu OUI,
+  // on ne descend dans aucune branche non-cible ni VERT : un individu qui pourrait être la cible,
+  // dont le thorax est sombre et l'extrémité abdominale orange, mais dont le motif abdominal est
+  // lu de façon ambiguë, doit repartir sur une seconde photo — jamais « rien de suspect » ni
+  // « espèce voisine probable ». Échoue du côté sûr.
+  if (velutinaCounterSignal && q2 !== 'OUI') {
+    return formatVerdict('ORANGE_INSUFFISANCE',
+      'Signature possible de frelon asiatique (thorax sombre, extrémité abdominale orange) mais lecture du motif abdominal ambiguë : seconde photo requise.',
+      surLeDos ? 'RETAKE_DORSAL_VIEW' : 'RETAKE_ABDOMEN', analyseId, timestamp);
+  }
+
   // V1.11 (M2, field-test correction 2026-08-19, Findings Photo 2/3) — évidence chromatique
   // crabro très forte : peut atteindre la route non-cible même si Q3 = NON, avec Q2 = NON et
   // >= 3 marqueurs crabro distincts. Ne dépend plus de Q1 : Q1 (couleur du thorax) n'est pas
@@ -185,10 +221,13 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
   }
 
   // V1.8.3 — ORANGE_PROBABLE_NON_CIBLE : 3 hits crabro OU 2 hits + certitude haute Q1+Q2
-  // V1.9 (M2) — seuil assoupli : 1 seul hit suffit si Q1+Q2 sont HIGH. Un frelon européen
-  // clairement identifié (thorax/abdomen roux lus avec certitude) ne doit jamais retomber sur
-  // une simple demande de seconde photo faute d'un deuxième marqueur chromatique — il doit
-  // atteindre la route non-cible de façon fiable, dès qu'un marqueur net est présent.
+  // V1.9 (M2) — seuil assoupli : 1 seul hit suffisait si Q1+Q2 sont HIGH.
+  // V1.14 (post-M2, Item 1) — ce raccourci "1 seul marqueur" est retiré : un unique marqueur
+  // chromatique, même lu avec haute certitude, ne suffit plus à router en « espèce voisine
+  // probable » (il produisait des faux négatifs sur frelon asiatique dont Gemini lisait par
+  // erreur la face jaune-orange en tete_rousse_orangee). Il faut désormais >= 2 marqueurs
+  // distincts avec certitude haute, ou >= 3 sans condition de certitude. Les vrais crabro du
+  // jeu de référence produisent 3-4 marqueurs : ils ne sont pas affectés.
   const isCertitudeHaute =
     obs?.Q1_thorax?.confidence === 'HIGH' && obs?.Q2_abdomen?.confidence === 'HIGH';
 
@@ -197,7 +236,7 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
   // alterné jaune/noir, incompatible avec velutina) ; ROUGE reste structurellement inatteignable
   // ici puisqu'il exige Q1 + Q2 + Q3 = OUI et que Q2 = NON est requis pour entrer ce bloc.
   if ((q3 === 'OUI' || q3 === 'NON_LISIBLE') && q2 === 'NON' && nbMorpho === 0) {
-    if (antiCrabroHit >= 3 || (antiCrabroHit >= 1 && isCertitudeHaute)) {
+    if (antiCrabroHit >= 3 || (antiCrabroHit >= 2 && isCertitudeHaute)) {
       return formatVerdict(
         'ORANGE_PROBABLE_NON_CIBLE',
         'Convergence forte de marqueurs chromatiques type crabro avec morphologie frelon compatible : espèce voisine probable.',
@@ -232,7 +271,7 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
     // certitude haute requise), la route non-cible doit être atteinte directement plutôt que de
     // redemander systématiquement une seconde photo (Finding Photo 3 : même spécimen, deux prises,
     // verdict instable — la variance venait de ce palier manquant, pas d'un vrai retake nécessaire).
-    if (nbMorpho === 0 && (antiCrabroHit >= 3 || (antiCrabroHit >= 1 && isCertitudeHaute))) {
+    if (nbMorpho === 0 && (antiCrabroHit >= 3 || (antiCrabroHit >= 2 && isCertitudeHaute))) {
       return formatVerdict(
         'ORANGE_PROBABLE_NON_CIBLE',
         'Convergence forte de marqueurs chromatiques type crabro avec morphologie non confirmée : espèce voisine probable.',
@@ -245,9 +284,14 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
         'Morphologie déviante mais profil chromatique crabro : seconde photo requise pour exclure une variante velutina atypique.',
         reason, analyseId, timestamp);
     }
-    if (nbTotal >= 2) {
+    // V1.14 (post-M2, Item 1) — le dégagement VERT "≥2 incompatibilités" exige désormais au
+    // moins une incompatibilité MORPHOLOGIQUE. Des marqueurs uniquement chromatiques, sur un
+    // abdomen dont le motif n'a pas pu être lu (Q2 = NON, Q3 = NON), ne suffisent pas à
+    // conclure « rien de suspect » : on redemande une photo plutôt que de dégager en VERT
+    // (évite qu'un frelon asiatique atypique/flou soit blanchi sur la seule couleur).
+    if (nbTotal >= 2 && nbMorpho >= 1) {
       return formatVerdict('VERT',
-        '>=2 incompatibilités claires avec Vespa velutina.',
+        '>=2 incompatibilités claires (dont morphologique) avec Vespa velutina.',
         'NONE', analyseId, timestamp);
     }
   }
@@ -284,7 +328,14 @@ function jugerMorphologie(obs, analyseId, timestamp) {
   const nbMorpho = incompat.filter(i => i.categorie === 'morphologique').length;
   const nbTotal = incompat.length;
   const types = new Set(incompat.map(i => i.type));
-  const antiCrabroHit = [...ANTI_CRABRO_TYPES].filter(t => types.has(t)).length;
+  let antiCrabroHit = [...ANTI_CRABRO_TYPES].filter(t => types.has(t)).length;
+  // V1.14 (post-M2, Item 1) — un « tete_rousse_orangee » isolé (sans thorax_roux) n'est pas un
+  // signal crabro fiable : le frelon europeen presente tete ET thorax roux ensemble, tandis que
+  // la cible peut avoir une face jaune-orange seule que Gemini lit parfois « rousse ». On ne le
+  // compte donc pas dans antiCrabroHit s'il est le seul marqueur de couleur tete/thorax.
+  if (types.has('tete_rousse_orangee') && !types.has('thorax_roux')) {
+    antiCrabroHit -= 1;
+  }
 
   // V1.8.3 — court-circuits morphologiques absolus (certitude haute requise)
   if (q3 === 'NON' && q3conf === 'HIGH' && types.has('insecte_taille_minuscule_non_frelon')) {
@@ -378,6 +429,17 @@ function jugerStructure(obs, analyseId, timestamp) {
   // (ex: nid construit contre une gouttière) ne suffit plus seul à écarter la structure.
   const hasStrongNestMarkers = forts >= 1 || texture === 'OUI' || strates === 'OUI' || strength === 'STRONG';
   const artificialOnly = s.indices_artificiels.length > 1 && !hasStrongNestMarkers;
+
+  // V1.13 (post-M2, Item 3) — structure visible mais trop petite/lointaine pour être évaluée :
+  // tant qu'aucun marqueur de nid fort n'est présent, le verdict reste VERT (la suggestion de
+  // reprise « photo plus proche » est ajoutée par juger()). Empêche qu'une lecture de force
+  // « MEDIUM » incertaine sur un objet lointain bascule en orange — le verdict n'est censé
+  // devenir orange que si de vrais marqueurs structurels suspects sont détectés.
+  if (s.trop_distante_pour_evaluer === true && !hasStrongNestMarkers) {
+    return formatVerdict('VERT',
+      'Structure trop éloignée pour une évaluation fiable — aucun marqueur de nid confirmé.',
+      'NONE', analyseId, timestamp);
+  }
 
   if (artificialOnly) {
     return formatVerdict('VERT',
