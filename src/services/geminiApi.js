@@ -3,34 +3,34 @@
 // V2.1 : compatible BEEALERT CORE V13.5+ MES-1 / prompt V2.1
 // V2.2 (M1) : modèle cible aligné sur les tests de référence — gemini-3.6-flash (GA, stable,
 //             non "-latest") — confirmé via la documentation officielle Google AI le 2026-08.
-// V2.3 (M3, Phase 1) : appel direct à Gemini remplacé par le proxy serveur (cf. proxy/) —
-//             la clé Gemini reelle ne quitte plus jamais le serveur. Meme convention
-//             PROXY_URL/PROXY_SECRET/X-App-Secret que l'ancien proxy OpenAI (visionApi.js).
-// V2.4 (M3, Phase 3) : envoie desormais ENGINE.protocole en tant qu'en-tete X-Protocol-Bundle
-//             sur chaque requete. Le proxy rejette (409) toute requete dont le bundle ne
-//             correspond pas exactement a son propre ACTIVE_BUNDLE.
-// V2.6 (post-M2, Item 2 — 503 handling + latency, client observation 2026-09-02 ;
-//             fusionné avec la version proxy V2.4) :
+// V2.6 (post-M2, Item 2 — 503 handling + latency, client observation 2026-09-02) :
 //   - Politique de retry unifiée : 429 + 500/502/503/504 + erreurs réseau sont désormais
 //     toutes retentées, avec backoff exponentiel + jitter complet et respect de l'en-tête
-//     Retry-After (auparavant : 503 non retenté du tout ; 429 et réseau en backoff linéaire
-//     sans jitter). Budget de retry plafonné (RETRY_BUDGET_MS). Le 409 (bundle obsolète) et
-//     le 401/403 (accès) ne sont JAMAIS retentés.
-//   - Instrumentation par étape : chaque appel logge un récapitulatif [ApiSave][timing]
-//     (fetch par tentative, attente de backoff, parsing, validation, taille de requête) et
-//     l'expose via getLastAnalysisTimings() — la mesure par étape demandée par le client.
+//     Retry-After (auparavant : 503 non retenté du tout ; backoff linéaire sans jitter).
+//     Budget de retry plafonné (RETRY_BUDGET_MS).
+//   - Instrumentation par étape : chaque appel logge [ApiSave][timing] (fetch par tentative,
+//     attente de backoff, parsing, validation, taille de requête) et l'expose via
+//     getLastAnalysisTimings() — la mesure par étape demandée par le client.
 //   - Le downscaling de l'image se fait en amont (HomeScreen / useOfflineSync) via imagePrep.js.
+// V2.7 (double mode proxy / direct) :
+//   - Si PROXY_URL est configuré (build M3), l'appel passe par le proxy serveur
+//     (${PROXY_URL}/api/analyze, en-têtes X-App-Secret + X-Protocol-Bundle, 401/403/409
+//     gérés côté proxy) — la clé Gemini ne quitte jamais le serveur.
+//   - Sinon (PROXY_URL absent), repli sur l'appel direct à Gemini avec GEMINI_API_KEY, comme
+//     avant M3. Aucune modification de code n'est nécessaire pour basculer : il suffit de
+//     définir PROXY_URL / PROXY_SECRET au build une fois le proxy déployé.
 
-import { PROXY_URL, PROXY_SECRET } from '../config/env';
+import { PROXY_URL, PROXY_SECRET, GEMINI_API_KEY } from '../config/env';
 import { VISION_SYSTEM_PROMPT, VISION_USER_PROMPT } from '../core/prompts';
 import { validateObservation } from '../core/schema';
 import { extractAndParseJSON } from '../utils/jsonParser';
 import { ENGINE } from '../constants/branding';
 
 // Identifiant stable GA (pas d'alias "-latest") — cf. docs Gemini API, section "Versions".
-// Etiquette de reference uniquement ; la valeur qui compte reellement est ENGINE.protocole
-// (src/constants/branding.js), verifiee par le proxy a chaque requete.
 export const GEMINI_MODEL = 'gemini-3.6-flash';
+const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
+const USE_PROXY = !!PROXY_URL;
+
 const TIMEOUT_MS = 35000;
 const MAX_RETRIES = 3;               // tentatives supplémentaires après le 1er essai
 const RETRY_BASE_MS = 800;           // base du backoff exponentiel
@@ -76,13 +76,8 @@ async function fetchWithTimeout(url, options, timeoutMs) {
   }
 }
 
-// Renvoie { rawText, timing }. timing = { attempts: [{n, ms, status|error}], waitMs, bytesSent }.
-async function callGeminiVisionAPI(base64Image) {
-  if (!PROXY_URL) {
-    throw new Error('Proxy non configuré');
-  }
-
-  const url = `${PROXY_URL}/api/analyze`;
+// Endpoint + en-têtes selon le mode (proxy si PROXY_URL défini, direct sinon).
+function buildRequest(base64Image) {
   const body = JSON.stringify({
     system_instruction: { parts: [{ text: VISION_SYSTEM_PROMPT }] },
     contents: [
@@ -96,12 +91,36 @@ async function callGeminiVisionAPI(base64Image) {
     ],
     generationConfig: { temperature: 0, response_mime_type: 'application/json' },
   });
-  const headers = {
-    'Content-Type': 'application/json',
-    'X-App-Secret': PROXY_SECRET,
-    'X-Protocol-Bundle': ENGINE.protocole,
-  };
 
+  if (USE_PROXY) {
+    return {
+      url: `${PROXY_URL}/api/analyze`,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-App-Secret': PROXY_SECRET,
+        'X-Protocol-Bundle': ENGINE.protocole,
+      },
+      body,
+    };
+  }
+
+  return {
+    url: `${GEMINI_API_BASE}/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
+    headers: { 'Content-Type': 'application/json' },
+    body,
+  };
+}
+
+// Renvoie { rawText, timing }. timing = { attempts: [{n, ms, status|error}], waitMs, bytesSent }.
+async function callGeminiVisionAPI(base64Image) {
+  if (USE_PROXY && !PROXY_URL) {
+    throw new Error('Proxy non configuré');
+  }
+  if (!USE_PROXY && !GEMINI_API_KEY) {
+    throw new Error('Clé API Gemini non configurée (GEMINI_API_KEY manquante)');
+  }
+
+  const { url, headers, body } = buildRequest(base64Image);
   const timing = { attempts: [], waitMs: 0, bytesSent: body.length };
   let lastError = null;
 
@@ -131,13 +150,13 @@ async function callGeminiVisionAPI(base64Image) {
 
     // Jamais retentés — conditions permanentes.
     if (response.status === 401) {
-      throw new Error('Accès proxy refusé');
-    }
-    if (response.status === 409) {
-      throw new Error('Application obsolète — une mise à jour est requise pour continuer');
+      throw new Error(USE_PROXY ? 'Accès proxy refusé' : 'Clé API Gemini invalide ou accès refusé');
     }
     if (response.status === 403) {
-      throw new Error('Accès Gemini refusé (clé invalide côté serveur)');
+      throw new Error(USE_PROXY ? 'Accès Gemini refusé (clé invalide côté serveur)' : 'Clé API Gemini invalide ou accès refusé');
+    }
+    if (USE_PROXY && response.status === 409) {
+      throw new Error('Application obsolète — une mise à jour est requise pour continuer');
     }
 
     if (RETRYABLE_STATUS.has(response.status)) {
@@ -211,6 +230,7 @@ export async function getVisionObservation(base64Image) {
 
   const apiMs = timing.attempts.reduce((s, a) => s + a.ms, 0);
   lastTimings = {
+    mode: USE_PROXY ? 'proxy' : 'direct',
     total_ms: Math.round(tEnd - tStart),
     api_ms: Math.round(apiMs + timing.waitMs),          // fetch(s) + attente de backoff
     api_fetch_ms: Math.round(apiMs),                    // upload + inférence + download cumulés

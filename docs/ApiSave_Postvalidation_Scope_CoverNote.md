@@ -29,5 +29,7 @@ separately, that's fine — the work is unchanged.
 Sequence: Item 1, then Item 2, then Item 3. I'll start Item 1 as soon as you confirm the
 price and split. No rush on the hosting platform — that only gates M3.
 
+Please also create the M3 , from the provided document. 
+
 Thanks,
 Zaryab
