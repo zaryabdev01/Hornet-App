@@ -40,6 +40,7 @@ const ANTI_CRABRO_TYPES = new Set(['abdomen_jaune_dominant', 'rayures_jaune_noir
 const MANIFEST = [
   { group: 'A', dir: 'test_images_5', file: 'Case1_AsianHornet_FalseNegative_crabro_flying.jpeg', acceptable: ['ROUGE', 'ORANGE_INSUFFISANCE'], goal: 'ROUGE', samples: 8 },
   { group: 'A', dir: 'test_images_5', file: 'Case2_AsianHornet_FalseNegative_crabro_predation.jpeg', acceptable: ['ROUGE'], goal: 'ROUGE', samples: 8 },
+  { group: 'A', dir: 'test_images_5', file: 'Case4_AsianHornet_FalseNegative_crabro_jar.jpeg', acceptable: ['ROUGE', 'ORANGE_INSUFFISANCE'], goal: 'ROUGE', samples: 8 },
   { group: 'B', dir: 'test_images_2', file: 'ref_image_09.jpg', acceptable: ['ROUGE'], goal: 'ROUGE', samples: 8 },
   { group: 'B', dir: 'test_images', file: 'ref_image_04.jpg', acceptable: ['ROUGE'], goal: 'ROUGE', samples: 6 },
   { group: 'B', dir: 'test_images', file: 'ref_image_08.jpg', acceptable: ['ROUGE'], goal: 'ROUGE', samples: 6 },
