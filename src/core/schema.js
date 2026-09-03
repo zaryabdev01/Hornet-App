@@ -1,4 +1,8 @@
-// Validation du schéma JSON observation V1.9
+// Validation du schéma JSON observation V1.11
+// V1.11 (post-M2, Item 3, client observation 2026-09-02) : ajout du champ optionnel
+//   structure.trop_distante_pour_evaluer (booléen) — structure visible mais trop petite ou
+//   trop lointaine pour être évaluée de façon fiable. N'influence jamais le verdict ; sert
+//   uniquement à déclencher une suggestion de reprise sur un verdict VERT inchangé.
 // V1.5 : ajout du champ confidence par critère (Q1/Q2/Q3)
 // V1.6 : enrichissement champs structure (forme, texture, strates, suspension, position, qualite)
 // V1.7 : ajout structure_strength (V3.5+) + insecte_taille_minuscule_non_frelon
@@ -178,6 +182,12 @@ export function validateObservation(obs) {
   // V1.7 — structure_strength
   if (s.structure_strength !== undefined) {
     assertEnum(s.structure_strength, VALID_STRUCTURE_STRENGTH, 'structure.structure_strength');
+  }
+  // V1.11 (post-M2, Item 3) — structure visible mais trop petite/lointaine pour être évaluée.
+  // N'influence jamais le verdict : sert uniquement à déclencher une suggestion de reprise
+  // (photo plus proche) attachée à un verdict VERT inchangé. Optionnel (rétrocompatibilité).
+  if (s.trop_distante_pour_evaluer !== undefined) {
+    assertType(s.trop_distante_pour_evaluer, 'boolean', 'structure.trop_distante_pour_evaluer');
   }
 
   assertArrayOfEnum(s.marqueurs_forts, VALID_MARQUEURS_FORTS, 'structure.marqueurs_forts');

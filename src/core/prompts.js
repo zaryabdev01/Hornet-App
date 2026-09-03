@@ -1,5 +1,18 @@
-// APISAVE - PROMPT VISION V2.5 (M2)
+// APISAVE - PROMPT VISION V2.6 (post-M2)
 // Compatible BEEALERT CORE V13.5+ MES-1 — Production Terrain
+// V2.6 (post-M2, client observations 2026-09-02) :
+//   Item 1 (faux negatifs frelon asiatique -> crabro) — corrections VOLONTAIREMENT legeres
+//   apres qu'une premiere version plus directive (exemple cible + regle "choisir sombre")
+//   ait fait basculer de vrais frelons europeens en ROUGE (regression ref_image_01,
+//   cf. test_images_5/regression/after-v1.md). Version retenue :
+//   - tete_rousse_orangee : reserve a une tete franchement rouge/rousse, jamais la face
+//     jaune-orange normale de la cible. Idem precision abdomen_segmente_jaune_noir_alterne.
+//   - Predation / plusieurs individus : le sujet est le predateur ; ne jamais lire l'abdomen
+//     de la proie ; sinon Q2 = NON_LISIBLE.
+//   - fond_dominant : precision descriptive (quand reserver "mixte_jaune_noir_alterne"),
+//     sans exemple ni regle de tranche par defaut.
+//   Le garde-fou principal est cote Juge (judge.js V1.14).
+//   Item 3 (structure lointaine) : champ structure.trop_distante_pour_evaluer (ETAPE 5).
 // V2.1 : ajout VERROU GUEPE/POLISTE, VERROU BOURDON/COLEOPTERE,
 //        REGLE ANTI-ARTEFACT TRIPLE Q2, champ structure_strength
 // V2.2 (M2, audit findings D2/D3/D4/D5/D7) :
@@ -43,8 +56,9 @@ Ne JAMAIS nommer d'espece.
 Ne JAMAIS utiliser de termes de verdict (rouge, orange, vert, danger, alerte, suspicion, etc.).
 Ne jamais extrapoler, supposer, deviner ou completer. Aucun critere invente.
 Si plusieurs individus sont presents : choisir UN SEUL individu, le plus net et le plus exploitable.
+Si un individu en capture, transporte, chevauche ou depece un autre (predation, ex : sur une abeille) : le SUJET est le PREDATEUR (le plus grand / celui qui domine la scene), jamais la proie.
 TOUTES les observations Q1, Q2, Q3 doivent porter EXCLUSIVEMENT sur lui.
-Interdiction absolue de melanger des criteres provenant d'individus differents.
+Interdiction absolue de melanger des criteres provenant d'individus differents. Ne jamais lire la couleur, les rayures ou le motif de l'abdomen sur la proie. Si un marqueur abdominal ne peut pas etre attribue au sujet avec certitude, mettre Q2_abdomen.reponse = "NON_LISIBLE" plutot que deviner.
 </INTERDICTIONS ABSOLUES>
 
 <PIPELINE ANALYSE DETERMINISTE>
@@ -70,7 +84,7 @@ SI l'insecte presente AU MOINS UN des marqueurs suivants :
 - Silhouette globalement fine, elancee, svelte ou filiforme.
 - Pattes majoritairement jaunes/rousses/claires DE LA BASE AUX EXTREMITES sans rupture noire epaisse et massive pres du corps.
 - Motif de rayures transversales jaunes/claires (valide par regle anti-artefact triple : courbure naturelle + repetition sur >= 2 segments + homogeneite).
-- Motif regulier alterne jaune/noir (lignes continues, chevrons ou triangles repetes sur fond jaune dominant).
+- Motif regulier alterne jaune/noir (lignes continues, chevrons ou triangles repetes sur fond JAUNE DOMINANT).
 ALORS :
 -> FORCER Q2_abdomen.reponse = 'NON'
 -> FORCER Q3_morphologie.reponse = 'NON'
@@ -104,6 +118,11 @@ Une ligne claire n'est consideree comme motif de guepe que si elle remplit SIMUL
 Ignorer absolument : lignes droites, isolees, parasites, reflets, ombres, grillage, brindilles.
 Tres fins liseres intersegmentaires discontinus n'invalident pas Q2 = OUI si le fond reste sombre.
 
+PRECISION fond_dominant (abdomen) :
+- "mixte_jaune_noir_alterne" est RESERVE a un abdomen dont le fond est reellement majoritairement JAUNE (ou jaune clair), parcouru de bandes noires LARGES et REPETEES sur la plupart des segments (type guepe / frelon europeen).
+- Un abdomen dont le fond reste globalement NOIR ou brun tres fonce, meme s'il porte une bande claire ou orange et de fins liseres intersegmentaires, se decrit "sombre" et NON "mixte_jaune_noir_alterne".
+- Observer la proportion reelle de surface sombre vs claire ; ne pas trancher par defaut, decrire ce qui domine visuellement.
+
 Q3 - MORPHOLOGIE
 OUI = Au moins 2 elements visibles parmi : thorax massif, jonction thorax/abdomen large, abdomen epais non elance, proportions compactes robustes.
 NON = Morphologie clairement grele, filiforme, jonction etroite, silhouette tres fine.
@@ -119,12 +138,15 @@ INCOMPATIBILITES CIBLE - TYPES AUTORISES
 Chromatiques : thorax_roux, abdomen_jaune_dominant, rayures_jaune_noir_vif, abdomen_segmente_jaune_noir_alterne, tete_rousse_orangee.
 Morphologiques : morphologie_filiforme, silhouette_tres_fine, morphologie_velue_compacte, carapace_dure_elytres_visibles, jonction_etroite, proportions_greles_non_robustes, silhouette_fine_allongee, insecte_taille_minuscule_non_frelon.
 Lister UNIQUEMENT les incompatibilites clairement visibles. Si rien de clair : [].
+PRECISION tete_rousse_orangee : n'ajouter ce tag QUE si la tete et/ou le vertex est franchement ROUGE, roux-brun ou rouille (type frelon europeen). Une face simplement jaune, jaune-orange ou orangee sur une tete par ailleurs sombre est NORMALE chez la cible et ne doit JAMAIS etre taguee tete_rousse_orangee.
+PRECISION abdomen_segmente_jaune_noir_alterne : n'ajouter ce tag QUE si des bandes jaunes LARGES alternent avec des bandes noires sur la MAJORITE des segments, sur fond globalement jaune. Un abdomen a fond sombre avec une seule bande orange terminale et de simples liseres clairs ne recoit PAS ce tag.
 
 === ETAPE 5 : EVALUATION STRUCTURE (UNIQUEMENT SI PAS D'INSECTE EXPLOITABLE) ===
 texture_papier_carton : OUI si surface mate fibreuse grise/beige cartonnee homogene travaillee (NON si vegetal, mousse, lichen, soie, plastique, metal ; NON_LISIBLE si non evaluable).
 strates_repetitives : OUI si couches ou ondulations paralleles visibles et repetees (NON si surface uniforme).
 REGLE IMPORTANTE : texture_papier_carton + strates_repetitives ne suffisent JAMAIS seuls. Il faut une organisation construite repetitive avec irregularite organique compatible.
 structure_strength : STRONG (construite, coherente, organisation claire visible — nid probable) | MEDIUM (elements partiels, zones d'ombre, confirmation necessaire) | WEAK (doute important, structure ambigue ou confusion possible).
+trop_distante_pour_evaluer : true UNIQUEMENT si une forme/structure construite est visible mais occupe une portion tres reduite du cadre (vue de tres loin, faible resolution, surface et details non lisibles) au point que texture_papier_carton, strates_repetitives et les marqueurs ne peuvent pas etre juges de facon fiable. false sinon. Ce champ NE CHANGE JAMAIS le verdict : il sert uniquement a suggerer une reprise plus proche.
 Marqueurs forts : stratification_lamellaire, enveloppe_cartonnee_continue, entree_identifiable.
 Marqueurs faibles : jonction_nette_structure_support, repetition_couches_construites.
 
@@ -139,6 +161,7 @@ Pour les champs structure, utilise EXACTEMENT ces valeurs fixes :
   evaluee = false, forme_globale = "non_lisible", texture_papier_carton = "NON_LISIBLE",
   strates_repetitives = "NON_LISIBLE", suspension_visible = "NON_LISIBLE",
   position = "non_lisible", qualite_structure = "LOW", structure_strength = "WEAK",
+  trop_distante_pour_evaluer = false,
   marqueurs_forts = [], marqueurs_faibles = [], indices_artificiels = [], pieges_vegetaux_possibles = []
 
 MODE STRUCTURE (insecte_exploitable = false) :
@@ -208,6 +231,7 @@ Reponds UNIQUEMENT avec le JSON suivant, sans aucun texte avant ou apres :
     "position": "arbre|toiture|haie|sol|cavite|support_artificiel|non_lisible",
     "qualite_structure": "LOW|MEDIUM|HIGH",
     "structure_strength": "STRONG|MEDIUM|WEAK",
+    "trop_distante_pour_evaluer": false,
     "marqueurs_forts": [],
     "marqueurs_faibles": [],
     "indices_artificiels": [],

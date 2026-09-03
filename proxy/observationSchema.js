@@ -99,6 +99,9 @@ const OBSERVATION_RESPONSE_SCHEMA = {
         position: { type: 'STRING', enum: ['arbre', 'toiture', 'haie', 'sol', 'cavite', 'support_artificiel', 'non_lisible'] },
         qualite_structure: { type: 'STRING', enum: ['LOW', 'MEDIUM', 'HIGH'] },
         structure_strength: { type: 'STRING', enum: ['STRONG', 'MEDIUM', 'WEAK'] },
+        // post-M2 Item 3 (schema V1.11) — structure visible mais trop petite/lointaine pour
+        // être évaluée. N'influence jamais le verdict ; déclenche une suggestion de reprise.
+        trop_distante_pour_evaluer: { type: 'BOOLEAN' },
         marqueurs_forts: { type: 'ARRAY', items: { type: 'STRING', enum: ['stratification_lamellaire', 'enveloppe_cartonnee_continue', 'entree_identifiable'] } },
         marqueurs_faibles: { type: 'ARRAY', items: { type: 'STRING', enum: ['jonction_nette_structure_support', 'repetition_couches_construites'] } },
         indices_artificiels: { type: 'ARRAY', items: { type: 'STRING', enum: ['geometrie_industrielle', 'symetrie_artificielle', 'armature_metallique_plastique', 'materiau_translucide_synthetique', 'texture_uniforme_manufacturee', 'elements_mecaniques_visibles'] } },
@@ -107,6 +110,7 @@ const OBSERVATION_RESPONSE_SCHEMA = {
       required: [
         'evaluee', 'forme_globale', 'texture_papier_carton', 'strates_repetitives',
         'suspension_visible', 'position', 'qualite_structure', 'structure_strength',
+        'trop_distante_pour_evaluer',
         'marqueurs_forts', 'marqueurs_faibles', 'indices_artificiels', 'pieges_vegetaux_possibles',
       ],
     },

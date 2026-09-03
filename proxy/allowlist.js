@@ -16,7 +16,10 @@
 // Rollback: revert ACTIVE_BUNDLE to a previous entry still listed here — no code change needed,
 // since the prior bundle was already approved and already passed its own regression run.
 const APPROVED_BUNDLES = [
-  'gemini-3.6-flash+prompt-V2.5+schema-V1.9',
+  // post-M2 Item 1 correction (crabro false-negatives) bumped prompt V2.5 -> V2.6 and
+  // schema V1.9 -> V1.11. The V2.5/V1.9 combo no longer exists in the codebase, so it is
+  // not a valid rollback target and is removed rather than kept.
+  'gemini-3.6-flash+prompt-V2.6+schema-V1.11',
 ];
 
 function parseModelFromBundle(bundle) {

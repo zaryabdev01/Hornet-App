@@ -14,6 +14,7 @@ import { juger } from '../engine/judge';
 import { getCurrentLocation, getCityFromCoords, getCoordsFromCity } from '../services/geolocation';
 import { addToQueue } from '../services/offlineQueue';
 import { haptic, HapticStyle } from '../utils/haptics';
+import { prepareImageForAnalysis } from '../utils/imagePrep';
 import AnalysisProgress from '../components/AnalysisProgress';
 import VerdictCard from '../components/VerdictCard';
 import RetakeGuide from '../components/RetakeGuide';
@@ -126,8 +127,10 @@ export default function HomeScreen({ onSave, isOnline }) {
     try {
       const photo = await cameraRef.current.takePictureAsync({ base64: true, quality: 0.85 });
       await haptic(HapticStyle.MEDIUM);
-      setCapturedUri(photo.uri);
-      setCapturedBase64(photo.base64);
+      // Downscale before it ever reaches the analysis payload (Item 2 — latency).
+      const prepared = await prepareImageForAnalysis(photo.uri, photo.width, photo.height);
+      setCapturedUri((prepared || photo).uri);
+      setCapturedBase64((prepared || photo).base64);
       setFromCamera(true);
     } catch (e) {
       Alert.alert('Erreur', 'Impossible de prendre la photo.');
@@ -144,8 +147,9 @@ export default function HomeScreen({ onSave, isOnline }) {
     const result = await ImagePicker.launchImageLibraryAsync({ base64: true, quality: 0.85 });
     if (!result.canceled) {
       const asset = result.assets[0];
-      setCapturedUri(asset.uri);
-      setCapturedBase64(asset.base64);
+      const prepared = await prepareImageForAnalysis(asset.uri, asset.width, asset.height);
+      setCapturedUri((prepared || asset).uri);
+      setCapturedBase64((prepared || asset).base64);
       setFromCamera(false);
       setVerdict(null);
       setError(null);

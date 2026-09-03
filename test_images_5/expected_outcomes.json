@@ -1,0 +1,81 @@
+{
+  "_source": "ApiSave_M2.pdf + email, supplied by client (Nordine) 2026-09-02, alongside M2 validation.",
+  "_status": "M2 is validated. These are post-validation observations to preserve as regression cases and address in the NEXT development stage. They do NOT reopen M2.",
+  "_note": "The client did not state an exact expected verdict for the two false negatives, only the ground truth (Asian hornet) and that 'probable non-target / crabro' is wrong. `expected_verdict` below is the ideal target outcome; `prohibited_verdicts` is the hard constraint. The exact acceptance bar (ROUGE vs ORANGE_INSUFFISANCE acceptable) needs client confirmation before it becomes a pass/fail gate.",
+  "_originals": {
+    "Case1_AsianHornet_FalseNegative_crabro_flying.jpeg": "036F871F-5D8D-4DB5-B329-5BF84474A837.jpeg",
+    "Case2_AsianHornet_FalseNegative_crabro_predation.jpeg": "3DDAAF88-03C5-4348-B3E7-64FAB1262709.jpeg",
+    "Case3_DistantStructure_correct_green_wants_guided_retake.jpeg": "13EEB159-4310-4210-A3D6-7333EF278DEA.jpeg",
+    "Case4_AsianHornet_FalseNegative_crabro_jar.jpeg": "IMG_4254.jpeg"
+  },
+  "cases": [
+    {
+      "file": "Case1_AsianHornet_FalseNegative_crabro_flying.jpeg",
+      "category": "False negative #1 — Asian hornet classified as probable non-target (crabro)",
+      "ground_truth": "Vespa velutina (Asian hornet). In-flight, motion blur, INRA photo credit (K. Monceau).",
+      "observed_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "observed_motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+      "observed_reason_code": "CRABRO_LIKE_PROFILE",
+      "expected_verdict": "ROUGE",
+      "acceptable_verdicts": [
+        "ROUGE",
+        "ORANGE_INSUFFISANCE"
+      ],
+      "prohibited_verdicts": [
+        "ORANGE_PROBABLE_NON_CIBLE",
+        "VERT"
+      ],
+      "client_note": "Review whether the crabro exclusion rule overrides visible Asian hornet markers too strongly. Keep as regression case."
+    },
+    {
+      "file": "Case2_AsianHornet_FalseNegative_crabro_predation.jpeg",
+      "category": "False negative #2 — Asian hornet classified as probable non-target (crabro)",
+      "ground_truth": "Vespa velutina (Asian hornet) predating a honeybee. Textbook specimen: black thorax, single orange 4th tergite, bright yellow leg tips. NOTE: a second insect (the honeybee prey) is in frame.",
+      "observed_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "observed_motif": "Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.",
+      "observed_reason_code": "CRABRO_LIKE_PROFILE",
+      "expected_verdict": "ROUGE",
+      "acceptable_verdicts": [
+        "ROUGE"
+      ],
+      "prohibited_verdicts": [
+        "ORANGE_PROBABLE_NON_CIBLE",
+        "ORANGE_INSUFFISANCE",
+        "VERT"
+      ],
+      "client_note": "Clear target. Review whether the crabro exclusion rule overrides visible Asian hornet markers too strongly. Keep as regression case."
+    },
+    {
+      "file": "Case3_DistantStructure_correct_green_wants_guided_retake.jpeg",
+      "category": "Distant structure — verdict correct, wants a guided-retake advisory",
+      "ground_truth": "Distant object in a tree canopy, too small/far to assess as a nest. Green verdict is CORRECT and must stay green.",
+      "observed_verdict": "VERT",
+      "expected_verdict": "VERT",
+      "acceptable_verdicts": [
+        "VERT"
+      ],
+      "prohibited_verdicts": [
+        "ORANGE_PLAFOND",
+        "ORANGE_INSUFFISANCE"
+      ],
+      "client_note": "When a structure is detected but too small/distant to assess, the app should ADD a non-verdict-changing suggestion: 'A distant structure has been detected. Zoom in or take a closer photo for a more precise analysis.' Verdict stays GREEN unless real suspicious structural markers are found. Feature not yet implemented (no schema signal for distant/small structure)."
+    },
+    {
+      "file": "Case4_AsianHornet_FalseNegative_crabro_jar.jpeg",
+      "category": "False negative #3 — Asian hornet in a jar classified as probable non-target (crabro)",
+      "ground_truth": "Vespa velutina (Asian hornet), dead, on its side in a glass jar. Dark thorax, yellow-orange 4th-tergite band, bright yellow leg tips. Client tested twice on the current build: both -> ORANGE_PROBABLE_NON_CIBLE / CRABRO_LIKE_PROFILE (screenshot IMG_8480.png).",
+      "observed_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "observed_reason_code": "CRABRO_LIKE_PROFILE",
+      "expected_verdict": "ROUGE",
+      "acceptable_verdicts": [
+        "ROUGE",
+        "ORANGE_INSUFFISANCE"
+      ],
+      "prohibited_verdicts": [
+        "ORANGE_PROBABLE_NON_CIBLE",
+        "VERT"
+      ],
+      "client_note": "Supplied 2026-09-03 with M3 approval. Keep as permanent regression case. Must not be classified as probable non-target."
+    }
+  ]
+}

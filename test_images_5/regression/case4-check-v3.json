@@ -1,0 +1,879 @@
+{
+  "model": "gemini-3.6-flash",
+  "generated": "2026-09-03T14:08:22.152Z",
+  "samples_per_image": 8,
+  "images": [
+    {
+      "file": "Case1_AsianHornet_FalseNegative_crabro_flying.jpeg",
+      "category": "False negative #1 — Asian hornet classified as probable non-target (crabro)",
+      "ground_truth": "Vespa velutina (Asian hornet). In-flight, motion blur, INRA photo credit (K. Monceau).",
+      "expected_verdict": "ROUGE",
+      "prohibited_verdicts": [
+        "ORANGE_PROBABLE_NON_CIBLE",
+        "VERT"
+      ],
+      "verdict_distribution": {
+        "ORANGE_INSUFFISANCE": 7,
+        "ROUGE": 1
+      },
+      "prohibited_hits": 0,
+      "tag_frequency": {
+        "tete_rousse_orangee": 7,
+        "abdomen_segmente_jaune_noir_alterne": 3,
+        "rayures_jaune_noir_vif": 5,
+        "abdomen_jaune_dominant": 1
+      },
+      "runs": [
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_PROFILE",
+          "motif": "Morphologie compatible frelon, incompatibilité chromatique seule insuffisante.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de teinte sombre et foncée.",
+            "Q2": "Motifs jaunes et noirs alternés sur plusieurs segments.",
+            "Q3": "Morphologie robuste avec abdomen épais."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_LIGHTING_ANGLE",
+          "motif": "Morphologie déviante mais profil chromatique crabro : seconde photo requise pour exclure une variante velutina atypique.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "NON/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax sombre visible.",
+            "Q2": "Rayures jaunes multiples.",
+            "Q3": "Motifs rayes non conformes."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_LIGHTING_ANGLE",
+          "motif": "Morphologie déviante mais profil chromatique crabro : seconde photo requise pour exclure une variante velutina atypique.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "NON/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur sombre.",
+            "Q2": "Motifs jaunes répétés sur plusieurs segments.",
+            "Q3": "Silhouette présentant des motifs jaunes transversaux."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_SHARPER",
+          "motif": "Critères insuffisants pour conclure.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "NON/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "NON/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "abdomen_jaune_dominant",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 3,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax brun-roux et sombre.",
+            "Q2": "Motifs jaunes et noirs alternés.",
+            "Q3": "Incompatible selon verrous chromatiques."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+          "confiance": 92,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "OUI/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "sombre",
+          "zone_terminale_orangee": true,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de teinte sombre noir-brun.",
+            "Q2": "Abdomen a fond sombre avec bande orangee vers l'extremite.",
+            "Q3": "Morphologie trapue avec thorax large."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_SHARPER",
+          "motif": "Critères insuffisants pour conclure.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "NON/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 3,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de teinte majoritairement sombre.",
+            "Q2": "Rayures jaunes répétées sur plusieurs segments.",
+            "Q3": "Incompatible avec les critères cibles."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_LIGHTING_ANGLE",
+          "motif": "Morphologie déviante mais profil chromatique crabro : seconde photo requise pour exclure une variante velutina atypique.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "NON/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de teinte sombres.",
+            "Q2": "Rayures jaunes et sombres répétées.",
+            "Q3": "Silhouette latérale allongée."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_LIGHTING_ANGLE",
+          "motif": "Morphologie déviante mais profil chromatique crabro : seconde photo requise pour exclure une variante velutina atypique.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "NON/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "NON/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax sombre avec teintes brunes.",
+            "Q2": "Motifs jaunâtres et sombres alternés.",
+            "Q3": "Proportions de taille moyenne."
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "file": "Case2_AsianHornet_FalseNegative_crabro_predation.jpeg",
+      "category": "False negative #2 — Asian hornet classified as probable non-target (crabro)",
+      "ground_truth": "Vespa velutina (Asian hornet) predating a honeybee. Textbook specimen: black thorax, single orange 4th tergite, bright yellow leg tips. NOTE: a second insect (the honeybee prey) is in frame.",
+      "expected_verdict": "ROUGE",
+      "prohibited_verdicts": [
+        "ORANGE_PROBABLE_NON_CIBLE",
+        "ORANGE_INSUFFISANCE",
+        "VERT"
+      ],
+      "verdict_distribution": {
+        "ORANGE_INSUFFISANCE": 4,
+        "ROUGE": 4
+      },
+      "prohibited_hits": 4,
+      "tag_frequency": {
+        "tete_rousse_orangee": 2,
+        "abdomen_segmente_jaune_noir_alterne": 3
+      },
+      "runs": [
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_PROFILE",
+          "motif": "Morphologie compatible frelon, incompatibilité chromatique seule insuffisante.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee"
+          ],
+          "antiCrabroHit": 1,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax sombre majoritairement noir.",
+            "Q2": "Motifs orangees sur plusieurs segments.",
+            "Q3": "Silhouette robuste et thorax massif."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+          "confiance": 92,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "OUI/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "sombre",
+          "zone_terminale_orangee": true,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de teinte sombre.",
+            "Q2": "Abdomen sombre avec extremite coloree.",
+            "Q3": "Insecte a la silhouette robuste."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+          "confiance": 92,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/haute",
+          "Q2": "OUI/MEDIUM/haute",
+          "Q3": "OUI/MEDIUM/haute",
+          "fond_dominant": "sombre",
+          "zone_terminale_orangee": true,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur noire dominante.",
+            "Q2": "Fond noir avec segment orange distinct.",
+            "Q3": "Morphologie robuste et thorax large."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+          "confiance": 92,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "OUI/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "sombre",
+          "zone_terminale_orangee": true,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de teinte noire dominante.",
+            "Q2": "Fond sombre avec partie terminale orangee.",
+            "Q3": "Morphologie trapue et robuste."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_PROFILE",
+          "motif": "Morphologie compatible frelon, incompatibilité chromatique seule insuffisante.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/haute",
+          "Q2": "NON/MEDIUM/haute",
+          "Q3": "OUI/MEDIUM/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de teinte sombre majoritairement noire.",
+            "Q2": "Motifs jaunes et sombres sur plusieurs segments.",
+            "Q3": "Morphologie robuste avec un thorax massif."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_ABDOMEN",
+          "motif": "Signature possible de frelon asiatique (thorax sombre, extrémité abdominale orange) mais lecture du motif abdominal ambiguë : seconde photo requise.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": true,
+          "tags": [
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 1,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax sombre et massif.",
+            "Q2": "Motifs jaunes et noirs repetes sur plusieurs segments.",
+            "Q3": "Morphologie robuste et trapue."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_PROFILE",
+          "motif": "Morphologie compatible frelon, incompatibilité chromatique seule insuffisante.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/haute",
+          "Q2": "NON/MEDIUM/haute",
+          "Q3": "OUI/MEDIUM/haute",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 1,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur noire dominante.",
+            "Q2": "Motifs jaunes-oranges rependus sur plusieurs segments abdominaux.",
+            "Q3": "Insecte de constitution robuste avec un thorax tres large."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+          "confiance": 92,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "OUI/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "sombre",
+          "zone_terminale_orangee": true,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax noir très sombre.",
+            "Q2": "Fond sombre avec segment orangé.",
+            "Q3": "Morphologie trapue et robuste."
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "file": "Case3_DistantStructure_correct_green_wants_guided_retake.jpeg",
+      "category": "Distant structure — verdict correct, wants a guided-retake advisory",
+      "ground_truth": "Distant object in a tree canopy, too small/far to assess as a nest. Green verdict is CORRECT and must stay green.",
+      "expected_verdict": "VERT",
+      "prohibited_verdicts": [
+        "ORANGE_PLAFOND",
+        "ORANGE_INSUFFISANCE"
+      ],
+      "verdict_distribution": {
+        "VERT": 8
+      },
+      "prohibited_hits": 0,
+      "tag_frequency": {},
+      "runs": [
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Structure trop éloignée pour une évaluation fiable — aucun marqueur de nid confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "MEDIUM",
+            "forme": "ovoide",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": [
+              "jonction_nette_structure_support"
+            ]
+          },
+          "descriptions": {
+            "structure": "Structure sphérique très distante visible dans la frondaison d'un arbre."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Structure trop éloignée pour une évaluation fiable — aucun marqueur de nid confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "MEDIUM",
+            "forme": "ovoide",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": [
+              "jonction_nette_structure_support"
+            ]
+          },
+          "descriptions": {
+            "structure": "Structure sphérique aperçue au loin dans un arbre, aucun insecte visible."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Structure trop éloignée pour une évaluation fiable — aucun marqueur de nid confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "MEDIUM",
+            "forme": "spherique",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": [
+              "jonction_nette_structure_support"
+            ]
+          },
+          "descriptions": {
+            "structure": "Structure arrondie distante visible dans les feuillages."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Structure trop éloignée pour une évaluation fiable — aucun marqueur de nid confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "MEDIUM",
+            "forme": "spherique",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Structure arrondie visible au loin dans un arbre."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Structure trop éloignée pour une évaluation fiable — aucun marqueur de nid confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "MEDIUM",
+            "forme": "ovoide",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Structure suspendue dans les arbres vue de loin."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Structure trop éloignée pour une évaluation fiable — aucun marqueur de nid confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "MEDIUM",
+            "forme": "ovoide",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": [
+              "jonction_nette_structure_support"
+            ]
+          },
+          "descriptions": {
+            "structure": "Objet suspendu distant dans le feuillage."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Structure trop éloignée pour une évaluation fiable — aucun marqueur de nid confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "MEDIUM",
+            "forme": "ovoide",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": [
+              "jonction_nette_structure_support"
+            ]
+          },
+          "descriptions": {
+            "structure": "Structure sphérique distante visible dans la végétation sans insecte identifiable."
+          },
+          "error": null
+        },
+        {
+          "verdict": "VERT",
+          "reason": "NONE",
+          "motif": "Structure trop éloignée pour une évaluation fiable — aucun marqueur de nid confirmé.",
+          "confiance": 85,
+          "path": "STRUCTURE",
+          "Q1": null,
+          "Q2": null,
+          "Q3": null,
+          "fond_dominant": null,
+          "zone_terminale_orangee": null,
+          "tags": [],
+          "antiCrabroHit": 0,
+          "structure": {
+            "evaluee": true,
+            "strength": "MEDIUM",
+            "forme": "ovoide",
+            "texture": "NON_LISIBLE",
+            "strates": "NON_LISIBLE",
+            "forts": [],
+            "faibles": []
+          },
+          "descriptions": {
+            "structure": "Structure sombre visible dans la canopée d'un arbre."
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "file": "Case4_AsianHornet_FalseNegative_crabro_jar.jpeg",
+      "category": "False negative #3 — Asian hornet in a jar classified as probable non-target (crabro)",
+      "ground_truth": "Vespa velutina (Asian hornet), dead, on its side in a glass jar. Dark thorax, yellow-orange 4th-tergite band, bright yellow leg tips. Client tested twice on the current build: both -> ORANGE_PROBABLE_NON_CIBLE / CRABRO_LIKE_PROFILE (screenshot IMG_8480.png).",
+      "expected_verdict": "ROUGE",
+      "prohibited_verdicts": [
+        "ORANGE_PROBABLE_NON_CIBLE",
+        "VERT"
+      ],
+      "verdict_distribution": {
+        "ORANGE_INSUFFISANCE": 8
+      },
+      "prohibited_hits": 0,
+      "tag_frequency": {
+        "tete_rousse_orangee": 8,
+        "abdomen_segmente_jaune_noir_alterne": 7,
+        "abdomen_jaune_dominant": 1,
+        "rayures_jaune_noir_vif": 2
+      },
+      "runs": [
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_DORSAL_VIEW",
+          "motif": "Morphologie compatible frelon, incompatibilité chromatique seule insuffisante.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax noir visible de profil.",
+            "Q2": "Bandes jaunes et sombres alternées sur l'abdomen.",
+            "Q3": "Morphologie robuste et thorax large."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_PROFILE",
+          "motif": "Morphologie compatible frelon, incompatibilité chromatique seule insuffisante.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax sombre de profil.",
+            "Q2": "Bandes jaunes sur plusieurs segments.",
+            "Q3": "Morphologie robuste et trapue."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_LIGHTING_ANGLE",
+          "motif": "Morphologie déviante mais profil chromatique crabro : seconde photo requise pour exclure une variante velutina atypique.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "NON/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "NON/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax sombre présentant des teintes brun-roux.",
+            "Q2": "Alternance de bandes jaunes et noires sur les segments.",
+            "Q3": "Position repliée masquant les proportions dorsales."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_DORSAL_VIEW",
+          "motif": "Morphologie compatible frelon, incompatibilité chromatique seule insuffisante.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "NON/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_jaune_dominant"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax brun sombre visible de profil.",
+            "Q2": "Bandes jaunes et sombres alternees sur plusieurs segments.",
+            "Q3": "Morphologie trapue et thorax volumineux."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_DORSAL_VIEW",
+          "motif": "Morphologie déviante mais profil chromatique crabro : seconde photo requise pour exclure une variante velutina atypique.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "NON/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "NON/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Tête rousse et zone thoracique sombre visibles.",
+            "Q2": "Bandes jaunes et noires alternées sur plusieurs segments.",
+            "Q3": "Corps incurvé en vue ventrale."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_DORSAL_VIEW",
+          "motif": "Morphologie compatible frelon, incompatibilité chromatique seule insuffisante.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "NON/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "OUI/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 2,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax aux nuances sombres et rousses.",
+            "Q2": "Motif alterné jaune et noir sur l'abdomen.",
+            "Q3": "Morphologie globale compacte et robuste."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_SHARPER",
+          "motif": "Critères insuffisants pour conclure.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "NON/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 3,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de teinte tres sombre.",
+            "Q2": "Bandes jaunes et noires alternees.",
+            "Q3": "Morphologie non compatible selon verrous."
+          },
+          "error": null
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_SHARPER",
+          "motif": "Critères insuffisants pour conclure.",
+          "confiance": 55,
+          "path": "INSECT",
+          "Q1": "OUI/MEDIUM/moyenne",
+          "Q2": "NON/MEDIUM/moyenne",
+          "Q3": "NON/MEDIUM/moyenne",
+          "fond_dominant": "mixte_jaune_noir_alterne",
+          "zone_terminale_orangee": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabroHit": 3,
+          "structure": null,
+          "descriptions": {
+            "Q1": "Thorax de couleur sombre.",
+            "Q2": "Motifs jaunes et noirs alternés sur plusieurs segments.",
+            "Q3": "Silhouette bloquée par les critères d'exclusion."
+          },
+          "error": null
+        }
+      ]
+    }
+  ]
+}
