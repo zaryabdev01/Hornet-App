@@ -29,6 +29,9 @@ export const REASON_CODES = {
   INSECT_BEETLE_FEATURES_VISIBLE: 'INSECT_BEETLE_FEATURES_VISIBLE',
   CRABRO_LIKE_PROFILE: 'CRABRO_LIKE_PROFILE',
   NON_TARGET_HYMENOPTERA: 'NON_TARGET_HYMENOPTERA', // M2 — guêpe/Polistes, partage la route ORANGE_PROBABLE_NON_CIBLE
+  // V1.15 (post-M2, Item 2 v2, client observations 2026-09-04, non-cibles diagnosis) :
+  NEST_STRUCTURE_INCOMPATIBLE: 'NEST_STRUCTURE_INCOMPATIBLE', // nid à alvéoles ouvertes visible sous l'individu — support structurellement incompatible avec velutina
+  RETAKE_SPECIES_AMBIGUOUS: 'RETAKE_SPECIES_AMBIGUOUS', // remplace RETAKE_SHARPER/RETAKE_LIGHTING_ANGLE quand des marqueurs existent mais restent insuffisants : l'espèce est ambiguë, pas la photo
 };
 
 // V3.5+ : recalibration terrain (ORANGE_INSUFFISANCE 42→55, ORANGE_PLAFOND 78→72, ROUGE 90→92)
@@ -67,6 +70,8 @@ export const REASON_LABELS = {
   INSECT_BEETLE_FEATURES_VISIBLE: 'Caractéristiques de coléoptère visibles',
   CRABRO_LIKE_PROFILE: 'Profil chromatique type frelon européen (Vespa crabro)',
   NON_TARGET_HYMENOPTERA: 'Hyménoptère non cible identifié (guêpe / Polistes)',
+  NEST_STRUCTURE_INCOMPATIBLE: 'Nid à alvéoles ouvertes visible — structure incompatible avec Vespa velutina',
+  RETAKE_SPECIES_AMBIGUOUS: 'Profil ambigu — seconde photo requise pour confirmer l\'espèce',
 };
 
 export const NEEDS_SECOND_PHOTO = new Set([

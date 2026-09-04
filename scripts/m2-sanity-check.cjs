@@ -97,14 +97,20 @@ check('Wasp/Polistes, supporting tags only (0 core) -> wasp rule does not fire, 
 //    non-target, even at HIGH Q1/Q2 confidence -> the one-marker shortcut was removed
 //    (it produced false negatives on real Asian hornets whose orange face Gemini misread as
 //    tete_rousse_orangee). Now needs >= 2 markers. Falls through to a retake instead.
-check('European hornet, 1 marker + high Q1/Q2 confidence -> ORANGE_INSUFFISANCE (V1.14: one-marker shortcut removed)',
+// V1.15 (post-M2, Item 2 v2) — thorax_roux seul est désormais suffisant, indépendamment de la
+// confiance : c'est le marqueur le plus fiable du jeu de données (quasi jamais lu sur les 22
+// échantillons frelon-asiatique confirmés du groupe A, contre 4-6/6 sur chaque frelon européen
+// confirmé du groupe C — cf. changelog V1.15 en tête de judge.js). L'ancien seuil "1 marqueur +
+// confiance HIGH" avait été retiré en V1.14 précisément parce qu'il se basait sur la confiance
+// plutôt que sur la fiabilité du marqueur lui-même ; V1.15 corrige la bonne variable.
+check('European hornet, thorax_roux alone (any confidence) -> ORANGE_PROBABLE_NON_CIBLE (V1.15: thorax_roux is the reliable marker)',
   makeInsectObs({
     Q1_thorax: { reponse: 'NON', confidence: 'HIGH', description_visible: 'thorax roux', lisibilite: 'haute' },
     Q2_abdomen: { reponse: 'NON', confidence: 'HIGH', fond_dominant: 'orange', zone_terminale_orangee: false, description_visible: 'abdomen roux', lisibilite: 'haute' },
     Q3_morphologie: { reponse: 'OUI', confidence: 'HIGH', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], incompatibilites_visibles: [], description_visible: 'robuste', lisibilite: 'haute' },
     incompatibilites_cible: ['thorax_roux'],
   }),
-  'ORANGE_INSUFFISANCE', 'RETAKE_PROFILE');
+  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
 
 // 5b. V1.14 (post-M2, Item 1): velutina counter-signal. Dark thorax (Q1=OUI) + terminal
 //     orange band (zone_terminale_orangee=true) is the TARGET's own signature — it must
@@ -118,16 +124,19 @@ check('Velutina counter-signal: Q1=OUI + zone_terminale_orangee + 3 crabro marke
   }),
   'ORANGE_INSUFFISANCE', 'RETAKE_ABDOMEN');
 
-// 6. European hornet, single marker, but LOW/MEDIUM confidence -> should NOT trigger the tightened
-//    threshold (confirms we didn't over-loosen) -> falls through to ORANGE_INSUFFISANCE
-check('European hornet, 1 marker + MEDIUM confidence -> stays ORANGE_INSUFFISANCE (threshold not over-loosened)',
+// 6. V1.15 — same marker, MEDIUM confidence this time: identical result. The whole point of
+//    hasConfidentChromaticExclusion() is that it does NOT read Q1/Q2 confidence at all — Gemini's
+//    self-reported confidence was shown (client field data, cf. changelog) to behave as call-to-call
+//    noise, not a real readout of image quality, so gating a reliable marker like thorax_roux behind
+//    it just made the rule fire less often for no safety benefit.
+check('European hornet, thorax_roux alone + MEDIUM confidence -> same result (confidence no longer gates this)',
   makeInsectObs({
     Q1_thorax: { reponse: 'NON', confidence: 'MEDIUM', description_visible: 'thorax roux, incertain', lisibilite: 'moyenne' },
     Q2_abdomen: { reponse: 'NON', confidence: 'HIGH', fond_dominant: 'orange', zone_terminale_orangee: false, description_visible: 'abdomen roux', lisibilite: 'haute' },
     Q3_morphologie: { reponse: 'OUI', confidence: 'HIGH', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], incompatibilites_visibles: [], description_visible: 'robuste', lisibilite: 'haute' },
     incompatibilites_cible: ['thorax_roux'],
   }),
-  'ORANGE_INSUFFISANCE', 'RETAKE_PROFILE');
+  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
 
 // 6b. NEW (Round 2, client-specified): European hornet, Q3=NON but >=3 crabro markers,
 //     Q1=NON, Q2=NON -> ORANGE_PROBABLE_NON_CIBLE (fixes photo #6-style case)
@@ -153,15 +162,18 @@ check('European hornet, Q3=NON + 2 crabro markers + HIGH Q1/Q2 confidence -> non
   }),
   'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
 
-// 6d. Regression: same 2 markers WITHOUT high confidence -> threshold still respected, still a retake
-check('European hornet, Q3=NON + 2 crabro markers + MEDIUM confidence -> still ORANGE_INSUFFISANCE (threshold respected)',
+// 6d. V1.15 — same 2 markers WITHOUT high confidence: same result. abdomen_jaune_dominant +
+//     >= 1 other anti-crabro marker is treated as confident exclusion regardless of confidence, for
+//     the same reason as 6 above (Gemini rarely reports HIGH on real field photos of this kind —
+//     confirmed on the client's C7_7 European-hornet regression case, cf. changelog V1.15).
+check('European hornet, Q3=NON + 2 crabro markers (incl. abdomen_jaune_dominant) + MEDIUM confidence -> ORANGE_PROBABLE_NON_CIBLE',
   makeInsectObs({
     Q1_thorax: { reponse: 'NON', confidence: 'MEDIUM', description_visible: 'roux', lisibilite: 'moyenne' },
     Q2_abdomen: { reponse: 'NON', confidence: 'MEDIUM', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'jaune dominant', lisibilite: 'moyenne' },
     Q3_morphologie: { reponse: 'NON', confidence: 'MEDIUM', elements_visibles: [], description_visible: 'jugee non conforme', lisibilite: 'moyenne' },
     incompatibilites_cible: ['abdomen_jaune_dominant', 'rayures_jaune_noir_vif'],
   }),
-  'ORANGE_INSUFFISANCE', 'RETAKE_LIGHTING_ANGLE');
+  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
 
 // 7. Regression: clean ROUGE case still works (Q1=Q2=Q3=OUI)
 check('Clean ROUGE case unaffected by M2 changes',
@@ -207,6 +219,10 @@ try {
 
 // 9. V1.14 (post-M2, Item 1): tete_rousse_orangee WITHOUT thorax_roux does not count toward
 //    antiCrabroHit -> 3 tags where one is an isolated tete_rousse_orangee behaves as 2.
+// V1.15 — reason code updated: RETAKE_SHARPER is no longer the generic bucket for "markers present
+// but inconclusive" (that would wrongly tell the user the photo itself was blurry). nbTotal >= 1
+// here (3 markers), so the honest RETAKE_SPECIES_AMBIGUOUS applies; RETAKE_SHARPER is now reserved
+// for nbTotal === 0 (see the "no markers at all" case further down).
 check('Isolated tete_rousse_orangee (no thorax_roux): 3 tags incl. it -> falls to retake, not crabro route',
   makeInsectObs({
     Q1_thorax: { reponse: 'OUI', confidence: 'MEDIUM', description_visible: 'thorax sombre', lisibilite: 'moyenne' },
@@ -214,7 +230,7 @@ check('Isolated tete_rousse_orangee (no thorax_roux): 3 tags incl. it -> falls t
     Q3_morphologie: { reponse: 'NON', confidence: 'MEDIUM', elements_visibles: [], description_visible: 'non confirmee', lisibilite: 'moyenne' },
     incompatibilites_cible: ['tete_rousse_orangee', 'rayures_jaune_noir_vif', 'abdomen_segmente_jaune_noir_alterne'],
   }),
-  'ORANGE_INSUFFISANCE', 'RETAKE_SHARPER');
+  'ORANGE_INSUFFISANCE', 'RETAKE_SPECIES_AMBIGUOUS');
 
 // 9b. Control: same 3 tags but WITH thorax_roux present -> tete_rousse_orangee counts, crabro route fires
 check('tete_rousse_orangee + thorax_roux + 1 more (Q1=NON,Q2=NON,Q3=NON) -> crabro route (>=3 real markers)',
@@ -225,6 +241,84 @@ check('tete_rousse_orangee + thorax_roux + 1 more (Q1=NON,Q2=NON,Q3=NON) -> crab
     incompatibilites_cible: ['tete_rousse_orangee', 'thorax_roux', 'rayures_jaune_noir_vif'],
   }),
   'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
+
+// --- V1.15 (post-M2, Item 2 v2) — symmetrical exclusion gate, client non-target regressions ---
+// docs/ApiSave_Postvalidation_v2_Diagnosis.md §4. Real case: test_images_7/C7_1 — a Polistes wasp
+// on its own open comb nest, backlit/soft, read Q1=Q2=Q3=OUI with ZERO chromatic tags in most live
+// samples (the nest, not the insect's colouring, is the only available signal) — reached ROUGE at
+// 92% confidence on the pre-fix build in 5 of 8 live runs.
+
+// 9c. CRITICAL regression case: nest marker must block ROUGE even on an otherwise-clean 3xOUI read.
+check('Nest tag (nid_alveoles_ouvertes_visible) blocks ROUGE even with Q1=Q2=Q3=OUI (C7_1 case)',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'OUI', confidence: 'MEDIUM', description_visible: 'sombre', lisibilite: 'moyenne' },
+    Q2_abdomen: { reponse: 'OUI', confidence: 'MEDIUM', fond_dominant: 'sombre', zone_terminale_orangee: true, description_visible: 'sombre + orange', lisibilite: 'moyenne' },
+    Q3_morphologie: { reponse: 'OUI', confidence: 'MEDIUM', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], description_visible: 'compact', lisibilite: 'moyenne' },
+    incompatibilites_cible: ['nid_alveoles_ouvertes_visible'],
+  }),
+  'ORANGE_PROBABLE_NON_CIBLE', 'NEST_STRUCTURE_INCOMPATIBLE');
+
+// 9d. Symmetrical gate: a confident chromatic exclusion (thorax_roux) must also block ROUGE on an
+// otherwise-clean 3xOUI read, not just when Q2/Q3 already read NON (this is what makes the gate
+// "symmetrical" with the wasp-core-tag rule above, which already had this property).
+check('thorax_roux blocks ROUGE even with Q1=Q2=Q3=OUI (symmetrical gate, no velutina counter-signal)',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'OUI', confidence: 'MEDIUM', description_visible: 'sombre', lisibilite: 'moyenne' },
+    Q2_abdomen: { reponse: 'OUI', confidence: 'MEDIUM', fond_dominant: 'sombre', zone_terminale_orangee: false, description_visible: 'sombre', lisibilite: 'moyenne' },
+    Q3_morphologie: { reponse: 'OUI', confidence: 'MEDIUM', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], description_visible: 'compact', lisibilite: 'moyenne' },
+    incompatibilites_cible: ['thorax_roux'],
+  }),
+  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
+
+// 9e. Velutina counter-signal still wins over the symmetrical gate: a genuine target signature
+// (dark thorax + terminal orange band) is never excluded on chromatic evidence alone, even if a
+// stray thorax_roux misread is also present (must not regress the group-A false-negative fix).
+check('Velutina counter-signal beats symmetrical gate even with thorax_roux present',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'OUI', confidence: 'MEDIUM', description_visible: 'sombre', lisibilite: 'moyenne' },
+    Q2_abdomen: { reponse: 'OUI', confidence: 'MEDIUM', fond_dominant: 'sombre', zone_terminale_orangee: true, description_visible: 'sombre + orange', lisibilite: 'moyenne' },
+    Q3_morphologie: { reponse: 'OUI', confidence: 'MEDIUM', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], description_visible: 'compact', lisibilite: 'moyenne' },
+    incompatibilites_cible: ['thorax_roux'],
+  }),
+  'ROUGE', 'NONE');
+
+// 9f. Real case: test_images_7/C7_7 — a dead European hornet, live-sampled tag combination that
+// used to fall through the old antiCrabroHit>=3-with-discount threshold straight to the generic
+// RETAKE_SHARPER ("blurry image") fallback on a perfectly sharp photo.
+check('European hornet (C7_7-style): abdomen_jaune_dominant + tete_rousse_orangee + abdomen_segmente, no thorax_roux -> ORANGE_PROBABLE_NON_CIBLE',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'NON', confidence: 'MEDIUM', description_visible: 'roux', lisibilite: 'moyenne' },
+    Q2_abdomen: { reponse: 'NON', confidence: 'MEDIUM', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'jaune dominant', lisibilite: 'moyenne' },
+    Q3_morphologie: { reponse: 'NON', confidence: 'MEDIUM', elements_visibles: [], description_visible: 'non conforme', lisibilite: 'moyenne' },
+    incompatibilites_cible: ['abdomen_jaune_dominant', 'tete_rousse_orangee', 'abdomen_segmente_jaune_noir_alterne'],
+  }),
+  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
+
+// 9g. Group-A false-negative regression guard: the real Case1/Case4 tag pattern (chromatic markers
+// without thorax_roux or abdomen_jaune_dominant) must NOT be confidently excluded — it must stay on
+// the fail-safe ORANGE_INSUFFISANCE side, never ORANGE_PROBABLE_NON_CIBLE. This is the exact
+// combination observed on 6-7 of 8 live samples of Case1_AsianHornet_FalseNegative_crabro_flying.jpeg
+// (test_images_5/regression/v2-baseline.json).
+check('Group-A false-negative pattern (rayures + tete_rousse + abdomen_segmente, no thorax_roux/abdomen_jaune_dominant) -> stays fail-safe, never NON_CIBLE',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'NON_LISIBLE', confidence: 'LOW', description_visible: 'incertain', lisibilite: 'non_lisible' },
+    Q2_abdomen: { reponse: 'NON', confidence: 'MEDIUM', fond_dominant: 'mixte_jaune_noir_alterne', zone_terminale_orangee: false, description_visible: 'bandes', lisibilite: 'moyenne' },
+    Q3_morphologie: { reponse: 'NON_LISIBLE', confidence: 'LOW', elements_visibles: [], description_visible: 'incertain', lisibilite: 'non_lisible' },
+    incompatibilites_cible: ['rayures_jaune_noir_vif', 'tete_rousse_orangee', 'abdomen_segmente_jaune_noir_alterne'],
+  }),
+  'ORANGE_INSUFFISANCE', 'NO_CRITERIA_VISIBLE');
+
+// 9h. Zero markers of any kind and Q3=NON -> falls through every branch in verrouVert() to the
+// bottom fallback, where RETAKE_SHARPER remains correct (genuinely nothing to go on, not even a
+// partial chromatic profile) — the one case where "retake a sharper photo" is still the honest ask.
+check('No markers at all, Q3=NON -> ORANGE_INSUFFISANCE / RETAKE_SHARPER (bottom fallback, nbTotal=0)',
+  makeInsectObs({
+    Q1_thorax: { reponse: 'NON', confidence: 'MEDIUM', description_visible: 'test', lisibilite: 'moyenne' },
+    Q2_abdomen: { reponse: 'NON', confidence: 'MEDIUM', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'test', lisibilite: 'moyenne' },
+    Q3_morphologie: { reponse: 'NON', confidence: 'MEDIUM', elements_visibles: [], description_visible: 'test', lisibilite: 'moyenne' },
+    incompatibilites_cible: [],
+  }),
+  'ORANGE_INSUFFISANCE', 'RETAKE_SHARPER');
 
 // 10. V1.13 (post-M2, Item 3): distant structure, no strong nest markers, model rated MEDIUM
 //     -> verdict stays VERT with a `suggestion` attached (never flips to orange).

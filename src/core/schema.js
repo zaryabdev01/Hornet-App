@@ -1,4 +1,10 @@
-// Validation du schéma JSON observation V1.11
+// Validation du schéma JSON observation V1.12
+// V1.12 (post-M2, Item 2 v2, client observation 2026-09-04, non-cibles diagnosis) : ajout du type
+//   nid_alveoles_ouvertes_visible dans incompatibilites_cible — nid a alveoles hexagonales a
+//   decouvert, sans enveloppe/coque fermee (rayon de guepier ouvert type Polistes), structurellement
+//   incompatible avec Vespa velutina (nid toujours enferme dans une enveloppe cartonnee continue).
+//   Seul signal disponible pour un individu dont Q1/Q2/Q3 se lisent par ailleurs comme la cible mais
+//   qui est pose sur un support qui l'exclut d'emblee (cf. docs/ApiSave_Postvalidation_v2_Diagnosis.md §4).
 // V1.11 (post-M2, Item 3, client observation 2026-09-02) : ajout du champ optionnel
 //   structure.trop_distante_pour_evaluer (booléen) — structure visible mais trop petite ou
 //   trop lointaine pour être évaluée de façon fiable. N'influence jamais le verdict ; sert
@@ -38,6 +44,7 @@ const VALID_INCOMPAT_TYPES = new Set([
   'proportions_greles_non_robustes', 'silhouette_fine_allongee',
   'insecte_taille_minuscule_non_frelon', // V1.7
   'carapace_dure_elytres_visibles', // V1.8 (M2, audit finding D2) — remplace le tag erroné 'morphologie_filiforme' pour ce cas
+  'nid_alveoles_ouvertes_visible', // V1.12 (post-M2, Item 2 v2) — nid a alveoles a decouvert, sans enveloppe (support de l'individu)
 ]);
 const VALID_INCOMPAT_CATEGORIES = new Set(['chromatique', 'morphologique']);
 const VALID_MARQUEURS_FORTS = new Set([

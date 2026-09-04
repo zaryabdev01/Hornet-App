@@ -1,5 +1,18 @@
-// APISAVE - PROMPT VISION V2.6 (post-M2)
+// APISAVE - PROMPT VISION V2.7 (post-M2)
 // Compatible BEEALERT CORE V13.5+ MES-1 — Production Terrain
+// V2.7 (post-M2, Item 2 v2, client observation 2026-09-04, non-cibles diagnosis) :
+//   Sept cas non-cibles rapportes par le client sur la version post-validation (guepes, mouches
+//   Volucella, frelon europeen, guepe sur son nid) — cf. docs/ApiSave_Postvalidation_v2_Diagnosis.md.
+//   - VERROU NID A ALVEOLES OUVERTES (ETAPE 3) : nouveau verrou de support — un individu pose sur un
+//     rayon de guepier a alveoles hexagonales visibles a decouvert (sans enveloppe fermee) est
+//     structurellement exclu de la cible quel que soit son propre Q1/Q2/Q3 (le nid de Vespa velutina
+//     est TOUJOURS ferme par une enveloppe cartonnee continue). Porte sur le SUPPORT, pas sur
+//     l'individu : contrairement au VERROU GUEPE/POLISTE, il n'ecrase pas Q1/Q2/Q3.
+//   - VERROU GUEPE/POLISTE : precision ajoutee sur les pattes longues et pendantes (visibles en vol
+//     ou posee), marqueur morphologique manque par le modele sur plusieurs guepes Polistes du jeu de
+//     reference alors que la silhouette generale n'etait pas lue "fine/elancee".
+//   Le garde-fou principal reste cote Juge (judge.js V1.15) : le prompt reduit la frequence des
+//   lectures incompletes, il ne remplace jamais la logique de decision.
 // V2.6 (post-M2, client observations 2026-09-02) :
 //   Item 1 (faux negatifs frelon asiatique -> crabro) — corrections VOLONTAIREMENT legeres
 //   apres qu'une premiere version plus directive (exemple cible + regle "choisir sombre")
@@ -83,6 +96,7 @@ VERROU GUEPE/POLISTE/HYMENOPTERE STRICT :
 SI l'insecte presente AU MOINS UN des marqueurs suivants :
 - Silhouette globalement fine, elancee, svelte ou filiforme.
 - Pattes majoritairement jaunes/rousses/claires DE LA BASE AUX EXTREMITES sans rupture noire epaisse et massive pres du corps.
+- Pattes longues et visiblement PENDANTES sous le corps (posee ou en vol) — meme si le corps lui-meme n'est pas juge fin/elance.
 - Motif de rayures transversales jaunes/claires (valide par regle anti-artefact triple : courbure naturelle + repetition sur >= 2 segments + homogeneite).
 - Motif regulier alterne jaune/noir (lignes continues, chevrons ou triangles repetes sur fond JAUNE DOMINANT).
 ALORS :
@@ -90,6 +104,12 @@ ALORS :
 -> FORCER Q3_morphologie.reponse = 'NON'
 -> Ajouter dans incompatibilites_cible : silhouette_fine_allongee, proportions_greles_non_robustes, rayures_jaune_noir_vif, abdomen_jaune_dominant
 -> ARRETER l'evaluation cible pour cet individu (ne pas chercher d'autres criteres au-dela des valeurs forcees ci-dessus).
+
+VERROU NID A ALVEOLES OUVERTES (support de l'individu) :
+SI l'individu est pose sur, dans, ou immediatement au contact d'un nid dont les alveoles/cellules hexagonales sont VISIBLES A DECOUVERT, SANS enveloppe/coque exterieure fermee qui les recouvre (rayon de guepier ouvert a une face, type nid de Polistes) ALORS :
+-> Ajouter dans incompatibilites_cible : nid_alveoles_ouvertes_visible
+-> Ce verrou porte sur le SUPPORT, pas sur l'individu : NE PAS forcer Q1/Q2/Q3 a NON et NE PAS arreter l'evaluation cible — continuer l'ETAPE 4 normalement pour l'individu.
+-> Ne jamais confondre avec un nid dont la structure de surface exterieure (carton, coque) est simplement visible sans alveoles a nu : ce verrou exige que les cellules elles-memes soient visibles, non recouvertes.
 
 VERROU BOURDON/COLEOPTERE/MICRO :
 Pilosite dense et visible (duvet, poils ou soies couvrant nettement le thorax et/ou l'abdomen, silhouette "floue"/veloutee plutot que cuticule lisse) -> Q3_morphologie.reponse = 'NON' + incompatibilites_cible += morphologie_velue_compacte.
@@ -136,7 +156,7 @@ Si Q3 = NON ou si un verrou d'exclusion est actif, elements_visibles doit rester
 
 INCOMPATIBILITES CIBLE - TYPES AUTORISES
 Chromatiques : thorax_roux, abdomen_jaune_dominant, rayures_jaune_noir_vif, abdomen_segmente_jaune_noir_alterne, tete_rousse_orangee.
-Morphologiques : morphologie_filiforme, silhouette_tres_fine, morphologie_velue_compacte, carapace_dure_elytres_visibles, jonction_etroite, proportions_greles_non_robustes, silhouette_fine_allongee, insecte_taille_minuscule_non_frelon.
+Morphologiques : morphologie_filiforme, silhouette_tres_fine, morphologie_velue_compacte, carapace_dure_elytres_visibles, jonction_etroite, proportions_greles_non_robustes, silhouette_fine_allongee, insecte_taille_minuscule_non_frelon, nid_alveoles_ouvertes_visible.
 Lister UNIQUEMENT les incompatibilites clairement visibles. Si rien de clair : [].
 PRECISION tete_rousse_orangee : n'ajouter ce tag QUE si la tete et/ou le vertex est franchement ROUGE, roux-brun ou rouille (type frelon europeen). Une face simplement jaune, jaune-orange ou orangee sur une tete par ailleurs sombre est NORMALE chez la cible et ne doit JAMAIS etre taguee tete_rousse_orangee.
 PRECISION abdomen_segmente_jaune_noir_alterne : n'ajouter ce tag QUE si des bandes jaunes LARGES alternent avec des bandes noires sur la MAJORITE des segments, sur fond globalement jaune. Un abdomen a fond sombre avec une seule bande orange terminale et de simples liseres clairs ne recoit PAS ce tag.

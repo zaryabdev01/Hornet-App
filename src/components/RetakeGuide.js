@@ -109,6 +109,23 @@ const GUIDES = {
     ],
     warning: '⚠️ Une lumière incorrecte peut fausser les couleurs et invalider l\'analyse.',
   },
+  // V1.15 (post-M2, Item 2 v2) — remplace RETAKE_SHARPER/RETAKE_LIGHTING_ANGLE dans les cas où la
+  // photo est correcte mais où les marqueurs relevés restent partagés entre la cible et une espèce
+  // voisine (ex: frelon européen, guêpe) : le message ne doit pas laisser croire à un problème de
+  // netteté ou de lumière quand ce n'est pas le cas.
+  RETAKE_SPECIES_AMBIGUOUS: {
+    title: 'Espèce incertaine — seconde photo utile',
+    icon: '🔎',
+    color: COLORS.orange,
+    steps: [
+      'La photo est exploitable, mais certains critères restent partagés avec une espèce voisine (frelon européen, guêpe)',
+      'Une vue dorsale nette du thorax ET de l\'abdomen sur le même individu aide à trancher',
+      'Rapprochez-vous si possible sans déranger l\'insecte',
+      'Attendez qu\'il soit posé et immobile pour la seconde photo',
+      'Une photo depuis un angle légèrement différent peut suffire',
+    ],
+    warning: '⚠️ Ceci ne signifie pas que la photo est floue ou mal éclairée — l\'espèce reste à confirmer.',
+  },
 };
 
 export default function RetakeGuide({ visible, reasonCode, onRetake, onSkip }) {

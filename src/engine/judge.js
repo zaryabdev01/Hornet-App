@@ -1,6 +1,36 @@
 // APISAVE - MOTEUR DE DECISION (LE JUGE) - JavaScript
 // BEEALERT CORE V13.5+ MES-1 — Version 1.14 (post-M2)
 //
+// V1.15 (post-M2, Item 2 v2 — régressions non-cibles, client obs. 2026-09-04, diagnosis
+//   docs/ApiSave_Postvalidation_v2_Diagnosis.md §4, approuvé par le client) :
+//   Sept cas rapportés (test_images_6/7) : une guêpe sur son nid ouvert lue ROUGE à 92%, plusieurs
+//   guêpes/mouches Volucella/frelon européen renvoyées en ORANGE_INSUFFISANCE avec des reason codes
+//   ne correspondant pas à la photo réelle ("image floue" sur des photos nettes, "lumière naturelle"
+//   sur des photos en plein jour). Calibré par échantillonnage répété (4-8 tirs/cas) sur le jeu de
+//   référence complet (groupes A-G, test_images_5/regression/v2-baseline.* puis *-after-*).
+//   - Portail d'exclusion symétrique (jugerMorphologie, avant le court-circuit ROUGE) : un nid à
+//     alvéoles ouvertes visible sous l'individu (nouveau tag nid_alveoles_ouvertes_visible,
+//     prompts.js V2.7) ou un profil chromatique anti-crabro net (cf. hasConfidentChromaticExclusion)
+//     écarte désormais la cible AVANT que Q1=Q2=Q3=OUI puisse produire ROUGE — symétrique de la
+//     règle guêpe/Polistes déjà en place, qui bloquait ROUGE mais pas les deux autres cas.
+//   - hasConfidentChromaticExclusion() centralise le seuil "conviction suffisante" utilisé à la fois
+//     par ce portail et par verrouVert() : thorax_roux seul (le signal le plus fiable — quasi jamais
+//     lu sur les 22 échantillons frelon-asiatique confirmés du groupe A, contre 4/6 à 6/6 sur chaque
+//     référence crabro du groupe C), OU abdomen_jaune_dominant + >= 2 marqueurs anti-crabro au total,
+//     OU >= 4 marqueurs anti-crabro (saturation). Remplace l'ancien couple "antiCrabroHit >= 3" /
+//     "antiCrabroHit >= 2 && confiance Q1+Q2 HIGH-HIGH" : ce dernier seuil de certitude ne se
+//     déclenchait quasiment jamais en pratique (Gemini rapporte MEDIUM, pas HIGH, sur la quasi-
+//     totalité des échantillons crabro/guêpe réels — cf. cas C7_6 du diagnostic v2, bloqué 6/6 par ce
+//     seuil), et le seuil brut >= 3 marqueurs perdait son effet dès qu'une décote s'appliquait
+//     (tete_rousse_orangee isolé), rouvrant exactement le risque qu'il visait à fermer (cas C7_7).
+//     La décote tete_rousse_orangee (ci-dessous) est conservée pour les branches héritées qui
+//     comptent encore antiCrabroHit brut — elle protège les 22 échantillons du groupe A, dont aucun
+//     ne lit jamais thorax_roux ni (sauf 1 cas sur 22) abdomen_jaune_dominant.
+//   - Reason codes : RETAKE_SHARPER et RETAKE_LIGHTING_ANGLE ne sont plus utilisés comme fourre-tout
+//     génériques quand des marqueurs anti-crabro existent mais restent sous le seuil de conviction —
+//     nouveau code RETAKE_SPECIES_AMBIGUOUS ("espèce incertaine", pas "photo floue"/"mauvaise
+//     lumière"). RETAKE_SHARPER reste réservé au cas où aucun marqueur d'aucune sorte n'est présent
+//     (nbTotal === 0) : là, une reprise plus nette est réellement la seule piste disponible.
 // V1.14 (post-M2, Item 1 — faux négatifs frelon asiatique -> crabro, client obs. 2026-09-02) :
 //   Trois garde-fous sur la route CRABRO_LIKE_PROFILE, validés avant/après par échantillonnage
 //   répété (test_images_5/regression/) contre les cas confirmés ROUGE et frelon européen :
@@ -94,7 +124,24 @@ const MORPHO_TYPES = new Set([
   'morphologie_velue_compacte', 'carapace_dure_elytres_visibles', 'jonction_etroite',
   'proportions_greles_non_robustes', 'silhouette_fine_allongee',
   'insecte_taille_minuscule_non_frelon',
+  'nid_alveoles_ouvertes_visible', // V1.15 (post-M2, Item 2 v2)
 ]);
+
+// V1.15 (post-M2, Item 2 v2) — nid à alvéoles hexagonales visibles à découvert, sans enveloppe
+// fermée (rayon de guêpier ouvert type Polistes) : structurellement incompatible avec Vespa
+// velutina, dont le nid est toujours clos dans une enveloppe cartonnée continue. Porte sur le
+// support de l'individu, pas sur l'individu lui-même — vérifié indépendamment de Q1/Q2/Q3.
+const NEST_EXCLUSION_TAG = 'nid_alveoles_ouvertes_visible';
+
+// V1.15 (post-M2, Item 2 v2) — seuil unique de "conviction suffisante" pour écarter la cible sur
+// preuve chromatique seule, utilisé à la fois par le portail pré-ROUGE et par verrouVert(). Voir le
+// changelog V1.15 en tête de fichier pour le raisonnement et les données de calibration.
+function hasConfidentChromaticExclusion(types, antiCrabroHit) {
+  if (types.has('thorax_roux')) return true;
+  if (types.has('abdomen_jaune_dominant') && antiCrabroHit >= 2) return true;
+  if (antiCrabroHit >= 4) return true;
+  return false;
+}
 
 const EMOJI_MAP = {
   ROUGE: 'rouge',
@@ -173,8 +220,6 @@ function normalizeIncompat(rawIncompat) {
 }
 
 function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, nbMorpho, nbTotal, antiCrabroHit) {
-  const types = new Set(incompat.map(i => i.type));
-
   // V1.14 (post-M2, Item 1) — contre-signal velutina. Un abdomen sombre portant une bande
   // orange terminale (zone_terminale_orangee = true) avec un thorax lu comme sombre/compatible
   // (q1 = OUI) est la signature de la CIBLE, pas de crabro (dont l'abdomen est jaune à bandes
@@ -198,18 +243,13 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
       surLeDos ? 'RETAKE_DORSAL_VIEW' : 'RETAKE_ABDOMEN', analyseId, timestamp);
   }
 
-  // V1.11 (M2, field-test correction 2026-08-19, Findings Photo 2/3) — évidence chromatique
-  // crabro très forte : peut atteindre la route non-cible même si Q3 = NON, avec Q2 = NON et
-  // >= 3 marqueurs crabro distincts. Ne dépend plus de Q1 : Q1 (couleur du thorax) n'est pas
-  // discriminant entre velutina et crabro (les deux ont un thorax sombre), donc Gemini lit
-  // souvent Q1 = OUI sur un vrai crabro — l'exiger à NON verrouillait cette route à tort sur des
-  // spécimens non-cible réels. Reste sans risque pour ROUGE : verrouVert() n'est jamais atteint
-  // quand les 3 réponses valent OUI (court-circuit ROUGE géré en amont dans jugerMorphologie).
-  if (q2 === 'NON' && q3 === 'NON' && antiCrabroHit >= 3) {
-    return formatVerdict('ORANGE_PROBABLE_NON_CIBLE',
-      'Signature chromatique crabro très forte (>= 3 marqueurs distincts) malgré une morphologie non confirmée : espèce voisine probable.',
-      'CRABRO_LIKE_PROFILE', analyseId, timestamp);
-  }
+  // V1.15 (post-M2, Item 2 v2) — La route CRABRO_LIKE_PROFILE sur preuve chromatique seule
+  // (hasConfidentChromaticExclusion) est désormais vérifiée par le portail symétrique dans
+  // jugerMorphologie, AVANT que cette fonction ne soit atteinte, et s'applique quel que soit
+  // Q1/Q2/Q3 (pas seulement Q2=NON/Q3=NON). Si l'exécution arrive ici, c'est que cette preuve
+  // n'était pas suffisante (ou que le contre-signal velutina ci-dessus l'a neutralisée) — pas la
+  // peine de la re-tester. Les branches restantes ci-dessous gèrent les cas où l'évidence est
+  // réelle mais insuffisante pour une conclusion ferme : elles échouent du côté sûr (retake).
 
   // Profil fortement incompatible (V1.3)
   if (q1 === 'NON' && q2 === 'NON') {
@@ -217,31 +257,6 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
       return formatVerdict('VERT',
         'Profil fortement incompatible avec Vespa velutina.',
         'NONE', analyseId, timestamp);
-    }
-  }
-
-  // V1.8.3 — ORANGE_PROBABLE_NON_CIBLE : 3 hits crabro OU 2 hits + certitude haute Q1+Q2
-  // V1.9 (M2) — seuil assoupli : 1 seul hit suffisait si Q1+Q2 sont HIGH.
-  // V1.14 (post-M2, Item 1) — ce raccourci "1 seul marqueur" est retiré : un unique marqueur
-  // chromatique, même lu avec haute certitude, ne suffit plus à router en « espèce voisine
-  // probable » (il produisait des faux négatifs sur frelon asiatique dont Gemini lisait par
-  // erreur la face jaune-orange en tete_rousse_orangee). Il faut désormais >= 2 marqueurs
-  // distincts avec certitude haute, ou >= 3 sans condition de certitude. Les vrais crabro du
-  // jeu de référence produisent 3-4 marqueurs : ils ne sont pas affectés.
-  const isCertitudeHaute =
-    obs?.Q1_thorax?.confidence === 'HIGH' && obs?.Q2_abdomen?.confidence === 'HIGH';
-
-  // V1.11 — même correction qu'au-dessus : Q1 = OUI (thorax sombre lu comme "compatible")
-  // n'exclut plus cette route. Q2 = NON reste l'exigence discriminante (motif abdominal
-  // alterné jaune/noir, incompatible avec velutina) ; ROUGE reste structurellement inatteignable
-  // ici puisqu'il exige Q1 + Q2 + Q3 = OUI et que Q2 = NON est requis pour entrer ce bloc.
-  if ((q3 === 'OUI' || q3 === 'NON_LISIBLE') && q2 === 'NON' && nbMorpho === 0) {
-    if (antiCrabroHit >= 3 || (antiCrabroHit >= 2 && isCertitudeHaute)) {
-      return formatVerdict(
-        'ORANGE_PROBABLE_NON_CIBLE',
-        'Convergence forte de marqueurs chromatiques type crabro avec morphologie frelon compatible : espèce voisine probable.',
-        'CRABRO_LIKE_PROFILE', analyseId, timestamp
-      );
     }
   }
 
@@ -253,7 +268,9 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
         'NONE', analyseId, timestamp);
     }
     if (antiCrabroHit >= 2) {
-      const reason = surLeDos ? 'RETAKE_DORSAL_VIEW' : 'RETAKE_LIGHTING_ANGLE';
+      // V1.15 (post-M2, Item 2 v2) — RETAKE_LIGHTING_ANGLE remplacé : la photo n'a pas de problème
+      // de lumière ici, c'est l'espèce qui reste ambiguë entre cible et crabro/guêpe.
+      const reason = surLeDos ? 'RETAKE_DORSAL_VIEW' : 'RETAKE_SPECIES_AMBIGUOUS';
       return formatVerdict('ORANGE_INSUFFISANCE',
         'Profil chromatique fortement non velutina, mais morphologie encore compatible : seconde photo requise.',
         reason, analyseId, timestamp);
@@ -266,20 +283,9 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
 
   // Q3 = NON
   if (q3 === 'NON') {
-    // V1.11 — même seuil "évidence chromatique forte" que la branche Q3=OUI ci-dessus : si la
-    // certitude Q1+Q2 est haute et qu'au moins 1 marqueur crabro net est présent (ou >= 3 sans
-    // certitude haute requise), la route non-cible doit être atteinte directement plutôt que de
-    // redemander systématiquement une seconde photo (Finding Photo 3 : même spécimen, deux prises,
-    // verdict instable — la variance venait de ce palier manquant, pas d'un vrai retake nécessaire).
-    if (nbMorpho === 0 && (antiCrabroHit >= 3 || (antiCrabroHit >= 2 && isCertitudeHaute))) {
-      return formatVerdict(
-        'ORANGE_PROBABLE_NON_CIBLE',
-        'Convergence forte de marqueurs chromatiques type crabro avec morphologie non confirmée : espèce voisine probable.',
-        'CRABRO_LIKE_PROFILE', analyseId, timestamp
-      );
-    }
     if (nbMorpho === 0 && antiCrabroHit >= 1 && nbTotal < 3) {
-      const reason = surLeDos ? 'RETAKE_DORSAL_VIEW' : 'RETAKE_LIGHTING_ANGLE';
+      // V1.15 (post-M2, Item 2 v2) — idem : profil ambigu, pas un problème de lumière.
+      const reason = surLeDos ? 'RETAKE_DORSAL_VIEW' : 'RETAKE_SPECIES_AMBIGUOUS';
       return formatVerdict('ORANGE_INSUFFISANCE',
         'Morphologie déviante mais profil chromatique crabro : seconde photo requise pour exclure une variante velutina atypique.',
         reason, analyseId, timestamp);
@@ -296,9 +302,18 @@ function verrouVert(obs, q1, q2, q3, surLeDos, analyseId, timestamp, incompat, n
     }
   }
 
+  // V1.15 (post-M2, Item 2 v2) — RETAKE_SHARPER n'est plus le fourre-tout final : il ne reste
+  // adapté que quand AUCUN marqueur d'aucune sorte n'est présent (nbTotal === 0), auquel cas une
+  // reprise plus nette est réellement la seule piste. Dès qu'un marqueur existe (nbTotal >= 1), le
+  // vrai problème est que l'espèce reste ambiguë entre cible et espèce voisine — pas la netteté.
+  if (nbTotal === 0) {
+    return formatVerdict('ORANGE_INSUFFISANCE',
+      'Critères insuffisants pour conclure.',
+      'RETAKE_SHARPER', analyseId, timestamp);
+  }
   return formatVerdict('ORANGE_INSUFFISANCE',
-    'Critères insuffisants pour conclure.',
-    'RETAKE_SHARPER', analyseId, timestamp);
+    'Critères insuffisants pour conclure : marqueurs présents mais non concluants.',
+    'RETAKE_SPECIES_AMBIGUOUS', analyseId, timestamp);
 }
 
 function jugerMorphologie(obs, analyseId, timestamp) {
@@ -373,6 +388,28 @@ function jugerMorphologie(obs, analyseId, timestamp) {
 
   if (q3 === 'NON' && q3conf === 'HIGH' && nbMorpho >= 2) {
     return formatVerdict('VERT', 'Incompatibilité morphologique absolue.', 'NONE', analyseId, timestamp);
+  }
+
+  // V1.15 (post-M2, Item 2 v2) — Portail d'exclusion symétrique, vérifié AVANT le court-circuit
+  // ROUGE ci-dessous. Jusqu'ici, seule la règle guêpe/Polistes (ci-dessus) pouvait empêcher un
+  // Q1=Q2=Q3=OUI de produire ROUGE ; un nid à alvéoles ouvertes ou un profil chromatique crabro net
+  // ne le pouvaient pas, alors qu'ils sont tout aussi disqualifiants (cas C7_1 du diagnostic v2 :
+  // guêpe Polistes sur nid ouvert lue Q1=Q2=Q3=OUI sans aucun tag chromatique, ROUGE à 92% dans
+  // 5 tirs sur 8). Protégé par le même contre-signal velutina que verrouVert() : un individu dont
+  // le thorax est sombre et l'extrémité abdominale orange (signature cible plausible) n'est jamais
+  // écarté sur la seule preuve chromatique — voir commentaire détaillé dans verrouVert().
+  const velutinaCounterSignal =
+    obs?.Q2_abdomen?.zone_terminale_orangee === true && q1 === 'OUI';
+
+  if (types.has(NEST_EXCLUSION_TAG)) {
+    return formatVerdict('ORANGE_PROBABLE_NON_CIBLE',
+      'Nid à alvéoles ouvertes visible sous l\'individu : support structurellement incompatible avec Vespa velutina.',
+      'NEST_STRUCTURE_INCOMPATIBLE', analyseId, timestamp);
+  }
+  if (!velutinaCounterSignal && hasConfidentChromaticExclusion(types, antiCrabroHit)) {
+    return formatVerdict('ORANGE_PROBABLE_NON_CIBLE',
+      'Signature chromatique crabro très forte : espèce voisine probable, quelle que soit la lecture Q1/Q2/Q3.',
+      'CRABRO_LIKE_PROFILE', analyseId, timestamp);
   }
 
   const reponses = [q1, q2, q3];
