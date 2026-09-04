@@ -65,11 +65,22 @@ const MANIFEST = [
   { group: 'F', dir: 'test_images_4', file: 'WhatsApp Image 2026-08-24 at 7.41.59 PM.jpeg', acceptable: ['ORANGE_PROBABLE_NON_CIBLE', 'ORANGE_INSUFFISANCE'], goal: 'not-ROUGE (known residual)', samples: 3 },
   { group: 'F', dir: 'test_images_4', file: 'WhatsApp Image 2026-08-24 at 7.41.59 PM (1).jpeg', acceptable: ['ORANGE_PROBABLE_NON_CIBLE', 'ORANGE_INSUFFISANCE'], goal: 'not-ROUGE (known residual)', samples: 3 },
   { group: 'F', dir: 'test_images_4', file: 'WhatsApp Image 2026-08-24 at 7.41.59 PM (2).jpeg', acceptable: ['ORANGE_PROBABLE_NON_CIBLE', 'ORANGE_INSUFFISANCE'], goal: 'not-ROUGE (known residual)', samples: 3 },
+
+  // group G — Nordine's post-validation-v2 non-target regression cases (raw photos, 2026-09-04).
+  { group: 'G', dir: 'test_images_7', file: 'C7_1_Polistes_on_open_comb_nest_FALSE_ROUGE.png', acceptable: ['ORANGE_PROBABLE_NON_CIBLE', 'ORANGE_INSUFFISANCE'], goal: 'not-ROUGE (Polistes on open comb nest)', samples: 8 },
+  { group: 'G', dir: 'test_images_7', file: 'C7_2_banded_wasp_on_bark.png', acceptable: ['ORANGE_PROBABLE_NON_CIBLE'], goal: 'ORANGE_PROBABLE_NON_CIBLE', samples: 6 },
+  { group: 'G', dir: 'test_images_7', file: 'C7_3_banded_wasp_on_thistle.png', acceptable: ['ORANGE_PROBABLE_NON_CIBLE'], goal: 'ORANGE_PROBABLE_NON_CIBLE', samples: 6 },
+  { group: 'G', dir: 'test_images_7', file: 'C7_4_volucella_hoverfly_on_mint.png', acceptable: ['VERT', 'ORANGE_PROBABLE_NON_CIBLE'], goal: 'not a retake', samples: 6 },
+  { group: 'G', dir: 'test_images_7', file: 'C7_5_volucella_hoverfly_white_flower.png', acceptable: ['VERT', 'ORANGE_PROBABLE_NON_CIBLE'], goal: 'not a retake', samples: 6 },
+  { group: 'G', dir: 'test_images_7', file: 'C7_6_volucella_hoverfly_white_flower2.png', acceptable: ['VERT', 'ORANGE_PROBABLE_NON_CIBLE'], goal: 'not a retake', samples: 6 },
+  { group: 'G', dir: 'test_images_7', file: 'C7_7_european_hornet_dead_on_side.png', acceptable: ['ORANGE_PROBABLE_NON_CIBLE'], goal: 'ORANGE_PROBABLE_NON_CIBLE', samples: 6 },
+  { group: 'G', dir: 'test_images_7', file: 'C7_8_polistes_on_white_flowers.jpeg', acceptable: ['ORANGE_PROBABLE_NON_CIBLE'], goal: 'ORANGE_PROBABLE_NON_CIBLE', samples: 4 },
+  { group: 'G', dir: 'test_images_7', file: 'C7_9_distant_insect_on_branch_GROUNDTRUTH_TBD.jpeg', acceptable: ['ORANGE_INSUFFISANCE', 'ORANGE_PROBABLE_NON_CIBLE', 'ROUGE'], goal: 'fail-safe (ground truth TBD)', samples: 4 },
 ];
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function callGemini(base64Image, attempt = 0) {
+async function callGemini(base64Image, attempt = 0, mimeType = 'image/jpeg') {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${API_KEY}`;
   let response;
   try {
@@ -78,7 +89,7 @@ async function callGemini(base64Image, attempt = 0) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         system_instruction: { parts: [{ text: VISION_SYSTEM_PROMPT }] },
-        contents: [{ role: 'user', parts: [{ text: VISION_USER_PROMPT }, { inline_data: { mime_type: 'image/jpeg', data: base64Image } }] }],
+        contents: [{ role: 'user', parts: [{ text: VISION_USER_PROMPT }, { inline_data: { mime_type: mimeType, data: base64Image } }] }],
         generationConfig: { temperature: 0, response_mime_type: 'application/json' },
       }),
     });
@@ -90,7 +101,7 @@ async function callGemini(base64Image, attempt = 0) {
     const wait = (2 ** attempt) * 1000 + Math.random() * 800;
     process.stdout.write(`(${response.status} retry) `);
     await sleep(wait);
-    return callGemini(base64Image, attempt + 1);
+    return callGemini(base64Image, attempt + 1, mimeType);
   }
   if (!response.ok) throw new Error(`HTTP ${response.status}: ${(await response.text().catch(() => '')).slice(0, 160)}`);
   const data = await response.json();
@@ -108,10 +119,11 @@ async function main() {
     const imgPath = path.join(__dirname, '..', m.dir, m.file);
     process.stdout.write(`\n[${m.group}] ${m.dir}/${m.file} (${n}x) `);
     const b64 = fs.readFileSync(imgPath).toString('base64');
+    const mimeType = /\.png$/i.test(m.file) ? 'image/png' : 'image/jpeg';
     const runs = [];
     for (let i = 0; i < n; i++) {
       try {
-        const raw = await callGemini(b64);
+        const raw = await callGemini(b64, 0, mimeType);
         let obs; try { obs = JSON.parse(raw); } catch { obs = JSON.parse(raw.match(/\{[\s\S]*\}/)[0]); }
         validateObservation(obs);
         const v = juger(obs);

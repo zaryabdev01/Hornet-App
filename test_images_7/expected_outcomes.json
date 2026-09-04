@@ -1,0 +1,79 @@
+{
+  "_source": "Original photographs for the 7 non-target regression cases (test_images_6 screenshots), supplied by Nordine 2026-09-04, + 2 extra non-target photos.",
+  "_status": "Client approved the section-4 fix direction. These are the before/after regression cases for that work.",
+  "_note": "Verdicts on the CURRENT build (judge V1.14 / prompts V2.6) are in `observed_*`. `expected_verdict` is the target after the fix. `prohibited_verdicts` is the hard constraint. C7_9 ground truth needs client confirmation.",
+  "cases": [
+    {
+      "file": "C7_1_Polistes_on_open_comb_nest_FALSE_ROUGE.png",
+      "subject": "Paper wasp (Polistes) on its nest. The nest is an OPEN single hexagonal comb with no envelope — structurally impossible for Vespa velutina (enclosed carton). Insect soft/backlit, nest sharp.",
+      "observed_verdict": "ROUGE", "observed_confidence": 92,
+      "observed_motif": "Q1 + Q2 + Q3 = OUI valides sur le meme individu.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "acceptable_verdicts": ["ORANGE_PROBABLE_NON_CIBLE", "ORANGE_INSUFFISANCE"],
+      "prohibited_verdicts": ["ROUGE"],
+      "note": "CRITICAL. Symmetrical exclusion gate (nest = open comb) must fire before the ROUGE short-circuit."
+    },
+    {
+      "file": "C7_2_banded_wasp_on_bark.png",
+      "subject": "Wasp on tree bark, 4+ regular yellow bands across the abdomen, yellow legs, dark thorax with yellow shoulders. Readable.",
+      "observed_verdict": "ORANGE_INSUFFISANCE", "observed_reason_code": "RETAKE_LIGHTING_ANGLE",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"]
+    },
+    {
+      "file": "C7_3_banded_wasp_on_thistle.png",
+      "subject": "Wasp on a purple globe thistle, regular yellow bands, reddish legs. Sharp on the insect, outdoor daylight.",
+      "observed_verdict": "ORANGE_INSUFFISANCE", "observed_reason_code": "RETAKE_LIGHTING_ANGLE",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"]
+    },
+    {
+      "file": "C7_4_volucella_hoverfly_on_mint.png",
+      "subject": "Volucella hoverfly (a FLY, hornet mimic) on mint flowers — huge eyes, single pair of wings, no wasp waist. Very sharp, full sun.",
+      "observed_verdict": "ORANGE_INSUFFISANCE", "observed_reason_code": "RETAKE_LIGHTING_ANGLE",
+      "expected_verdict": "VERT",
+      "acceptable_verdicts": ["VERT", "ORANGE_PROBABLE_NON_CIBLE"],
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"]
+    },
+    {
+      "file": "C7_5_volucella_hoverfly_white_flower.png",
+      "subject": "Volucella hoverfly on a white flower. Very sharp, full sun.",
+      "observed_verdict": "ORANGE_INSUFFISANCE", "observed_reason_code": "RETAKE_LIGHTING_ANGLE",
+      "expected_verdict": "VERT",
+      "acceptable_verdicts": ["VERT", "ORANGE_PROBABLE_NON_CIBLE"],
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"]
+    },
+    {
+      "file": "C7_6_volucella_hoverfly_white_flower2.png",
+      "subject": "Volucella hoverfly on a white flower. Very sharp, full sun.",
+      "observed_verdict": "ORANGE_INSUFFISANCE", "observed_reason_code": "RETAKE_LIGHTING_ANGLE",
+      "expected_verdict": "VERT",
+      "acceptable_verdicts": ["VERT", "ORANGE_PROBABLE_NON_CIBLE"],
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"]
+    },
+    {
+      "file": "C7_7_european_hornet_dead_on_side.png",
+      "subject": "European hornet (Vespa crabro), dead on its side — yellow abdomen with dark teardrop marks, reddish-brown thorax and head. Sharp.",
+      "observed_verdict": "ORANGE_INSUFFISANCE", "observed_reason_code": "RETAKE_SHARPER",
+      "observed_motif": "Criteres insuffisants pour conclure.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"]
+    },
+    {
+      "file": "C7_8_polistes_on_white_flowers.jpeg",
+      "subject": "Paper wasp (Polistes) on white umbel flowers — dark body with yellow markings, thin yellow bands, long dangling legs, narrow waist. Sharp, daylight.",
+      "observed_verdict": "unknown (not tested by client)",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "prohibited_verdicts": ["ROUGE"],
+      "note": "Extra clear non-target. Regression guard."
+    },
+    {
+      "file": "C7_9_distant_insect_on_branch_GROUNDTRUTH_TBD.jpeg",
+      "subject": "Small/distant insect on a horizontal branch, foliage background, low resolution. Orange/dark. Genuinely hard — could be a distant Asian hornet or a wasp.",
+      "observed_verdict": "unknown (not tested by client)",
+      "expected_verdict": "ORANGE_INSUFFISANCE",
+      "acceptable_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE", "ORANGE_PROBABLE_NON_CIBLE"],
+      "note": "Ground truth UNCONFIRMED — ask the client. If a distant Asian hornet: a retake (RETAKE_MORPHOLOGY / distance) is the correct fail-safe here, not a wrong verdict."
+    }
+  ]
+}
