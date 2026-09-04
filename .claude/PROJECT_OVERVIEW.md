@@ -1,5 +1,18 @@
 # ApiSave — Project Overview & Engagement Context
 
+> ## ⛔ BRANCHING POLICY — READ FIRST (company policy, penalties apply)
+>
+> **Never commit, merge, or push directly to `main` / `master`.** Every milestone and
+> every feature — including docs and config — must be done on its own branch, pushed,
+> and opened as a Pull Request that **a different team member reviews and merges**.
+> Never self-merge; never fast-forward `main` locally.
+>
+> Workflow: `git checkout -b <name>` → work + commit on that branch → `git push -u origin
+> <name>` → open PR → teammate reviews & merges.
+>
+> This is enforced by the `.claude/hooks/guard-protected-branch.cjs` PreToolUse hook
+> (see `CLAUDE.md`). If it blocks a git command, branch first — that is the hook working.
+
 **Purpose of this file:** context for starting a fresh Claude Code conversation on this project without re-deriving the whole history. Written 2026-08-28. Keep this updated as the engagement progresses — it will go stale otherwise.
 
 ---
