@@ -1,0 +1,77 @@
+{
+  "_source": "App screenshots from Nordine's testing of the post-validation build (judge V1.14 / prompts V2.6), supplied 2026-09-04.",
+  "_status": "Regressions on non-target classification. Diagnosis: docs/ApiSave_Postvalidation_v2_Diagnosis.md. No code changed yet — awaiting client sign-off on the fix direction.",
+  "_note": "These are APP SCREENSHOTS, not raw insect photos. The original photographs have been requested from the client so each case can be run through scripts/postval-regression.cjs. `expected_verdict` / `prohibited_verdicts` below are the target once the fix lands.",
+  "cases": [
+    {
+      "screenshot": "IMG_8540.png",
+      "subject": "Dark insect on an open hexagonal comb nest (paper-wasp / Polistes type — NOT a velutina carton nest); backlit, slightly soft.",
+      "observed_verdict": "ROUGE",
+      "observed_confidence": 92,
+      "observed_motif": "Q1 + Q2 + Q3 = OUI valides sur le même individu.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "prohibited_verdicts": ["ROUGE"],
+      "note": "CRITICAL false positive. Nest morphology alone (open comb, no envelope) excludes velutina. Symmetrical exclusion gate must catch this before the ROUGE short-circuit."
+    },
+    {
+      "screenshot": "IMG_8523.png",
+      "guide_screenshot": "IMG_8524.png",
+      "subject": "Wasp (Vespula/Polistes), regular yellow bands across the whole abdomen; readable.",
+      "observed_verdict": "ORANGE_INSUFFISANCE",
+      "observed_reason_code": "RETAKE_LIGHTING_ANGLE",
+      "observed_motif": "Morphologie déviante mais profil chromatique crabro : seconde photo requise pour exclure une variante velutina atypique.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"],
+      "note": "verrouVert Q3=NON branch: nbMorpho===0 && antiCrabroHit>=1 && nbTotal<3 -> RETAKE_LIGHTING_ANGLE. Multiple regular bands should conclude 'other vespid'."
+    },
+    {
+      "screenshot": "IMG_8531.png",
+      "subject": "Wasp on a purple flower, regular yellow bands; sharp, outdoor daylight.",
+      "observed_verdict": "ORANGE_INSUFFISANCE",
+      "observed_reason_code": "RETAKE_LIGHTING_ANGLE",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"],
+      "note": "Same branch as IMG_8523. Reason label ('use direct natural light') wrong — shot in full sun."
+    },
+    {
+      "screenshot": "IMG_8527.png",
+      "guide_screenshot": "IMG_8528.png",
+      "subject": "Hoverfly (Volucella, hornet-mimic FLY — huge eyes, single wing pair, no waist); very sharp, full sun.",
+      "observed_verdict": "ORANGE_INSUFFISANCE",
+      "observed_reason_code": "RETAKE_LIGHTING_ANGLE",
+      "expected_verdict": "VERT",
+      "acceptable_verdicts": ["VERT", "ORANGE_PROBABLE_NON_CIBLE"],
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"],
+      "note": "Not a hymenopteran. Sharp daylight. Should not request a retake."
+    },
+    {
+      "screenshot": "IMG_8529.png",
+      "guide_screenshot": "IMG_8530.png",
+      "subject": "Hoverfly (Volucella); very sharp, full sun.",
+      "observed_verdict": "ORANGE_INSUFFISANCE",
+      "observed_reason_code": "RETAKE_LIGHTING_ANGLE",
+      "expected_verdict": "VERT",
+      "acceptable_verdicts": ["VERT", "ORANGE_PROBABLE_NON_CIBLE"],
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"]
+    },
+    {
+      "screenshot": "IMG_8532.png",
+      "subject": "Hoverfly (Volucella); very sharp, full sun.",
+      "observed_verdict": "ORANGE_INSUFFISANCE",
+      "observed_reason_code": "RETAKE_LIGHTING_ANGLE",
+      "expected_verdict": "VERT",
+      "acceptable_verdicts": ["VERT", "ORANGE_PROBABLE_NON_CIBLE"],
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"]
+    },
+    {
+      "screenshot": "IMG_8533.png",
+      "subject": "European hornet (Vespa crabro), dead on its side — yellow abdomen with dark marks, reddish thorax; sharp.",
+      "observed_verdict": "ORANGE_INSUFFISANCE",
+      "observed_reason_code": "RETAKE_SHARPER",
+      "observed_motif": "Critères insuffisants pour conclure.",
+      "expected_verdict": "ORANGE_PROBABLE_NON_CIBLE",
+      "prohibited_verdicts": ["ORANGE_INSUFFISANCE", "ROUGE"],
+      "note": "Final fallback of verrouVert -> RETAKE_SHARPER ('blurry image'). Image is sharp."
+    }
+  ]
+}

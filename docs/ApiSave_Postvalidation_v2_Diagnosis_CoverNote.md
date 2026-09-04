@@ -1,7 +1,15 @@
 Hi Nordine,
 
-Thank you — you've read this correctly, and the diagnosis is attached. No code has been
-changed; you asked for the diagnosis first and here it is.
+Thank you — you've read this correctly, and the diagnosis is attached. I have gone through
+the ten screenshots you sent (seven cases). No code has been changed; you asked for the
+diagnosis first and here it is.
+
+All seven cases are non-target insects and the build gets all seven wrong: one paper-wasp
+on its comb nest reaching "Asian hornet highly probable" at 92%, three wasps and hoverflies
+(one is a fly, not even a hymenopteran) sent to "Insufficient data" with a "use natural
+light" message despite being shot in full sun, and a sharp European hornet sent to
+"Insufficient data" with a "blurry image" message. Each one is mapped in the document to
+the exact rule that produced it.
 
 Short version:
 
@@ -44,8 +52,9 @@ Everything will be validated before/after with repeated sampling against the ful
 confirmed Asian hornets, the four false-negative hornets, the European hornets, the wasps,
 the scoliids, the mandarinia set — plus your new screenshots added as permanent cases.
 
-Please send the screenshots, and let me know if the direction in section 4 is what you
-want. I won't touch the code until then.
+Could you send the original photographs for those seven cases (the raw images, not the app
+screenshots)? Each will go into the permanent regression set. And let me know if the
+direction in section 4 is what you want — I won't touch the code until then.
 
 Thanks,
 Zaryab

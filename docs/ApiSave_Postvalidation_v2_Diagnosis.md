@@ -12,11 +12,12 @@ and has broken non-target classification in three ways: a European hornet can no
 `ROUGE`, visibly non-target insects are sent to "insufficient data", and the retake reason
 codes no longer describe the real limitation.
 
-**No code has been changed.** This document is the diagnosis you asked for. Every claim
-below is backed by the repeated-sampling regression runs already on file
-(`test_images_5/regression/`), comparing the same reference images on the *previous* logic
-and on the *current* build, run in the same session so the numbers are not distorted by the
-model's day-to-day drift.
+**No code has been changed.** This document is the diagnosis you asked for. It is backed by
+two independent sources: the ten screenshots you sent (seven cases, §2.0), each mapped to
+the exact Judge branch that produced it; and the repeated-sampling regression runs already
+on file (`test_images_5/regression/`), comparing the same reference images on the *previous*
+logic and on the *current* build, run in the same session so the numbers are not distorted
+by the model's day-to-day drift.
 
 ---
 
@@ -34,6 +35,37 @@ model's day-to-day drift.
 ---
 
 # 2. The five reported issues — root cause
+
+## 2.0 Your screenshots
+
+The ten screenshots you sent are seven cases. Every one is a non-target insect, and the
+build gets all seven wrong. Each is mapped to the exact branch of the Judge that produced
+it.
+
+| # | Subject in the photo | Verdict shown | Reason code shown | Should be |
+|---|---|---|---|---|
+| 1 | Dark insect on an **open hexagonal comb nest** (paper-wasp / *Polistes* type — not a *velutina* carton nest); backlit, slightly soft | **`ROUGE` — "Asian hornet highly probable", 92 %** | `Q1 + Q2 + Q3 = OUI` | non-target vespid — **critical false positive** |
+| 2 | Wasp, regular yellow bands across the whole abdomen; sharp enough to read every band | "Insufficient data", 55 % | "Chromatic conflict — photograph under direct natural light" | "probable non-target" |
+| 3 | Wasp on a purple flower, regular yellow bands; sharp | "Insufficient data", 55 % | same | "probable non-target" |
+| 4 | Hoverfly (*Volucella*, a hornet-mimic **fly** — huge eyes, one pair of wings, no waist); very sharp, full sun | "Insufficient data", 55 % | same | non-target (not even a hymenopteran) |
+| 5 | Hoverfly (*Volucella*); very sharp, full sun | "Insufficient data", 55 % | same | non-target |
+| 6 | Hoverfly (*Volucella*); very sharp, full sun | "Insufficient data", 55 % | same | non-target |
+| 7 | **European hornet** (dead, on its side) — yellow abdomen with dark marks, reddish thorax; sharp | "Insufficient data", 55 % | "Blurry image — stabilise and retake" | "probable non-target" |
+
+- **Case 1** is symptom 2.1 — a non-target reaching `ROUGE` at 92 % because the model read
+  `Q1 = Q2 = Q3 = OUI` and nothing checked the nest shape or any exclusion marker before the
+  verdict. The photo is also soft/backlit — the model should not have been confident enough
+  to answer all three `OUI`.
+- **Cases 2–6** are symptom 2.2 — sufficiently visible non-targets sent to "Insufficient
+  data". All five carry `RETAKE_LIGHTING_ANGLE`, whose label tells the user to find "direct
+  natural light" even though four of the five were shot in full sun (symptom 2.5).
+- **Case 7** is symptoms 2.2 + 2.4 — a sharp European hornet sent to "Insufficient data"
+  with `RETAKE_SHARPER` ("blurry image"). The image is not blurry.
+
+The motif text on cases 2–7 ("deviant morphology but crabro chromatic profile — second
+photo required" / "criteria insufficient to conclude") is the tell: the model **has** seen
+non-*velutina* features, and the Judge is choosing to ask for another photo instead of
+acting on them. That is exactly the behaviour to reverse.
 
 ## 2.1 A European hornet classified as "Asian hornet highly probable" (`ROUGE`) — critical
 
@@ -223,7 +255,8 @@ No change ships without this evidence in front of you.
 
 # 6. What I need from you
 
-1. The screenshots from your latest testing, so each failing image becomes a permanent
-   regression case with its expected verdict recorded.
+1. The **original photographs** for the seven cases in §2.0 (the raw images, not the app
+   screenshots). Each will be added to the permanent regression set with its expected
+   verdict recorded, and the fix is validated against them before and after.
 2. Your agreement on the direction in §4 (the symmetrical exclusion gate, the threshold
    rollback, the retake discipline) before any code is written.
