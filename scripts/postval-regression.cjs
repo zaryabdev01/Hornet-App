@@ -144,6 +144,7 @@ async function main() {
           Q3: insect ? `${obs.Q3_morphologie.reponse}/${obs.Q3_morphologie.confidence}` : null,
           fond: insect ? obs.Q2_abdomen.fond_dominant : null,
           zoneOr: insect ? obs.Q2_abdomen.zone_terminale_orangee : null,
+          nid: insect ? (obs.etape_2_individu?.support_nid_ouvert_visible ?? null) : null,
           tags, antiCrabro: tags.filter((t) => ANTI_CRABRO_TYPES.has(t)).length,
         });
         process.stdout.write(v.verdict_code === m.goal || (m.acceptable || []).includes(v.verdict_code) ? '.' : 'X');

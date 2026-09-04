@@ -1,0 +1,710 @@
+{
+  "label": "v3-targeted",
+  "model": "gemini-3.6-flash",
+  "generated": "2026-09-04T14:48:25.691Z",
+  "quick": false,
+  "entries": [
+    {
+      "group": "A",
+      "dir": "test_images_5",
+      "file": "Case1_AsianHornet_FalseNegative_crabro_flying.jpeg",
+      "acceptable": [
+        "ROUGE",
+        "ORANGE_INSUFFISANCE"
+      ],
+      "goal": "ROUGE",
+      "samples": 8,
+      "samples_run": 8,
+      "distribution": {
+        "ORANGE_PROBABLE_NON_CIBLE": 2,
+        "ORANGE_INSUFFISANCE": 6
+      },
+      "majority": "ORANGE_INSUFFISANCE",
+      "pass": false,
+      "runs": [
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "thorax_roux",
+            "tete_rousse_orangee",
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 4
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_SPECIES_AMBIGUOUS",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_SPECIES_AMBIGUOUS",
+          "Q1": "OUI/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 2
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_SPECIES_AMBIGUOUS",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "OUI/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne",
+            "abdomen_jaune_dominant"
+          ],
+          "antiCrabro": 4
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_PROFILE",
+          "Q1": "OUI/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 2
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_SPECIES_AMBIGUOUS",
+          "Q1": "OUI/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_PROFILE",
+          "Q1": "OUI/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 2
+        }
+      ]
+    },
+    {
+      "group": "A",
+      "dir": "test_images_5",
+      "file": "Case2_AsianHornet_FalseNegative_crabro_predation.jpeg",
+      "acceptable": [
+        "ROUGE"
+      ],
+      "goal": "ROUGE",
+      "samples": 8,
+      "samples_run": 8,
+      "distribution": {
+        "ORANGE_PROBABLE_NON_CIBLE": 4,
+        "ORANGE_INSUFFISANCE": 3,
+        "ROUGE": 1
+      },
+      "majority": "ORANGE_PROBABLE_NON_CIBLE",
+      "pass": false,
+      "runs": [
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "abdomen_jaune_dominant",
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_ABDOMEN",
+          "Q1": "OUI/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [
+            "tete_rousse_orangee"
+          ],
+          "antiCrabro": 1
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "OUI/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_jaune_dominant",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/HIGH",
+          "Q2": "OUI/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "thorax_roux",
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "thorax_roux",
+            "abdomen_jaune_dominant",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 4
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 2
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee"
+          ],
+          "antiCrabro": 1
+        }
+      ]
+    },
+    {
+      "group": "C",
+      "dir": "test_images_2",
+      "file": "ref_image_01.jpg",
+      "acceptable": [
+        "ORANGE_PROBABLE_NON_CIBLE"
+      ],
+      "goal": "ORANGE_PROBABLE_NON_CIBLE",
+      "samples": 6,
+      "samples_run": 6,
+      "distribution": {
+        "ROUGE": 4,
+        "ORANGE_PROBABLE_NON_CIBLE": 2
+      },
+      "majority": "ROUGE",
+      "pass": false,
+      "runs": [
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/HIGH",
+          "Q2": "OUI/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "thorax_roux",
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "abdomen_jaune_dominant",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/HIGH",
+          "Q2": "OUI/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/HIGH",
+          "Q2": "OUI/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/HIGH",
+          "Q2": "OUI/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        }
+      ]
+    },
+    {
+      "group": "G",
+      "dir": "test_images_7",
+      "file": "C7_1_Polistes_on_open_comb_nest_FALSE_ROUGE.png",
+      "acceptable": [
+        "ORANGE_PROBABLE_NON_CIBLE",
+        "ORANGE_INSUFFISANCE"
+      ],
+      "goal": "not-ROUGE (Polistes on open comb nest)",
+      "samples": 8,
+      "samples_run": 8,
+      "distribution": {
+        "ORANGE_PROBABLE_NON_CIBLE": 2,
+        "ROUGE": 6
+      },
+      "majority": "ROUGE",
+      "pass": false,
+      "runs": [
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "NEST_STRUCTURE_INCOMPATIBLE",
+          "Q1": "OUI/MEDIUM",
+          "Q2": "OUI/MEDIUM",
+          "Q3": "OUI/MEDIUM",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [
+            "nid_alveoles_ouvertes_visible"
+          ],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "NEST_STRUCTURE_INCOMPATIBLE",
+          "Q1": "OUI/MEDIUM",
+          "Q2": "OUI/MEDIUM",
+          "Q3": "OUI/MEDIUM",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [
+            "nid_alveoles_ouvertes_visible"
+          ],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/MEDIUM",
+          "Q2": "OUI/MEDIUM",
+          "Q3": "OUI/MEDIUM",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/MEDIUM",
+          "Q2": "OUI/MEDIUM",
+          "Q3": "OUI/MEDIUM",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/MEDIUM",
+          "Q2": "OUI/MEDIUM",
+          "Q3": "OUI/MEDIUM",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/MEDIUM",
+          "Q2": "OUI/MEDIUM",
+          "Q3": "OUI/MEDIUM",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/HIGH",
+          "Q2": "OUI/HIGH",
+          "Q3": "OUI/HIGH",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        },
+        {
+          "verdict": "ROUGE",
+          "reason": "NONE",
+          "Q1": "OUI/MEDIUM",
+          "Q2": "OUI/MEDIUM",
+          "Q3": "OUI/MEDIUM",
+          "fond": "sombre",
+          "zoneOr": true,
+          "tags": [],
+          "antiCrabro": 0
+        }
+      ]
+    },
+    {
+      "group": "G",
+      "dir": "test_images_7",
+      "file": "C7_4_volucella_hoverfly_on_mint.png",
+      "acceptable": [
+        "VERT",
+        "ORANGE_PROBABLE_NON_CIBLE"
+      ],
+      "goal": "not a retake",
+      "samples": 6,
+      "samples_run": 6,
+      "distribution": {
+        "ORANGE_INSUFFISANCE": 2,
+        "ORANGE_PROBABLE_NON_CIBLE": 4
+      },
+      "majority": "ORANGE_PROBABLE_NON_CIBLE",
+      "pass": false,
+      "runs": [
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_SPECIES_AMBIGUOUS",
+          "Q1": "OUI/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "thorax_roux",
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "NON_TARGET_HYMENOPTERA",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "silhouette_fine_allongee",
+            "proportions_greles_non_robustes",
+            "rayures_jaune_noir_vif"
+          ],
+          "antiCrabro": 1
+        },
+        {
+          "verdict": "ORANGE_INSUFFISANCE",
+          "reason": "RETAKE_SPECIES_AMBIGUOUS",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "NON_TARGET_HYMENOPTERA",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "rayures_jaune_noir_vif",
+            "proportions_greles_non_robustes"
+          ],
+          "antiCrabro": 2
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "thorax_roux",
+            "tete_rousse_orangee",
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 4
+        }
+      ]
+    },
+    {
+      "group": "G",
+      "dir": "test_images_7",
+      "file": "C7_7_european_hornet_dead_on_side.png",
+      "acceptable": [
+        "ORANGE_PROBABLE_NON_CIBLE"
+      ],
+      "goal": "ORANGE_PROBABLE_NON_CIBLE",
+      "samples": 6,
+      "samples_run": 6,
+      "distribution": {
+        "ORANGE_PROBABLE_NON_CIBLE": 6
+      },
+      "majority": "ORANGE_PROBABLE_NON_CIBLE",
+      "pass": true,
+      "runs": [
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "abdomen_jaune_dominant",
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne",
+            "tete_rousse_orangee",
+            "thorax_roux"
+          ],
+          "antiCrabro": 5
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "thorax_roux",
+            "abdomen_jaune_dominant",
+            "tete_rousse_orangee",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 4
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "thorax_roux",
+            "abdomen_jaune_dominant",
+            "rayures_jaune_noir_vif",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 5
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "thorax_roux",
+            "tete_rousse_orangee",
+            "abdomen_jaune_dominant",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 4
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "tete_rousse_orangee",
+            "abdomen_jaune_dominant",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 3
+        },
+        {
+          "verdict": "ORANGE_PROBABLE_NON_CIBLE",
+          "reason": "CRABRO_LIKE_PROFILE",
+          "Q1": "NON/HIGH",
+          "Q2": "NON/HIGH",
+          "Q3": "NON/HIGH",
+          "fond": "mixte_jaune_noir_alterne",
+          "zoneOr": false,
+          "tags": [
+            "abdomen_jaune_dominant",
+            "tete_rousse_orangee",
+            "thorax_roux",
+            "abdomen_segmente_jaune_noir_alterne"
+          ],
+          "antiCrabro": 4
+        }
+      ]
+    }
+  ]
+}

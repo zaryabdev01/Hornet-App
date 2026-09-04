@@ -1,6 +1,17 @@
 // APISAVE - MOTEUR DE DECISION (LE JUGE) - JavaScript
 // BEEALERT CORE V13.5+ MES-1 — Version 1.14 (post-M2)
 //
+// V1.17 (post-M2, Item 2 v2, follow-up 2026-09-04, live-data replay finding) :
+//   V1.16's targeted live re-test surfaced a real safety regression missed by the first full run's
+//   aggregate pass count: hasConfidentChromaticExclusion's abdomen_jaune_dominant+antiCrabroHit>=2
+//   clause was wrongly excluding confirmed Asian-hornet photos (Case1/Case2) at a materially higher
+//   rate (~5/24 each) than the original ~1-in-8 estimate. Diagnosed by pooling and replaying every
+//   sample captured across this fix's four live regression runs (404 total observations) through
+//   candidate thresholds with zero additional API cost — see hasConfidentChromaticExclusion() below
+//   for the full reasoning and data. Net change: removed that clause; kept thorax_roux-alone and the
+//   antiCrabroHit>=4 saturation fallback. Trades back part of the C7_7 (European hornet) fix to cut
+//   the Case1/Case2 false-exclusion rate roughly in half — the correct trade given this app's
+//   fail-safe design principle (a missed real target is worse than an extra non-target retake).
 // V1.16 (post-M2, Item 2 v2, follow-up 2026-09-04, live regression finding) :
 //   Après la première passe V1.15, un run de validation complet (181 appels réels,
 //   test_images_5/regression/v2-baseline.* vs v2-after-v1.*) a montré le portail nid trop
@@ -148,10 +159,28 @@ const NEST_EXCLUSION_TAG = 'nid_alveoles_ouvertes_visible';
 // changelog V1.15 en tête de fichier pour le raisonnement et les données de calibration.
 function hasConfidentChromaticExclusion(types, antiCrabroHit) {
   if (types.has('thorax_roux')) return true;
-  if (types.has('abdomen_jaune_dominant') && antiCrabroHit >= 2) return true;
   if (antiCrabroHit >= 4) return true;
   return false;
 }
+// V1.17 (post-M2, Item 2 v2, follow-up 2026-09-04, replay-calibrated) — the abdomen_jaune_dominant
+// + antiCrabroHit>=2 clause from V1.15 was removed here. A live-data replay across 404 samples
+// pooled from every run captured for this fix (test_images_5/regression/v2-baseline.json,
+// v2-after-v1.json, v3-targeted.json, v3-targeted2.json — script kept at
+// C:\...\scratchpad\replay.cjs for this session, re-derivable from those 4 files) showed it was
+// responsible for the majority of a real safety regression: Case1/Case2 (confirmed Asian-hornet
+// false-negative photos) wrongly reached ORANGE_PROBABLE_NON_CIBLE in 5 of 24 samples each with it
+// in place — a genuine "non-target, do not report" verdict on a real target, the single worst
+// failure mode this app can produce. Every one of those misreads shared abdomen_jaune_dominant with
+// only 2 other chromatic tags, discounted from raw >=3 by the tete_rousse_orangee rule below — the
+// exact same tag composition Gemini also reports on real crabro (C7_7). The two populations are not
+// separable on this tag combination alone; keeping the clause traded a rare non-target retake for a
+// more frequent real-target false exclusion, which this app's whole design (fail-safe over silence)
+// says is the wrong side to err on. Removing it costs back part of the C7_7 fix (falls to the
+// ambiguous-retake fallback on that specific combination instead of confidently excluding) but drops
+// Case1/Case2's false-exclusion rate roughly in half. thorax_roux-alone is kept: it is much rarer on
+// real velutina (3 of 64 group-A samples across the same pool, always co-occurring with 2+ other
+// markers, never isolated) and is the sole mechanism keeping the hoverfly fix (C7_5/C7_6) working,
+// since those are frequently reported with thorax_roux as the ONLY tag.
 
 const EMOJI_MAP = {
   ROUGE: 'rouge',

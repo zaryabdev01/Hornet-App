@@ -1,5 +1,13 @@
-// APISAVE - PROMPT VISION V2.8 (post-M2)
+// APISAVE - PROMPT VISION V2.9 (post-M2)
 // Compatible BEEALERT CORE V13.5+ MES-1 — Production Terrain
+// V2.9 (post-M2, Item 2 v2, follow-up 2026-09-04, live regression finding) :
+//   support_nid_ouvert_visible reste OUI/NON/NON_LISIBLE (V2.8) mais la description est renforcee
+//   apres qu'un test live ait montre le modele repondre NON sur 6 des 8 appels du cas critique C7_1
+//   (guepe sur nid ouvert, insecte flou/contre-jour, nid net) — la question etait correctement posee
+//   a chaque appel (aucune reponse manquante), mais le modele ne reconnaissait pas la structure assez
+//   souvent. Ajouts : instruction explicite de regarder le support autour/derriere l'insecte plutot
+//   que l'insecte seul, et une description contrastee positive/negative (alveoles nues type rayon de
+//   guepier vs coque fermee type nid de velutina) au lieu d'une seule definition du cas positif.
 // V2.8 (post-M2, Item 2 v2, follow-up 2026-09-04, live regression finding) :
 //   support_nid_ouvert_visible devient une QUESTION EXPLICITE (etape_2_individu), au meme titre que
 //   Q1/Q2/Q3, plutot qu'un simple ajout facultatif a incompatibilites_cible. Sur echantillonnage reel
@@ -97,9 +105,18 @@ IGNORER (ne declenche pas NON_LISIBLE) : miel, liquide, piege a appat, surface r
 BLINDAGE ANTI-CONTAMINATION CHROMATIQUE : si l'insecte est pose sur brique rouge, tuile orange, bois roux ou plastique colore, ignorer les reflets roux/chauds. Juger UNIQUEMENT la couleur reelle du tegument (noir ou brun).
 
 QUESTION OBLIGATOIRE — SUPPORT DE L'INDIVIDU (support_nid_ouvert_visible) :
-Reponds TOUJOURS a cette question, meme si aucun nid n'est visible.
-OUI = l'individu est pose sur, dans, ou immediatement au contact d'un nid dont les alveoles/cellules hexagonales sont visibles A DECOUVERT, sans enveloppe/coque exterieure fermee qui les recouvre (rayon de guepier ouvert a une face, type nid de Polistes).
-NON = aucun nid de ce type n'est visible (pas de nid du tout, nid ferme par une enveloppe, ou support non pertinent).
+Reponds TOUJOURS a cette question, meme si aucun nid n'est visible. Regarde DERRIERE et AUTOUR de
+l'individu, pas seulement l'individu lui-meme — le support peut occuper la majeure partie du cadre
+alors que l'insecte n'en occupe qu'une petite partie, notamment quand l'insecte est plus flou/sombre
+(contre-jour) que le support qui l'entoure.
+OUI = tu distingues des cellules/alveoles hexagonales individuelles A NU (motif en nid d'abeilles),
+sans paroi/coque exterieure continue qui les recouvre — meme si une partie seulement du nid est
+visible dans le cadre, meme si l'insecte lui-meme est flou ou a contre-jour. C'est le nid typique
+d'une guepe Polistes : un seul rayon de cellules exposees, fixe par un court pedoncule, jamais
+enferme dans une enveloppe.
+NON = aucun nid de ce type n'est visible (pas de nid du tout), OU le nid visible est une coque/boule
+fermee de papier mache continu (avec au plus un trou d'entree) — c'est la forme du nid de Vespa
+velutina, TOUJOURS enferme, jamais a alveoles nues.
 NON_LISIBLE = un nid est visible mais son etat ouvert/ferme n'est pas determinable avec certitude.
 Cette reponse est INDEPENDANTE de Q1/Q2/Q3 : ne force jamais Q1/Q2/Q3 sur la base de cette question seule.
 

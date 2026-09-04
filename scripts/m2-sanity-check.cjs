@@ -84,14 +84,17 @@ check('Wasp/Polistes, 1 core tag only -> ORANGE_INSUFFISANCE (never VERT)',
 
 // 4d. Supporting tags only (0 core) -> wasp rule must NOT engage; falls through to existing
 //     crabro logic instead (both supporting tags are also anti-crabro chromatic tags)
-check('Wasp/Polistes, supporting tags only (0 core) -> wasp rule does not fire, falls through to crabro logic',
+// V1.17 — abdomen_jaune_dominant no longer counts as confident exclusion on its own (see judge.js
+// hasConfidentChromaticExclusion changelog): 2 markers without thorax_roux stays an honest
+// ambiguous-retake rather than a confident (and, per live data, too-often-wrong) exclusion.
+check('Wasp/Polistes, supporting tags only (0 core), no thorax_roux -> falls through to ambiguous retake (V1.17)',
   makeInsectObs({
     Q1_thorax: { reponse: 'NON', confidence: 'HIGH', description_visible: 'roux', lisibilite: 'haute' },
     Q2_abdomen: { reponse: 'NON', confidence: 'HIGH', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'test', lisibilite: 'haute' },
     Q3_morphologie: { reponse: 'OUI', confidence: 'HIGH', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], description_visible: 'robuste', lisibilite: 'haute' },
     incompatibilites_cible: ['rayures_jaune_noir_vif', 'abdomen_jaune_dominant'],
   }),
-  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
+  'ORANGE_INSUFFISANCE', 'RETAKE_SPECIES_AMBIGUOUS');
 
 // 5. V1.14 (post-M2, Item 1): single chromatic marker is NO LONGER enough to route to
 //    non-target, even at HIGH Q1/Q2 confidence -> the one-marker shortcut was removed
@@ -149,31 +152,30 @@ check('European hornet, Q3=NON + 3 crabro markers -> ORANGE_PROBABLE_NON_CIBLE (
   }),
   'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
 
-// 6c. V1.11 (field-test correction, Photo 2 vs Photo 3 instability): Q3=NON with only 2 crabro
-// markers but HIGH Q1+Q2 confidence -> now reaches the non-target route directly, same threshold
-// as the parallel Q3=OUI/NON_LISIBLE branch above, instead of bouncing between INSUFFISANCE and
-// NON_CIBLE depending on which capture Gemini happened to read.
-check('European hornet, Q3=NON + 2 crabro markers + HIGH Q1/Q2 confidence -> non-target route fires (was INSUFFISANCE pre-V1.11)',
+// 6c. V1.17 (replay-calibrated, see judge.js changelog) — 2 markers incl. abdomen_jaune_dominant,
+// no thorax_roux, is NO LONGER confident exclusion regardless of confidence: a live-data replay
+// across 404 samples showed this exact composition wrongly excluding confirmed Asian-hornet photos
+// (Case1/Case2) about as often as it correctly excluded real crabro (C7_7) — not separable on this
+// tag combination, so it now fails safe to an honest ambiguous retake instead of guessing.
+check('European hornet, Q3=NON + 2 crabro markers + HIGH Q1/Q2 confidence -> ambiguous retake, not confident exclusion (V1.17)',
   makeInsectObs({
     Q1_thorax: { reponse: 'NON', confidence: 'HIGH', description_visible: 'roux', lisibilite: 'haute' },
     Q2_abdomen: { reponse: 'NON', confidence: 'HIGH', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'jaune dominant', lisibilite: 'haute' },
     Q3_morphologie: { reponse: 'NON', confidence: 'HIGH', elements_visibles: [], description_visible: 'jugee non conforme', lisibilite: 'haute' },
     incompatibilites_cible: ['abdomen_jaune_dominant', 'rayures_jaune_noir_vif'],
   }),
-  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
+  'ORANGE_INSUFFISANCE', 'RETAKE_SPECIES_AMBIGUOUS');
 
-// 6d. V1.15 — same 2 markers WITHOUT high confidence: same result. abdomen_jaune_dominant +
-//     >= 1 other anti-crabro marker is treated as confident exclusion regardless of confidence, for
-//     the same reason as 6 above (Gemini rarely reports HIGH on real field photos of this kind —
-//     confirmed on the client's C7_7 European-hornet regression case, cf. changelog V1.15).
-check('European hornet, Q3=NON + 2 crabro markers (incl. abdomen_jaune_dominant) + MEDIUM confidence -> ORANGE_PROBABLE_NON_CIBLE',
+// 6d. Same 2 markers at MEDIUM confidence: same result either way (confidence was never the real
+// variable here, see V1.15/V1.17 changelogs) — kept as an explicit confidence-invariance check.
+check('European hornet, Q3=NON + 2 crabro markers (incl. abdomen_jaune_dominant) + MEDIUM confidence -> same ambiguous retake (V1.17)',
   makeInsectObs({
     Q1_thorax: { reponse: 'NON', confidence: 'MEDIUM', description_visible: 'roux', lisibilite: 'moyenne' },
     Q2_abdomen: { reponse: 'NON', confidence: 'MEDIUM', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'jaune dominant', lisibilite: 'moyenne' },
     Q3_morphologie: { reponse: 'NON', confidence: 'MEDIUM', elements_visibles: [], description_visible: 'jugee non conforme', lisibilite: 'moyenne' },
     incompatibilites_cible: ['abdomen_jaune_dominant', 'rayures_jaune_noir_vif'],
   }),
-  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
+  'ORANGE_INSUFFISANCE', 'RETAKE_SPECIES_AMBIGUOUS');
 
 // 7. Regression: clean ROUGE case still works (Q1=Q2=Q3=OUI)
 check('Clean ROUGE case unaffected by M2 changes',
@@ -307,17 +309,19 @@ check('Velutina counter-signal beats symmetrical gate even with thorax_roux pres
   }),
   'ROUGE', 'NONE');
 
-// 9f. Real case: test_images_7/C7_7 — a dead European hornet, live-sampled tag combination that
-// used to fall through the old antiCrabroHit>=3-with-discount threshold straight to the generic
-// RETAKE_SHARPER ("blurry image") fallback on a perfectly sharp photo.
-check('European hornet (C7_7-style): abdomen_jaune_dominant + tete_rousse_orangee + abdomen_segmente, no thorax_roux -> ORANGE_PROBABLE_NON_CIBLE',
+// 9f. Real case: test_images_7/C7_7 — a dead European hornet. V1.15 confidently excluded this
+// exact tag composition, but a 404-sample replay (judge.js V1.17 changelog) showed the identical
+// composition also appears on confirmed Asian-hornet false-negative photos (Case1/Case2) at a
+// comparable rate — not separable on these tags alone, so V1.17 deliberately gives this one back to
+// protect the false-negative side: honest ambiguous retake instead of a sometimes-wrong exclusion.
+check('European hornet (C7_7-style): abdomen_jaune_dominant + tete_rousse_orangee + abdomen_segmente, no thorax_roux -> ambiguous retake, not exclusion (V1.17 trade-off)',
   makeInsectObs({
     Q1_thorax: { reponse: 'NON', confidence: 'MEDIUM', description_visible: 'roux', lisibilite: 'moyenne' },
     Q2_abdomen: { reponse: 'NON', confidence: 'MEDIUM', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'jaune dominant', lisibilite: 'moyenne' },
     Q3_morphologie: { reponse: 'NON', confidence: 'MEDIUM', elements_visibles: [], description_visible: 'non conforme', lisibilite: 'moyenne' },
     incompatibilites_cible: ['abdomen_jaune_dominant', 'tete_rousse_orangee', 'abdomen_segmente_jaune_noir_alterne'],
   }),
-  'ORANGE_PROBABLE_NON_CIBLE', 'CRABRO_LIKE_PROFILE');
+  'ORANGE_INSUFFISANCE', 'RETAKE_SPECIES_AMBIGUOUS');
 
 // 9g. Group-A false-negative regression guard: the real Case1/Case4 tag pattern (chromatic markers
 // without thorax_roux or abdomen_jaune_dominant) must NOT be confidently excluded — it must stay on
