@@ -1,5 +1,12 @@
-// APISAVE - PROMPT VISION V2.7 (post-M2)
+// APISAVE - PROMPT VISION V2.8 (post-M2)
 // Compatible BEEALERT CORE V13.5+ MES-1 — Production Terrain
+// V2.8 (post-M2, Item 2 v2, follow-up 2026-09-04, live regression finding) :
+//   support_nid_ouvert_visible devient une QUESTION EXPLICITE (etape_2_individu), au meme titre que
+//   Q1/Q2/Q3, plutot qu'un simple ajout facultatif a incompatibilites_cible. Sur echantillonnage reel
+//   (test_images_5/regression/v2-after-v1.json), le cas C7_1 (guepe sur nid ouvert) ne recevait le
+//   tag facultatif nid_alveoles_ouvertes_visible que 5 fois sur 8 — les 3 autres appels ne
+//   rapportaient RIEN, laissant le Juge sans aucun signal a traiter. Une question a reponse
+//   obligatoire force le modele a trancher a chaque appel au lieu de pouvoir simplement l'omettre.
 // V2.7 (post-M2, Item 2 v2, client observation 2026-09-04, non-cibles diagnosis) :
 //   Sept cas non-cibles rapportes par le client sur la version post-validation (guepes, mouches
 //   Volucella, frelon europeen, guepe sur son nid) — cf. docs/ApiSave_Postvalidation_v2_Diagnosis.md.
@@ -89,6 +96,13 @@ SI (Insecte exploitable visible) ALORS :
 IGNORER (ne declenche pas NON_LISIBLE) : miel, liquide, piege a appat, surface reflechissante, gouttes, eclairage non uniforme.
 BLINDAGE ANTI-CONTAMINATION CHROMATIQUE : si l'insecte est pose sur brique rouge, tuile orange, bois roux ou plastique colore, ignorer les reflets roux/chauds. Juger UNIQUEMENT la couleur reelle du tegument (noir ou brun).
 
+QUESTION OBLIGATOIRE — SUPPORT DE L'INDIVIDU (support_nid_ouvert_visible) :
+Reponds TOUJOURS a cette question, meme si aucun nid n'est visible.
+OUI = l'individu est pose sur, dans, ou immediatement au contact d'un nid dont les alveoles/cellules hexagonales sont visibles A DECOUVERT, sans enveloppe/coque exterieure fermee qui les recouvre (rayon de guepier ouvert a une face, type nid de Polistes).
+NON = aucun nid de ce type n'est visible (pas de nid du tout, nid ferme par une enveloppe, ou support non pertinent).
+NON_LISIBLE = un nid est visible mais son etat ouvert/ferme n'est pas determinable avec certitude.
+Cette reponse est INDEPENDANTE de Q1/Q2/Q3 : ne force jamais Q1/Q2/Q3 sur la base de cette question seule.
+
 === ETAPE 3 : VERROUX D'EXCLUSION INSECTE ===
 SI (Insecte exploitable visible) ALORS :
 
@@ -106,10 +120,10 @@ ALORS :
 -> ARRETER l'evaluation cible pour cet individu (ne pas chercher d'autres criteres au-dela des valeurs forcees ci-dessus).
 
 VERROU NID A ALVEOLES OUVERTES (support de l'individu) :
-SI l'individu est pose sur, dans, ou immediatement au contact d'un nid dont les alveoles/cellules hexagonales sont VISIBLES A DECOUVERT, SANS enveloppe/coque exterieure fermee qui les recouvre (rayon de guepier ouvert a une face, type nid de Polistes) ALORS :
--> Ajouter dans incompatibilites_cible : nid_alveoles_ouvertes_visible
+SI la reponse a support_nid_ouvert_visible (ETAPE 2) est OUI ALORS :
+-> Ajouter EGALEMENT dans incompatibilites_cible : nid_alveoles_ouvertes_visible
 -> Ce verrou porte sur le SUPPORT, pas sur l'individu : NE PAS forcer Q1/Q2/Q3 a NON et NE PAS arreter l'evaluation cible — continuer l'ETAPE 4 normalement pour l'individu.
--> Ne jamais confondre avec un nid dont la structure de surface exterieure (carton, coque) est simplement visible sans alveoles a nu : ce verrou exige que les cellules elles-memes soient visibles, non recouvertes.
+-> Ne jamais confondre avec un nid dont la structure de surface exterieure (carton, coque) est simplement visible sans alveoles a nu : ce critere exige que les cellules elles-memes soient visibles, non recouvertes.
 
 VERROU BOURDON/COLEOPTERE/MICRO :
 Pilosite dense et visible (duvet, poils ou soies couvrant nettement le thorax et/ou l'abdomen, silhouette "floue"/veloutee plutot que cuticule lisse) -> Q3_morphologie.reponse = 'NON' + incompatibilites_cible += morphologie_velue_compacte.
@@ -218,7 +232,8 @@ Reponds UNIQUEMENT avec le JSON suivant, sans aucun texte avant ou apres :
   "etape_2_individu": {
     "individu_analyse_identifiable": true,
     "vue_dorsale": true,
-    "sur_le_dos": false
+    "sur_le_dos": false,
+    "support_nid_ouvert_visible": "OUI|NON|NON_LISIBLE"
   },
   "Q1_thorax": {
     "reponse": "OUI|NON|NON_LISIBLE",

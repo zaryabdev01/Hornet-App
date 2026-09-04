@@ -1,6 +1,16 @@
 // APISAVE - MOTEUR DE DECISION (LE JUGE) - JavaScript
 // BEEALERT CORE V13.5+ MES-1 — Version 1.14 (post-M2)
 //
+// V1.16 (post-M2, Item 2 v2, follow-up 2026-09-04, live regression finding) :
+//   Après la première passe V1.15, un run de validation complet (181 appels réels,
+//   test_images_5/regression/v2-baseline.* vs v2-after-v1.*) a montré le portail nid trop
+//   dépendant du tag facultatif nid_alveoles_ouvertes_visible : sur le cas critique C7_1, le
+//   modèle ne l'ajoutait que 5 fois sur 8, et les 3 autres appels sans AUCUNE incompatibilité
+//   laissaient ROUGE se déclencher faute de signal (3/8 encore ROUGE après V1.15, contre 5/8 avant).
+//   Ajout du champ obligatoire etape_2_individu.support_nid_ouvert_visible (prompts.js V2.8,
+//   schema.js V1.13), vérifié en OU logique avec le tag existant — voir commentaire détaillé dans
+//   jugerMorphologie(). Seul changement de cette version ; le reste de la calibration V1.15
+//   (hasConfidentChromaticExclusion, reason codes) est inchangé et déjà validé par sampling répété.
 // V1.15 (post-M2, Item 2 v2 — régressions non-cibles, client obs. 2026-09-04, diagnosis
 //   docs/ApiSave_Postvalidation_v2_Diagnosis.md §4, approuvé par le client) :
 //   Sept cas rapportés (test_images_6/7) : une guêpe sur son nid ouvert lue ROUGE à 92%, plusieurs
@@ -401,7 +411,16 @@ function jugerMorphologie(obs, analyseId, timestamp) {
   const velutinaCounterSignal =
     obs?.Q2_abdomen?.zone_terminale_orangee === true && q1 === 'OUI';
 
-  if (types.has(NEST_EXCLUSION_TAG)) {
+  // V1.16 (post-M2, Item 2 v2, follow-up 2026-09-04, live regression finding) — deux canaux
+  // indépendants pour le même signal : support_nid_ouvert_visible (question obligatoire,
+  // etape_2_individu, prompts.js V2.8) OU le tag facultatif nid_alveoles_ouvertes_visible.
+  // Sur échantillonnage réel (test_images_5/regression/v2-after-v1.json), le tag facultatif seul
+  // ne recevait de réponse que sur 5 appels sur 8 pour le cas C7_1 (guêpe sur nid ouvert) : les
+  // 3 autres appels ne rapportaient aucune incompatibilité, laissant ROUGE se déclencher faute de
+  // tout signal. Une question à réponse obligatoire est bien plus fiable qu'un ajout facultatif à
+  // une liste. Les deux canaux réunis par un OU logique : aucune régression possible côté cas déjà
+  // couverts par le tag seul, gain net sur les appels où seule la question obligatoire répond.
+  if (obs?.etape_2_individu?.support_nid_ouvert_visible === 'OUI' || types.has(NEST_EXCLUSION_TAG)) {
     return formatVerdict('ORANGE_PROBABLE_NON_CIBLE',
       'Nid à alvéoles ouvertes visible sous l\'individu : support structurellement incompatible avec Vespa velutina.',
       'NEST_STRUCTURE_INCOMPATIBLE', analyseId, timestamp);

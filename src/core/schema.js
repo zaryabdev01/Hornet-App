@@ -1,4 +1,14 @@
-// Validation du schéma JSON observation V1.12
+// Validation du schéma JSON observation V1.13
+// V1.13 (post-M2, Item 2 v2, follow-up 2026-09-04, live regression finding) : ajout du champ
+//   etape_2_individu.support_nid_ouvert_visible (OUI/NON/NON_LISIBLE), optionnel-mais-validé comme
+//   confidence — champ QUESTION EXPLICITE, à la différence du tag nid_alveoles_ouvertes_visible
+//   (V1.12, incompatibilites_cible) qui reste un ajout FACULTATIF que le modèle peut simplement
+//   oublier. Sur échantillonnage réel (test_images_5/regression/v2-after-v1.json), le cas critique
+//   C7_1 (guêpe sur nid ouvert) ne recevait le tag facultatif que 5 fois sur 8 ; les 3 autres appels
+//   ne rapportaient AUCUNE incompatibilité, et le Juge — purement dérivé de l'observation — ne peut
+//   rien détecter d'un signal jamais transmis. Une question à réponse obligatoire (même style que
+//   Q1/Q2/Q3) a un taux de réponse bien plus fiable qu'un ajout facultatif à une liste. Les deux
+//   canaux restent actifs en parallèle (OR logique côté Juge) : aucune régression possible, gain net.
 // V1.12 (post-M2, Item 2 v2, client observation 2026-09-04, non-cibles diagnosis) : ajout du type
 //   nid_alveoles_ouvertes_visible dans incompatibilites_cible — nid a alveoles hexagonales a
 //   decouvert, sans enveloppe/coque fermee (rayon de guepier ouvert type Polistes), structurellement
@@ -118,6 +128,11 @@ export function validateObservation(obs) {
   assertType(e2.individu_analyse_identifiable, 'boolean', 'etape_2_individu.individu_analyse_identifiable');
   assertType(e2.vue_dorsale, 'boolean', 'etape_2_individu.vue_dorsale');
   assertType(e2.sur_le_dos, 'boolean', 'etape_2_individu.sur_le_dos');
+  // V1.13 — optionnel-mais-validé (comme confidence) : tolère son absence sur des appels plus
+  // anciens/non conformes sans jamais faire échouer la validation pour ce seul champ.
+  if (e2.support_nid_ouvert_visible !== undefined) {
+    assertEnum(e2.support_nid_ouvert_visible, VALID_REPONSES, 'etape_2_individu.support_nid_ouvert_visible');
+  }
 
   // Q1
   const q1 = obs.Q1_thorax;

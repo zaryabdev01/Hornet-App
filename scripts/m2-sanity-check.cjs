@@ -17,7 +17,7 @@ const { validateObservation } = require(path.join(__dirname, '..', 'src', 'core'
 function makeInsectObs(overrides) {
   return {
     etape_1_declencheur: { insecte_exploitable: true, structure_visible: false, justification: 'test synthétique' },
-    etape_2_individu: { individu_analyse_identifiable: true, vue_dorsale: true, sur_le_dos: false },
+    etape_2_individu: { individu_analyse_identifiable: true, vue_dorsale: true, sur_le_dos: false, support_nid_ouvert_visible: 'NON' },
     Q1_thorax: { reponse: 'NON', confidence: 'MEDIUM', description_visible: 'test', lisibilite: 'haute' },
     Q2_abdomen: { reponse: 'NON', confidence: 'MEDIUM', fond_dominant: 'jaune_vif', zone_terminale_orangee: false, description_visible: 'test', lisibilite: 'haute' },
     Q3_morphologie: { reponse: 'NON', confidence: 'HIGH', elements_visibles: [], description_visible: 'test', lisibilite: 'haute' },
@@ -257,6 +257,31 @@ check('Nest tag (nid_alveoles_ouvertes_visible) blocks ROUGE even with Q1=Q2=Q3=
     incompatibilites_cible: ['nid_alveoles_ouvertes_visible'],
   }),
   'ORANGE_PROBABLE_NON_CIBLE', 'NEST_STRUCTURE_INCOMPATIBLE');
+
+// 9c2. V1.16 follow-up — the mandatory field must block ROUGE on its own, WITHOUT the optional tag.
+// This is the exact failure mode found on live sampling: 3 of 8 C7_1 calls reported the tag on
+// neither channel when it was the incompatibilites_cible tag alone; the mandatory question is the
+// fix, so it must work standalone.
+check('support_nid_ouvert_visible=OUI (mandatory field, no tag at all) blocks ROUGE (V1.16 fix)',
+  makeInsectObs({
+    etape_2_individu: { individu_analyse_identifiable: true, vue_dorsale: true, sur_le_dos: false, support_nid_ouvert_visible: 'OUI' },
+    Q1_thorax: { reponse: 'OUI', confidence: 'MEDIUM', description_visible: 'sombre', lisibilite: 'moyenne' },
+    Q2_abdomen: { reponse: 'OUI', confidence: 'MEDIUM', fond_dominant: 'sombre', zone_terminale_orangee: true, description_visible: 'sombre + orange', lisibilite: 'moyenne' },
+    Q3_morphologie: { reponse: 'OUI', confidence: 'MEDIUM', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], description_visible: 'compact', lisibilite: 'moyenne' },
+    incompatibilites_cible: [],
+  }),
+  'ORANGE_PROBABLE_NON_CIBLE', 'NEST_STRUCTURE_INCOMPATIBLE');
+
+// 9c3. Control: support_nid_ouvert_visible=NON (the common case) must not affect a clean ROUGE read.
+check('support_nid_ouvert_visible=NON does not block a genuine ROUGE',
+  makeInsectObs({
+    etape_2_individu: { individu_analyse_identifiable: true, vue_dorsale: true, sur_le_dos: false, support_nid_ouvert_visible: 'NON' },
+    Q1_thorax: { reponse: 'OUI', confidence: 'HIGH', description_visible: 'noir', lisibilite: 'haute' },
+    Q2_abdomen: { reponse: 'OUI', confidence: 'HIGH', fond_dominant: 'sombre', zone_terminale_orangee: true, description_visible: 'sombre + orange', lisibilite: 'haute' },
+    Q3_morphologie: { reponse: 'OUI', confidence: 'HIGH', elements_visibles: ['thorax_massif', 'proportions_compactes_robustes'], description_visible: 'robuste', lisibilite: 'haute' },
+    incompatibilites_cible: [],
+  }),
+  'ROUGE', 'NONE');
 
 // 9d. Symmetrical gate: a confident chromatic exclusion (thorax_roux) must also block ROUGE on an
 // otherwise-clean 3xOUI read, not just when Q2/Q3 already read NON (this is what makes the gate

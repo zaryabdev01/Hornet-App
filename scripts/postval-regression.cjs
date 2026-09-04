@@ -27,7 +27,11 @@ const GEMINI_MODEL = 'gemini-3.6-flash';
 const API_KEY = process.env.GEMINI_API_KEY;
 const LABEL = process.argv[2];
 const QUICK = process.argv.includes('--quick');
-if (!LABEL) { console.error('Usage: node scripts/postval-regression.cjs <label> [--quick]'); process.exit(1); }
+// --only=<comma-separated substrings>, matched against "group|file" — lets a targeted follow-up
+// re-run just the entries under investigation instead of the full manifest.
+const ONLY_ARG = process.argv.find(a => a.startsWith('--only='));
+const ONLY = ONLY_ARG ? ONLY_ARG.slice('--only='.length).split(',').map(s => s.trim()).filter(Boolean) : null;
+if (!LABEL) { console.error('Usage: node scripts/postval-regression.cjs <label> [--quick] [--only=substr1,substr2]'); process.exit(1); }
 if (!API_KEY) { console.error('GEMINI_API_KEY not set'); process.exit(1); }
 
 const OUT_DIR = path.join(__dirname, '..', 'test_images_5', 'regression');
@@ -114,7 +118,11 @@ const tagList = (obs) => (obs.incompatibilites_cible || []).map((i) => (typeof i
 
 async function main() {
   const report = { label: LABEL, model: GEMINI_MODEL, generated: new Date().toISOString(), quick: QUICK, entries: [] };
-  for (const m of MANIFEST) {
+  const manifest = ONLY
+    ? MANIFEST.filter(m => ONLY.some(s => `${m.group}|${m.file}`.includes(s)))
+    : MANIFEST;
+  if (ONLY) console.log(`--only filter matched ${manifest.length}/${MANIFEST.length} manifest entries.`);
+  for (const m of manifest) {
     const n = QUICK ? Math.max(2, Math.ceil(m.samples / 2)) : m.samples;
     const imgPath = path.join(__dirname, '..', m.dir, m.file);
     process.stdout.write(`\n[${m.group}] ${m.dir}/${m.file} (${n}x) `);
